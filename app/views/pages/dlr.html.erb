@@ -1,6 +1,6 @@
 <ul id="sidebar" class="side-nav fixed blue-grey darken-4">
-  	<li class="sidebar-active valign-wrapper"><a href="#!" class="blue-grey-text valign text-lighten-3 nohover center-align"><%= image_tag "Dashboard.svg", :class => "svg sidebar-icons", :id => "dashboard-icon" %><p>Dashboard</p></a></li>
-  	<li class="valign-wrapper"><%= link_to image_tag("Daily Litter Record.svg", class: 'svg sidebar-icons', id: 'litter-icon') + "<p>Daily Litter Record</p>".html_safe, pages_dlr_path, class: 'blue-grey-text text-lighten-3 nohover valign center-align',method: :get %></li>
+  	<li class="valign-wrapper"><%= link_to image_tag("Dashboard.svg", class: 'svg sidebar-icons', id: 'litter-icon') + "<p>Dashboard</p>".html_safe, root_path, class: 'blue-grey-text text-lighten-3 valign center-align', method: :get %></li>
+  	<li class="sidebar-active valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Daily Litter Record.svg", :class => "svg sidebar-icons", :id => "litter-icon" %><p>Daily Litter Record</p></a></li>
   	<li class="valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Actual Daily Count.svg", :class => "svg sidebar-icons", :id => "count-icon" %><p>Actual Date Count</p></a></li>
   	<li class="valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Mortality Record</p></a></li>
 </ul>
@@ -13,9 +13,10 @@
 		<div class="col s12">
 		  	<div class="indicator deep-orange darken-2" style="z-index:1">
 		    	<ul class="tabs deep-orange-text text-darken-2">
-		      		<li class="tab col s6 grey lighten-4"><a href="#card-o-graph">Card-o-graph</a></li>
+		      		<li class="tab col s4 grey lighten-4"><a href="#card-o-graph">Create New Litter</a></li>
+		      		<li class="tab col s4 grey lighten-4"><a href="#mortality">Update Litter Record</a></li>
+		      		<li class="tab col s4 grey lighten-4"><a href="#yearly">View Litter Records</a></li>
 
-		      		<li class="tab col s6 grey lighten-4"><a href="#yearly">Yearly Parameters</a></li>
 		    	</ul>
 		  	</div>
 		</div>
