@@ -1,0 +1,22 @@
+Hello PCHX! 
+
+Here's our code. As of the moment, everything is on pages/dashboard. 
+
+1. Refer to materializecss.com for /everything/. We won't be using bootstrap as of the moment. 
+2. Instead of using CSS, we'll be using SCSS which is a more convenient version of CSS. Study it, but essentially we could use variables and hierarchies for cleaner code.
+3. Use application.scss for site-wide rules and pages.scss for pages-specific rules (like pages/dashboard only) for cleaner code
+4. As much as possible, comment your code
+
+Structure of our code
+1. whatever is inside <header> should be present in every page. That's why the CSS rules for <header> is in application.scss. 
+2. Look at the comments nalang sa html code to see how to adapt the code for each page.
+
+How to use GitHub
+1. Download the GitHub app onto your computer
+2. Clone the project anywhere
+3. Let's make one branch for each page so that's it's easier and cleaner
+4. Once you're done with any major change/code, Commit by adding a clear and descriptive message. What commit does is it 'saves' your progress
+5. After committing, you may push - what this does is it syncs your commits to the web. BEFORE PUSHING, PLEASE CHAT IN OUR GROUPCHAT
+6. After someone pushes, everyone should pull/sync again so as to keep our code at the same timeline. 
+
+tenx fam
