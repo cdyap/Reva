@@ -2,7 +2,7 @@
   	<li class="sidebar-active valign-wrapper"><a href="dashboard" class="blue-grey-text valign text-lighten-3 nohover center-align"><%= image_tag "Dashboard.svg", :class => "svg sidebar-icons", :id => "dashboard-icon" %><p>Dashboard</p></a></li>
   	<li class="valign-wrapper"><a href="dailylitter" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Daily Litter Record.svg", :class => "svg sidebar-icons", :id => "litter-icon" %><p>Daily Litter Record</p></a></li>
   	<li class="valign-wrapper"><a href="actualdailycount" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Actual Daily Count.svg", :class => "svg sidebar-icons", :id => "count-icon" %><p>Actual Date Count</p></a></li>
-  	<li class="valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Mortality Record</p></a></li>
+  	<li class="valign-wrapper"><a href="removal" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Removal Record</p></a></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
@@ -137,7 +137,6 @@
         </tbody>
       </table>
       </div>
-         <a class="modal-trigger waves-effect waves-light btn" style="margin: 2.5% 40%;" href="#modal1">Add Removal Record</a>
       </div>
         <div class="container">
         <div class="col s4">
@@ -151,62 +150,3 @@
 		<div id="yearly" class="col s12">Test 3</div>
 	</div>
 </main>
-      <div id="modal1" class="modal modal-fixed-footer">
-            <div class="modal-content">
-              <h4 class="deep-orange-text text-darken-2">Removal Record</h4>
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s6 offset-s3">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Date</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Pig Number</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Sex</label>
-                      </div>
-                      <div class="input-field col s6" style="color: #9e9e9e">
-                      <select>
-                        <option id="last_name" value="" style="color: #9e9e9e">Choose Building</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                     </div>
-                     <div class="input-field col s6" style="color: #9e9e9e">
-                      <select>
-                        <option id="last_name" value="" >Cause of Removal</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                     </div>
-                      <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Previous Signs</label>
-                      </div>
-                      <div class="input-field col s6">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Treatment</label>
-                      </div>
-                    
-                      <div class="input-field col s6 offset-s3">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">Remarks</label>
-                      </div>
-                     
-                   </div>
-                  </form>
-                </div>
-            </div>
-           
-             <div class="modal-footer">
-            
-                <a class="modal-trigger waves-effect waves-light btn" style="margin:.5% 1.25%;" href="#modal1">Submit</a>
-                <a class="modal-trigger waves-effect waves-light btn modal-close" style="margin:.5% 1.25%;" >Cancel</a>
-      </div>
-        </div>

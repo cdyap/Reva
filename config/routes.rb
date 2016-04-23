@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
    get 'pages/dailylitter'
    get 'pages/actualdailycount'
+   get 'pages/removal'
    
 
   # The priority is based upon order of creation: first created -> highest priority.
