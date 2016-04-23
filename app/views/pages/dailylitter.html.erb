@@ -1,0 +1,133 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+  	<li class="valign-wrapper"><a href="dashboard" class="blue-grey-text valign text-lighten-3 nohover center-align"><%= image_tag "Dashboard.svg", :class => "svg sidebar-icons", :id => "dashboard-icon" %><p>Dashboard</p></a></li>
+  	<li class="valign-wrapper sidebar-active "><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Daily Litter Record.svg", :class => "svg sidebar-icons", :id => "litter-icon" %><p>Daily Litter Record</p></a></li>
+  	<li class="valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Actual Daily Count.svg", :class => "svg sidebar-icons", :id => "count-icon" %><p>Actual Date Count</p></a></li>
+  	<li class="valign-wrapper"><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Mortality Record</p></a></li>
+</ul>
+a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+  <%=image_tag "logo.svg", id: 'logo'%>
+  <a href="">logo</a>
+  <!-- Tabs of dashboard -->  
+  <div class="row">
+    <div class="col s12">
+        <div class="indicator deep-orange darken-2" style="z-index:1">
+          <ul class="tabs deep-orange-text text-darken-2">
+              <li class="tab col s6 grey lighten-4"><a href="#card-o-graph">Daily Litter Record</a></li>
+              <li class="tab col s6 grey lighten-4"><a href="#mortality">Add Litter</a></li>
+
+          </ul>
+        </div>
+    </div>
+
+  <!-- Put card-o-graph shit here -->
+
+    <div id="card-o-graph" class="col s12">
+      <div class="container" style="width:100%">
+      <div class="col s12">
+      <br>
+      <table class="striped">
+        <thead>
+          <tr>
+              <th data-field="pig_id">Pig Number</th>
+              <th data-field="sex">Sex</th>
+              <th data-field="bweight">Birth Weight</th>
+              <th data-field="wweight">Weaning Weight</th>
+              <th data-field="dweaned">Date Weaned</th>
+              <th data-field="month1">1-30</th>
+              <th data-field="month2">31-60</th>
+              <th data-field="month3">61-90</th>
+              <th data-field="month4">91-120</th>
+              <th data-field="month5">121-150</th>
+              <th data-field="month6">160</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>2013-0001</td>
+            <td>F</td>
+            <td>5 kg</td>
+            <td>15 kg</td>
+            <td>04212016</td>
+            <td>35 kg</td>
+            <td>55 kg</td>
+            <td>75 kg</td>
+            <td>95 kg</td>
+            <td>105 kg</td>
+            <td>155 kg</td>
+          </tr>
+          <tr>
+            <td>2013-0034</td>
+            <td>F</td>
+            <td>5 kg</td>
+            <td>15 kg</td>
+            <td>04212016</td>
+            <td>35 kg</td>
+            <td>55 kg</td>
+            <td>75 kg</td>
+            <td>95 kg</td>
+            <td>105 kg</td>
+            <td>155 kg</td>
+          </tr>
+          <tr>
+            <td>2013-0046</td>
+            <td>F</td>
+            <td>5 kg</td>
+            <td>15 kg</td>
+            <td>04212016</td>
+            <td>35 kg</td>
+            <td>55 kg</td>
+            <td>75 kg</td>
+            <td>95 kg</td>
+            <td>105 kg</td>
+            <td>155 kg</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div></div>
+
+  <!-- Put mortality records shit here -->
+    <div id="mortality" class="col s12">
+       <div class="container">
+        <div class="col s12">
+      <br>
+      <a class="modal-trigger waves-effect waves-light btn" style="margin: 2.5% 45%;" href="#modal1">Add Litter</a>
+      </div>
+         
+      </div>
+  
+
+    </div>
+  </div>
+</main>
+ <div class="container">
+        <div class="col s4">
+          <div id="modal1" class="modal modal-fixed-footer" style="width: 30%; ">
+            <div class="modal-content">
+              <h4 class="deep-orange-text text-darken-2 center">Add Litter Record</h4>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="row">
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">How many male piglets were born?</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">How many female piglets were born?</label>
+                      </div>
+                   </div>
+                  </form>
+                </div>
+            </div>
+           
+             <div class="modal-footer">
+            
+                <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Submit</a>
+                <a class="modal-trigger waves-effect waves-light btn modal-close" >Cancel</a>
+      </div>
+        </div>
+      </div>
+      </div>
