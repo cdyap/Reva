@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'pages/dashboard'
   root 'pages#dashboard'
+
    get 'pages/dailylitter'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
