@@ -1,0 +1,217 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+    <li class="valign-wrapper"><a href="dashboard" class="blue-grey-text valign text-lighten-3 nohover center-align"><%= image_tag "Dashboard.svg", :class => "svg sidebar-icons", :id => "dashboard-icon" %><p>Dashboard</p></a></li>
+    <li class="valign-wrapper  "><a href="dailylitter" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Daily Litter Record.svg", :class => "svg sidebar-icons", :id => "litter-icon" %><p>Daily Litter Record</p></a></li>
+    <li class="valign-wrapper sidebar-active"><a href="actualdailycount" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Actual Daily Count.svg", :class => "svg sidebar-icons", :id => "count-icon" %><p>Actual Date Count</p></a></li>
+    <li class="valign-wrapper "><a href="#!" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Mortality Record</p></a></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+  <%=image_tag "logo.svg", id: 'logo'%>
+  <a href="">logo</a>
+  <!-- Tabs of dashboard -->  
+  <div class="row">
+    <div class="col s12">
+        <div class="indicator deep-orange darken-2" style="z-index:1">
+          <ul class="tabs deep-orange-text text-darken-2">
+              <li class="tab col s6 grey lighten-4"><a href="#data">Daily Litter Record</a></li>
+              <li class="tab col s6 grey lighten-4"><a href="#add">Add Litter</a></li>
+
+          </ul>
+        </div>
+    </div>
+
+  <!-- DATA -->
+
+    <div id="data" class="col s12">
+      <div class="container" style="width:100%">
+      <div class="col s12">
+      <br>
+      <table class="striped" style="width:100%">
+        <thead>
+          <tr>
+              <th data-field="building_name">Building Name</th>
+              <th data-field="actualdailycount">Actual Daily Count</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Building 1: Fattener</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 2: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 3: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 4: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 5: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 6: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 7: Grower</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 8: Gestating</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 9: Gestating</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 10: Gestating</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 11: Gestating</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 12: PS - Starter</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Building 13: Pre - Starter</td>
+            <td>22</td>
+          </tr>
+           <tr>
+            <td>Building 14: Farrowing</td>
+            <td>22</td>
+          </tr>
+          </tr>
+           <tr>
+            <td>Building 15: Farrowing</td>
+            <td>22</td>
+          </tr>
+          </tr>
+           <tr>
+            <td>Building 16: Farrowing<td>
+            <td>22</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+      </div></div>
+
+  <!-- ADD -->
+    <div id="add" class="col s12">
+       <div class="container">
+        <div class="col s12">
+      <br>
+      <p class="center">description and instructions here</div>
+      <a class="modal-trigger waves-effect waves-light btn" style="margin: 2.5% 45%;" href="#modal1">Add Count</a>
+      </div>
+         
+      </div>
+  
+
+    </div>
+  </div>
+</main>
+ <div class="container">
+        <div class="col s4">
+        <div id="modal1" class="modal modal-fixed-footer" style="width: 30%; ">
+            <div class="modal-content">
+              <h4 class="deep-orange-text text-darken-2 center">Daily Count Record</h4>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="row">
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 1: Fattener</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 2: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 3: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 4: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 5: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 6: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 7: Grower</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 8: Gestating</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 9: Gestating</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 10: Gestating</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 11: Gestating</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 12: PS - Starter</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 13: Pre - Starter</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 14: Farrowing</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 15: Farrowing</label>
+                      </div>
+                      <div class="input-field col s8 offset-s2">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Building 16: Farrowing</label>
+                      </div>
+
+
+
+
+
+
+                   </div>
+                  </form>
+                </div>
+            </div>
+           
+             <div class="modal-footer">
+            
+                <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Submit</a>
+                <a class="modal-trigger waves-effect waves-light btn modal-close" >Cancel</a>
+      </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      </div>
