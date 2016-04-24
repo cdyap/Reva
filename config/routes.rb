@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'pages/dashboard'
-  root 'pages#dashboard'
+  root to: 'pages#redirect_to_account_dashboard'
 
    get 'pages/dailylitter'
    get 'pages/actualdailycount'

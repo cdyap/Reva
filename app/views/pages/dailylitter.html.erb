@@ -93,39 +93,89 @@
        <div class="container">
         <div class="col s12">
       <br>
-      <a class="modal-trigger waves-effect waves-light btn" style="margin: 2.5% 45%;" href="#modal1">Add Litter</a>
+
+       
+        <form class="col s12">
+          <div class='row'>
+              <div class='col s6 offset-s3 input-field'>
+                  <input id='last_name' type='text' class='validate'>  
+                  <label for='last_name'>Date Farrowed</label>
+            </div>
+          </div>
+          <div class='col s6 input-field'>
+                  <input id='last_name' type='text' class='validate'>  
+                  <label for='last_name'>Sire ID</label>
+            </div>
+            <div class='col s6 input-field'>
+                  <input id='last_name' type='text' class='validate'>  
+                  <label for='last_name'>Dam ID</label>
+            </div>
+           <a class="waves-effect waves-light btn" onClick="addInput('dynamicInput');" style="margin: 2.5% 45%; value=">Add Pig</a>
+          <div class='row'>
+            <div class="col s12">
+              <div class='row' id="dynamicInput" style="margin-left:10px">
+                <div class='col s3'>
+                  <div class="row" style="margin-bottom:0px; margin-left:35px;">
+                    <h6 class="grey-text">Piglet 1</h6>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Sex</label>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Weight</label>
+                  </div>
+                </div>
+                <div class='col s3'>
+                  <div class="row" style="margin-bottom:0px; margin-left:35px;">
+                    <h6 class="grey-text">Piglet 2</h6>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Sex</label>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Weight</label>
+                  </div>
+                </div>
+                <div class='col s3'>
+                  <div class="row" style="margin-bottom:0px; margin-left:35px;">
+                    <h6 class="grey-text">Piglet 3</h6>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Sex</label>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Weight</label>
+                  </div>
+                </div>
+                <div class='col s3'>
+                  <div class="row" style="margin-bottom:0px; margin-left:35px;">
+                    <h6 class="grey-text">Piglet 4</h6>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Sex</label>
+                  </div>
+                  <div class='col s4 input-field'>
+                    <input id='last_name' type='text' class='validate'>  
+                    <label for='last_name'>Weight</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+             <a class="waves-effect waves-light btn"  style="margin: 2.5% 43%; value=">Submit</a>
+        </form>
       </div>
-         
+       
       </div>
   
 
     </div>
   </div>
 </main>
- <div class="container">
-        <div class="col s4">
-          <div id="modal1" class="modal modal-fixed-footer" style="width: 30%; ">
-            <div class="modal-content">
-              <h4 class="deep-orange-text text-darken-2 center">Add Litter Record</h4>
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s8 offset-s2">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">How many male piglets were born?</label>
-                      </div>
-                      <div class="input-field col s8 offset-s2">
-                        <input id="last_name" type="text" class="validate">
-                        <label for="last_name">How many female piglets were born?</label>
-                      </div>
-                   </div>
-                  </form>
-                </div>
-            </div>
-           
-             <div class="modal-footer">
-            
-                <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Submit</a>
-                <a class="modal-trigger waves-effect waves-light btn modal-close" >Cancel</a>
-      </div>
-        </div>
