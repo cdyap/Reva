@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def dashboard
   end
-  def dlr
+  def dailylitterrecord
   end
 
 	def redirect_to_account_dashboard

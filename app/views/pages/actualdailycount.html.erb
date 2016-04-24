@@ -1,8 +1,8 @@
 <ul id="sidebar" class="side-nav fixed blue-grey darken-4">
-    <li class="valign-wrapper"><a href="dashboard" class="blue-grey-text valign text-lighten-3 nohover center-align"><%= image_tag "Dashboard.svg", :class => "svg sidebar-icons", :id => "dashboard-icon" %><p>Dashboard</p></a></li>
-    <li class="valign-wrapper  "><a href="dailylitter" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Daily Litter Record.svg", :class => "svg sidebar-icons", :id => "litter-icon" %><p>Daily Litter Record</p></a></li>
-    <li class="valign-wrapper sidebar-active"><a href="actualdailycount" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Actual Daily Count.svg", :class => "svg sidebar-icons", :id => "count-icon" %><p>Actual Date Count</p></a></li>
-    <li class="valign-wrapper"><a href="removal" class="blue-grey-text text-lighten-3 nohover valign center-align"><%= image_tag "Mortality Records.svg", :class => "svg sidebar-icons", :id => "mortality-icon" %><p>Removal Record</p></a></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, dailylitterrecord_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, actualdailycount_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>

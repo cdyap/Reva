@@ -1,2 +1,0 @@
-class PigController < ApplicationController
-end

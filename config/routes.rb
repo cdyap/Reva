@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  get 'pages/dashboard'
-  root to: 'pages#redirect_to_account_dashboard'
+  get 'pages/dashboard', as: :dashboard
+  root to: 'pages#dashboard'
 
-   get 'pages/dailylitter'
-   get 'pages/actualdailycount'
-   get 'pages/removal'
-   
+   get 'pages/dailylitterrecord', as: :dailylitterrecord
+   get 'pages/actualdailycount', as: :actualdailycount
+   get 'pages/removal', as: :removal
+
+   resources :pigs
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
