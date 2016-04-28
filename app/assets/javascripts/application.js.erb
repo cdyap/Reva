@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require cocoon
 //= require jquery_ujs
 //= require materialize-sprockets
 //= require turbolinks
@@ -46,12 +47,13 @@ $(document).ready(function(){
 
 		}, 'xml');
 	});
-	 $('.modal-trigger').leanModal();
-	 $('select').material_select();
-   $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
+
+  $('#add-piglets').click(function(){
+
+
   });
+  $('.modal-trigger').leanModal();
+  $('select').material_select();
 });
 
 // DYNAMIC REMOVAL 
@@ -85,44 +87,3 @@ function addInput(divName){
           counter++;
      }
 }
- // div class='row'>
- //            <br>
- //              <div class='col s8'>
- //                <div class="row" style="margin-bottom:0px; margin-left:10px;">
- //                  <h6 style=>Piglet 1:</h6>
- //                </div>
- //                <div class='col s4 input-field'>
- //                  <input id='last_name' type='text' class='validate'>  
- //                  <label for='last_name'>Sex</label>
- //                </div>
- //                <div class='col s4 input-field'>
- //                  <input id='last_name' type='text' class='validate'>  
- //                  <label for='last_name'>Weight</label>
- //                </div>
- //              </div>
-              
- //            </div>
- //       var mainDiv = document.getElementById('parent');
-
-    // var newDiv = document.createElement('div');
-    // newDiv.setAttribute('class','row-fluid'); 
-
-
-    // var album_img=document.createElement('img');
-    // album_img.setAttribute('class','img-responsive'); 
-
-
-    // var aTag = document.createElement('a');
-    // aTag.setAttribute('class','thumbnail t_clicked');
-
-    // var img_div_3 = document.createElement('div');
-    // img_div_3.setAttribute('class','col-lg-4 col-md-4 col-xs-6 thumb');
-
-    // var img_div_2 = document.createElement('div');
-    // img_div_2.setAttribute('class','span4');
-
-    // mainDiv.appendChild(newDiv);
-    // newDiv.appendChild(img_div_2); 
-    // img_div_2.appendChild(img_div_3);
-    // img_div_3.appendChild(aTag);
-    // aTag.appendChild(album_img);

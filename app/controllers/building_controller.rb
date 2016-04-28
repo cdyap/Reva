@@ -1,2 +1,0 @@
-class BuildingController < ApplicationController
-end

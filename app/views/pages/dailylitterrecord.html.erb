@@ -1,28 +1,29 @@
 <ul id="sidebar" class="side-nav fixed blue-grey darken-4">
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, dailylitterrecord_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, actualdailycount_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-  <%=image_tag "logo.svg", id: 'logo'%>
-  <a href="">logo</a>
-  <!-- Tabs of dashboard -->  
-  <div class="row">
-    <div class="col s12">
-        <div class="indicator deep-orange darken-2" style="z-index:1">
-          <ul class="tabs deep-orange-text text-darken-2">
-              <li class="tab col s6 grey lighten-4"><a href="#all">All Daily Litter Records</a></li>
-              <li class="tab col s6 grey lighten-4"><a href="#add">Add New Litter</a></li>
-              <li class="tab col s6 grey lighten-4"><a href="#search">Search and Update Daily Litter Record</a></li>
-
-          </ul>
-        </div>
-    </div>
-
+  <div class="fixed container">
+      <%=image_tag "logo.svg", id: 'logo'%>
+      <a href="">logo</a>
+    <!-- Tabs of dashboard -->  
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <div class="indicator deep-orange darken-2" style="z-index:1">
+            <ul class="tabs deep-orange-text text-darken-2">
+              <li class="tab grey lighten-4"><a href="#all">All Daily Litter Records</a></li>
+              <li class="tab  grey lighten-4"><a href="#add">Add New Litter</a></li>
+              <li class="tab grey lighten-4"><a href="#search">Search and Update</a></li>
+            </ul>
+          </div>
+      </div>
+      </div>
+  </div>  
   <!-- DATA -->
-
+  <div class="row data">
     <div id="all" class="col s12">
       <div class="container" style="width:100%">
       <div class="col s12">
@@ -92,15 +93,27 @@
   <!-- ADD -->
     <div id="add" class="col s12">
        <div class="container">
-        <div class="col s12">
-      <br>
-
-       
-        <form class="col s12">
+        <div class="col s12">       
+        <%= simple_form_for(@litter) do |f| %>
+            <%= f.input :dam_id %>
+            <%= f.input :parity_number %>
+            <%= f.input :sire_id %>
+            <%= f.input :actual_date_of_farrowing %>
+            <%= f.input :due_to_farrow %>
+            <%= f.input :date_bred %>
+            <%= f.input :building_of_birth %>
+            <%= f.input :mummified_piglets %>
+            <%= f.input :stillborn_piglets %>
+            <%= f.input :litter_size_at_birth %>
+            
+            
+            <%= f.button :submit %>
+        <% end %>
+        <!-- <form class="col s12">
           <div class='row'>
               <div class='col s6 offset-s3 input-field'>
                   <input type="date" class="datepicker">
-                  <!-- <label for='last_name'>Date Farrowed</label> -->
+                  <label for='last_name'>Date Farrowed</label>
             </div>
           </div>
           <div class='col s6 input-field'>
@@ -171,9 +184,8 @@
             </div>
           </div>
              <a class="waves-effect waves-light btn"  style="margin: 2.5% 43%; value=">Submit</a>
-        </form>
-      </div>
-       
+        </form> -->
+        </div>       
       </div>
     </div>
     <div id="search" class="col s12">

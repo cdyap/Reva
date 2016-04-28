@@ -1,153 +1,155 @@
 <ul id="sidebar" class="side-nav fixed blue-grey darken-4">
   	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, dailylitterrecord_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, actualdailycount_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Add Pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Add Pig</p></div>".html_safe, new_pig_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-	<%=image_tag "logo.svg", id: 'logo'%>
-	<a href="">logo</a>
-  <!-- Tabs of dashboard -->  
-	<div class="row">
-		<div class="col s12">
-		  	<div class="indicator deep-orange darken-2" style="z-index:1">
-		    	<ul class="tabs deep-orange-text text-darken-2">
-		      		<li class="tab col s4 grey lighten-4"><a href="#card-o-graph">Card-o-graph</a></li>
-		      		<li class="tab col s4 grey lighten-4"><a href="#mortality">Mortality Records</a></li>
-		      		<li class="tab col s4 grey lighten-4"><a href="#yearly">Yearly Parameters</a></li>
-		    	</ul>
-		  	</div>
-		</div>
+	<div class="fixed container">
+      <%=image_tag "logo.svg", id: 'logo'%>
+      <a href="">logo</a>
+    <!-- Tabs of dashboard -->  
+    	<div class="row">
+	    	<div class="col s10 offset-s1">
+		  		<div class="indicator deep-orange darken-2" style="z-index:1">
+		    		<ul class="tabs deep-orange-text text-darken-2">
+		      			<li class="tab grey lighten-4"><a href="#card-o-graph">Card-o-graph</a></li>
+		      			<li class="tab grey lighten-4"><a href="#monthly">Monthly Parameters</a></li>
+		      			<li class="tab grey lighten-4"><a href="#yearly">Yearly Parameters</a></li>
+		    		</ul>
+		  		</div>
+			</div>
+	    </div>
+	</div>		
 
 	<!-- Put card-o-graph shit here -->
-
+	<div class="row data">
 		<div id="card-o-graph" class="col s12">
-    	<div class="container" style="width:100%">
-    	<div class="col s12">
-    	<br>
+    		<div class="container" style="width:100%">
+    			<div class="col s12">
+			    	<table class="striped">
+				        <thead>
+				          <tr>
+				              <th data-field="date">Date</th>
+				              <th data-field="cs">CS</th>
+				              <th data-field="cb">CB</th>
+				              <th data-field="cg">CG</th>
+				              <th data-field="wo">WO</th>
+				              <th data-field="lds">LDS</th>
+				              <th data-field="ds">DS</th>
+				              <th data-field="rg">RG</th>
+				              <th data-field="b">B</th>
+				              <th data-field="nbrb">NB/RB</th>
+				              <th data-field="ls">LS</th>
+				              <th data-field="gs">GS</th>
+				              <th data-field="fs">FS</th>
+				              <th data-field="sp">SP</th>
+				              <th data-field="ps">PS</th>
+				              <th data-field="s">S</th>
+				              <th data-field="g">G</th>
+				              <th data-field="f">F</th>
+				              
+				              <th data-field="sp">SP</th>
+				              <th data-field="ps">PS</th>
+				              <th data-field="s">S</th>
+				              <th data-field="g">G</th>
+				              <th data-field="f">F</th>
+				              <th data-field="b">B</th>
+				              <th data-field="total">Total</th>
 
-    	<table class="striped">
-	        <thead>
-	          <tr>
-	              <th data-field="date">Date</th>
-	              <th data-field="cs">CS</th>
-	              <th data-field="cb">CB</th>
-	              <th data-field="cg">CG</th>
-	              <th data-field="wo">WO</th>
-	              <th data-field="lds">LDS</th>
-	              <th data-field="ds">DS</th>
-	              <th data-field="rg">RG</th>
-	              <th data-field="b">B</th>
-	              <th data-field="nbrb">NB/RB</th>
-	              <th data-field="ls">LS</th>
-	              <th data-field="gs">GS</th>
-	              <th data-field="fs">FS</th>
-	              <th data-field="sp">SP</th>
-	              <th data-field="ps">PS</th>
-	              <th data-field="s">S</th>
-	              <th data-field="g">G</th>
-	              <th data-field="f">F</th>
-	              
-	              <th data-field="sp">SP</th>
-	              <th data-field="ps">PS</th>
-	              <th data-field="s">S</th>
-	              <th data-field="g">G</th>
-	              <th data-field="f">F</th>
-	              <th data-field="b">B</th>
-	              <th data-field="total">Total</th>
+				              <th data-field="f">F</th>
+				              <th data-field="g">G</th>
+				              <th data-field="gs">SG</th>
+				              <th data-field="cs">CS</th>
+				              <th data-field="g">G</th>
+				              <th data-field="cb">CB</th>
+				              <th data-field="gs">GS</th>
+				              <th data-field="b">B</th>
+				              <th data-field="x">X</th>
 
-	              <th data-field="f">F</th>
-	              <th data-field="g">G</th>
-	              <th data-field="gs">SG</th>
-	              <th data-field="cs">CS</th>
-	              <th data-field="g">G</th>
-	              <th data-field="cb">CB</th>
-	              <th data-field="gs">GS</th>
-	              <th data-field="b">B</th>
-	              <th data-field="x">X</th>
+				              <th data-field="tp">TP</th>
+				              <th data-field="remarks">Remarks</th>
 
-	              <th data-field="tp">TP</th>
-	              <th data-field="remarks">Remarks</th>
+				          </tr>
+				        </thead>
 
-	          </tr>
-	        </thead>
-
-	        <tbody>
-	          <tr>
-	            <td>Alvin</td>
-	            <td>Eclair</td>
-	            <td>$0.87</td>
-	          </tr>
-	          <tr>
-	            <td>Alan</td>
-	            <td>Jellybean</td>
-	            <td>$3.76</td>
-	          </tr>
-	          <tr>
-	            <td>Jonathan</td>
-	            <td>Lollipop</td>
-	            <td>$7.00</td>
-	          </tr>
-	        </tbody>
-      </table>
-  	  </div>
-  	  </div></div>
+				        <tbody>
+				          <tr>
+				            <td>Alvin</td>
+				            <td>Eclair</td>
+				            <td>$0.87</td>
+				          </tr>
+				          <tr>
+				            <td>Alan</td>
+				            <td>Jellybean</td>
+				            <td>$3.76</td>
+				          </tr>
+				          <tr>
+				            <td>Jonathan</td>
+				            <td>Lollipop</td>
+				            <td>$7.00</td>
+				          </tr>
+				        </tbody>
+			      	</table>
+  	  			</div>
+  	  		</div>
+  	  	</div>
 
 	<!-- Put mortality records shit here -->
-		<div id="mortality" class="col s12">
+		<div id="monthly" class="col s12">
 			 <div class="container">
-      <div class="col s12">
-     	<br>
-      <table class="striped" style="width:100%">
-        <thead>
-          <tr>
-              <th data-field="date">Date</th>
-              <th data-field="pig_id">Pig Number</th>
-              <th data-field="sex">Sex</th>
-              <th data-field="building_id">Building Number</th>
-              <th data-field="psigns">Previous Signs</th>
-              <th data-field="treatment">Treatment</th>
-              <th data-field="cdeath">Cause of Death</th>
-              <th data-field="remarks">Remarks</th>
-          </tr>
-        </thead>
+      			<div class="col s12">
+			      <table class="striped" style="width:100%">
+			        <thead>
+			          <tr>
+			              <th data-field="date">Date</th>
+			              <th data-field="pig_id">Pig Number</th>
+			              <th data-field="sex">Sex</th>
+			              <th data-field="building_id">Building Number</th>
+			              <th data-field="psigns">Previous Signs</th>
+			              <th data-field="treatment">Treatment</th>
+			              <th data-field="cdeath">Cause of Death</th>
+			              <th data-field="remarks">Remarks</th>
+			          </tr>
+			        </thead>
 
-        <tbody>
-          <tr>
-            <td>04212016</td>
-            <td>2013-0001</td>
-            <td>F</td>
-            <td>10</td>
-            <td>Virgo</td>
-            <td>Okay</td>
-            <td>Heartbreak</td>
-            <td>R.I.P</td>
-          </tr>
-          <tr>
-            <td>04172016</td>
-            <td>2013-0055</td>
-            <td>M</td>
-            <td>25</td>
-            <td>No Entry</td>
-            <td>Cinderella</td>
-            <td>Unknown</td>
-            <td>Beloved</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-      </div>
-        <div class="container">
-        <div class="col s4">
+			        <tbody>
+			          <tr>
+			            <td>04212016</td>
+			            <td>2013-0001</td>
+			            <td>F</td>
+			            <td>10</td>
+			            <td>Virgo</td>
+			            <td>Okay</td>
+			            <td>Heartbreak</td>
+			            <td>R.I.P</td>
+			          </tr>
+			          <tr>
+			            <td>04172016</td>
+			            <td>2013-0055</td>
+			            <td>M</td>
+			            <td>25</td>
+			            <td>No Entry</td>
+			            <td>Cinderella</td>
+			            <td>Unknown</td>
+			            <td>Beloved</td>
+			          </tr>
+			        </tbody>
+			      </table>
+      			</div>
+      		</div>
+       	 	<div class="container">
+        		<div class="col s4">
          
-      </div>
-      </div>
-
+      			</div>
+      		</div>
 		</div>
 
 	<!-- Put yearly parameters shit here -->
-		<div id="yearly" class="col s12">Test 3</div>
+		<div id="yearly" class="col s12">
+			Test 3
+		</div>
 	</div>
 </main>

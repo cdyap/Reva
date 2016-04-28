@@ -1,2 +1,0 @@
-class LitterController < ApplicationController
-end

@@ -13,49 +13,47 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "buildings", primary_key: "building_number", force: :cascade do |t|
-    t.string "name", limit: 15
-  end
-
-  create_table "cause_of_removals", primary_key: "ear_notch_number", force: :cascade do |t|
-    t.date    "date_of_removal",                                                      null: false
-    t.boolean "sale?",                                                default: false, null: false
-    t.boolean "death?",                                               default: false, null: false
-    t.decimal "weight_on_removal",            precision: 5, scale: 2, default: 0.0,   null: false
-    t.string  "remarks",           limit: 30
+  create_table "cause_of_removals", primary_key: "pig_id", force: :cascade do |t|
+    t.datetime "date_of_removal",                                                      null: false
+    t.boolean  "sale?",                                                default: false, null: false
+    t.boolean  "death?",                                               default: false, null: false
+    t.decimal  "weight_on_removal",            precision: 5, scale: 2, default: 0.0,   null: false
+    t.string   "remarks",           limit: 30
   end
 
   create_table "litters", primary_key: "litter_id", force: :cascade do |t|
-    t.integer "parity_number",            limit: 1, default: 0, null: false
-    t.date    "actual_date_of_farrowing",                       null: false
-    t.date    "due_to_farrow"
-    t.integer "mummified_piglets",        limit: 1, default: 0, null: false
-    t.integer "stillborn_piglets",        limit: 1, default: 0, null: false
-    t.date    "date_bred",                                      null: false
-    t.integer "building_of_birth",        limit: 1, default: 0, null: false
-    t.integer "dam_id",                   limit: 2
-    t.integer "sire_id",                  limit: 2
-    t.integer "litter_size_at_birth",     limit: 1, default: 0, null: false
+    t.integer  "parity_number",            limit: 1, default: 0, null: false
+    t.datetime "actual_date_of_farrowing",                       null: false
+    t.datetime "due_to_farrow"
+    t.integer  "mummified_piglets",        limit: 1, default: 0, null: false
+    t.integer  "stillborn_piglets",        limit: 1, default: 0, null: false
+    t.datetime "date_bred",                                      null: false
+    t.integer  "building_of_birth",        limit: 1, default: 0, null: false
+    t.integer  "dam_id",                   limit: 2
+    t.integer  "sire_id",                  limit: 2
+    t.integer  "litter_size_at_birth",     limit: 1, default: 0, null: false
   end
 
   create_table "pens", primary_key: "pen_id", force: :cascade do |t|
-    t.string   "pen_side",          limit: 1, default: "x", null: false
-    t.integer  "daily_headcount",   limit: 2, default: 0,   null: false
-    t.integer  "building_number",   limit: 1, default: 0,   null: false
-    t.datetime "date_of_headcount",                         null: false
+    t.integer  "pen_number",        limit: 1,  default: 0, null: false
+    t.integer  "daily_headcount",   limit: 2,  default: 0, null: false
+    t.integer  "building_number",   limit: 1,  default: 0, null: false
+    t.string   "building_name",     limit: 15
+    t.datetime "date_of_headcount",                        null: false
   end
 
-  create_table "pigs", primary_key: "ear_notch_number", force: :cascade do |t|
-    t.string  "breed",         limit: 14
-    t.decimal "birth_weight",             precision: 2, scale: 2, default: 0.0, null: false
-    t.date    "date_weaned"
-    t.integer "dam_id",        limit: 2
-    t.integer "sire_id",       limit: 2
-    t.integer "pen_id",        limit: 1,                          default: 0,   null: false
-    t.integer "litter_id",     limit: 2
-    t.date    "date_of_birth",                                                  null: false
-    t.string  "sex",           limit: 1,                          default: "x", null: false
-    t.string  "remarks",       limit: 30
+  create_table "pigs", primary_key: "pig_id", force: :cascade do |t|
+    t.integer  "ear_notch_number", limit: 2,                          default: 0,   null: false
+    t.string   "breed",            limit: 14
+    t.decimal  "birth_weight",                precision: 5, scale: 2, default: 0.0, null: false
+    t.datetime "date_weaned"
+    t.integer  "dam_id",           limit: 2
+    t.integer  "sire_id",          limit: 2
+    t.integer  "pen_id",           limit: 1,                          default: 0,   null: false
+    t.integer  "litter_id",        limit: 2
+    t.datetime "date_of_birth",                                                     null: false
+    t.string   "sex",              limit: 1,                          default: "x", null: false
+    t.string   "remarks",          limit: 30
   end
 
 end
