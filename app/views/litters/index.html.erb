@@ -55,10 +55,10 @@
       </div></div>
 
   <!-- ADD -->
-    <div id="add" class="col s8 offset-s2">
+    <div id="add" class="col s10 offset-s1">
        <div class="container">
         <div class="col s12">       
-        <%= simple_form_for @litter, html: { class: "input-form"} do |f|%>
+        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
           <div class="row">
             <h6>Parents' information:</h6>
             <div class="row">
@@ -120,7 +120,7 @@
             <div class="row">
               <div class="input-field col s6">
                 <select id="male-piglets">
-                  <option value="" disabled selected></option>
+                  <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -141,7 +141,7 @@
               </div>
               <div class="input-field col s6">
                 <select id="female-piglets">
-                  <option value="" disabled selected></option>
+                  <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -161,15 +161,22 @@
                 <label>How many alive female piglets?</label>
               </div>
             </div>
+            <div class="row center-align">
+              <a class="waves-effect waves-light btn center-align blue-grey darken-4" id="add-piglets">Add Piglet Fields</a>
+            </div>
           </div>
+          <div id="pigs" class="row">
+          <h6>Piglets:</h6>
+            <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
+            <% end%>
+            <div id="links">
+              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true%>
 
-            <%= f.simple_fields_for :pigs do |p| %>
-              <%=render 'pig_fields', f: p %>
-              <%= link_to_add_association 'add pig', f, :pigs %>
-            <% end %>
-
-            <a class="waves-effect waves-light btn" id="add-piglets">Add Piglets</a>
-            <%= f.button :submit, label: 'CREATE NEW LITTER' %>
+            </div>
+          </div>
+          <div class="center-align row">
+            <%= f.button :submit, label: 'CREATE NEW LITTER', disabled: true, class: 'center-align' %>
+          </div>
         <% end %>
         
         </div>       

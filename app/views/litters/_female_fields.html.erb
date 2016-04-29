@@ -1,0 +1,12 @@
+<div class='row nested-fields'>
+	<div class='col s5'>
+		<%= f.input :ear_notch_number, required: true %>
+	</div>
+	<div class='col s3'>
+		<%= f.input :sex, as: :select, collection: ["M", "F"], selected: ["F"], required: true %>
+	</div>
+	<div class='col s4'>
+		<%= f.input :birth_weight, required: true %>
+	</div>
+	<%= link_to_remove_association "remove pig", f %>
+</div>
