@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `pens` (
 
 CREATE TABLE IF NOT EXISTS `pigs` (
   `pig_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ear_notch_number` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `ear_notch_number` mediumint(7) UNSIGNED NOT NULL DEFAULT '0',
   `breed` varchar(14) DEFAULT NULL,
   `birth_weight` decimal(5,2) NOT NULL DEFAULT '0.00',
   `date_weaned` timestamp NULL DEFAULT CURRENT_TIMESTAMP,

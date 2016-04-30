@@ -24,7 +24,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 gem 'materialize-sass'
-gem "cocoon"
+gem 'cocoon'
+gem 'protokoll'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

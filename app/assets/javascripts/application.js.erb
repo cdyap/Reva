@@ -69,6 +69,7 @@ $(document).ready(function(){
 			$('select').material_select();
 		}
 		$(this).addClass('disabled');
+		$('#submit-litter').attr("disabled", false);
 	});
 	$('#add-litter-form').on('cocoon:before-insert', function(e,pig_to_be_added) {
 	    pig_to_be_added.fadeIn('slow');
