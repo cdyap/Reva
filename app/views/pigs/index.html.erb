@@ -15,17 +15,16 @@
         <div class="col s10 offset-s1">
           	<div class="indicator deep-orange darken-2" style="z-index:1">
             	<ul class="tabs deep-orange-text text-darken-2">
-              		<li class="tab grey lighten-4"><a href="#all">All Daily Litter Records</a></li>
-              		<li class="tab  grey lighten-4"><a href="#add">Add New Litter</a></li>
-              		<li class="tab grey lighten-4"><a href="#search">Search and Update</a></li>
+              		<li class="tab grey lighten-4"><a href="#all">All Pigs</a></li>
+              		<li class="tab  grey lighten-4"><a href="#add">Add Pig</a></li>
             	</ul>
           	</div>
       	</div>
       	</div>
   	</div>  
 	<div class="row data">
-		<div class="row">
-			<div class="col s12">
+		<div class="col s12" id="add">
+			<div class="row">
 			  	<%= simple_form_for(@pig) do |f| %>
 				  	<%= f.input :ear_notch_number %>
 			  		<%= f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white", "CEFN","Hybrid"] %>
@@ -38,6 +37,22 @@
 			  		<%= f.button :submit %>
 				<% end %>
 			</div>
+		</div>
+		<div class="col s8 offset-s2" id="all">
+			<table class="striped">
+				<thead>
+					<tr>
+						<th>Ear Notch Number</th>
+						<th>Sex</th>
+						<th>Breed</th>
+						<th>Date of Birth</th>
+						<th>Dam</th>
+						<th>Sire</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </main>
