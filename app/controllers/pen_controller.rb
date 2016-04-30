@@ -1,2 +1,0 @@
-class PenController < ApplicationController
-end

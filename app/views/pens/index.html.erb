@@ -1,0 +1,110 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+  <div class="fixed container">
+      <%=image_tag "logo.svg", id: 'logo'%>
+      <a href="">logo</a>
+    <!-- Tabs of dashboard -->  
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <div class="indicator deep-orange darken-2" style="z-index:1">
+            <ul class="tabs deep-orange-text text-darken-2">
+              <li class="tab grey lighten-4"><a href="#all">All Daily Counts</a></li>
+              <li class="tab  grey lighten-4"><a href="#add">Add Daily Count</a></li>
+            </ul>
+          </div>
+      </div>
+      </div>
+  </div>
+  <div class="row data">
+    <div class="row" id="all">
+      <div class="col s8 offset-s2">
+        <table class="striped" style="width:100%">
+          <thead>
+            <tr>
+                <th data-field="building_name">Building Name</th>
+                <th data-field="actualdailycount">Actual Daily Count</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- <tr>
+              <td>Building 1: Fattener</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 2: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 3: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 4: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 5: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 6: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 7: Grower</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 8: Gestating</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 9: Gestating</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 10: Gestating</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 11: Gestating</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 12: PS - Starter</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Building 13: Pre - Starter</td>
+              <td>22</td>
+            </tr>
+             <tr>
+              <td>Building 14: Farrowing</td>
+              <td>22</td>
+            </tr>
+            </tr>
+             <tr>
+              <td>Building 15: Farrowing</td>
+              <td>22</td>
+            </tr>
+            </tr>
+             <tr>
+              <td>Building 16: Farrowing<td>
+              <td>22</td>
+            </tr> -->
+            
+          </tbody>
+        </table>
+      </td>
+    </div>
+    <div class="row" id="add">
+    </div>
+  </div>  
+</main>

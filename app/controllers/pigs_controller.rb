@@ -13,6 +13,10 @@ class PigsController < ApplicationController
 		end 
 	end 
 
+	def index 
+		@pig = Pig.new
+	end
+
 	def pig_params 
 		params.require(:pig).permit!
 	end 
