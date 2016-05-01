@@ -61,17 +61,20 @@ $(document).ready(function(){
 			}
 			var pigNums = 1;
 			var maleCounter = 1;
+			var latest = parseInt($('#last-ear-notch').html());
 			$('.nested-fields').each(function(){
 				$(this).find('#pig-num').text("Pig " + pigNums++ + ":");
+				$(this).find('.litter_pigs_ear_notch_number input').val(++latest);
 				if (maleCounter <= parseInt($('#male-piglets').val())) {
 					$(this).find('select').val("M");
 					maleCounter++;
 				} else {
 					$(this).find('select').val("F");
 				}
+
 			});
 			$('select').material_select();
-			Materialize.updateTextFields();
+			
 		}
 		$(this).addClass('disabled');
 		$('#submit-litter').attr("disabled", false);
@@ -89,6 +92,7 @@ $(document).ready(function(){
 
   $('.modal-trigger').leanModal();
   $('select').material_select();
+  Materialize.updateTextFields();
 });
 
 // DYNAMIC REMOVAL 

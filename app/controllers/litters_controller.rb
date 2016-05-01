@@ -18,6 +18,8 @@ class LittersController < ApplicationController
   		@litter = Litter.new
   		@litter.pigs.build
   		@litters = Litter.all
+      # select max(ear_notch_number) from pigs where pigs.ear_notch_number like "1604%";
+      @maxvalue = ActiveRecord::Base.connection.execute("select max(ear_notch_number) from pigs where pigs.ear_notch_number like '#{DateTime.now.strftime('%y%m')}%'").first[0]
   	end
 
   	def litter_params

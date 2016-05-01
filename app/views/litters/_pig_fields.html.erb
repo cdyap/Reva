@@ -4,8 +4,7 @@
 		<%# link_to_remove_association "Remove Pig", f, class: 'waves-effect waves-teal btn-flat' %>
 	</div>
 	<div class='col s4'>
-		<%# f.input :ear_notch_number%>
-		<%= f.object.ear_notch_number%>
+		<%= f.input :ear_notch_number, class: "ear-notch" %>
 	</div>
 	<div class='col s3'>
 		<%= f.input :sex, as: :select, collection: ["M", "F"] %>

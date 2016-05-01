@@ -42,7 +42,11 @@
         <tbody>
           <% @litters.each do |litter| %>
             <tr>
-              <td><%=litter.dam_id%></td>
+              <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
+              <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
+              <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+              <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+              <td><%=dam_earnotch.to_s[2..-1]%></td>
               <td><%=litter.parity_number%></td>
               <td><%=litter.sire_id%></td>
               <td><%=litter.litter_size_at_birth%></td>
@@ -163,10 +167,11 @@
           </div>
           <div id="pigs" class="row">
           <h6>Piglets:</h6>
+          <p>Last ear notch number: <span id="last-ear-notch"><%=@maxvalue.to_s[2..-1]%></span></p>
             <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
             <% end%>
             <div id="links">
-              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|pig| pig = Pig.new }%>
+              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new}%>
 
             </div>
           </div>
