@@ -33,6 +33,13 @@
           </thead>
 
           <tbody>
+            <% Pen.all.map(&:building_number).uniq.each do |building| %>
+              <tr>
+                <td>Building <%=building%> </td>
+                <td><%=@building_headcount[building]%></td>
+              </tr>
+            <% end %>
+            <%# column_chart Pen.all.map(&:building_number).uniq {|building| {name: "Building", data: @building_headcount[building]} }%>
             <!-- <tr>
               <td>Building 1: Fattener</td>
               <td>22</td>

@@ -1,5 +1,7 @@
 class LittersController < ApplicationController
-	def create 
+	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex]
+
+  def create 
   		@litter=Litter.new(litter_params)
   		if @litter.save
  	 		redirect_to litters_path
@@ -7,6 +9,10 @@ class LittersController < ApplicationController
   			render 'litters#index'
 	  	end
   	end
+
+    def get_autocomplete_items(parameters)
+      super(parameters).where(:sex => params[:sex])
+    end
 
   	def index
   		@litter = Litter.new

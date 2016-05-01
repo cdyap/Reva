@@ -57,21 +57,27 @@
   <!-- ADD -->
     <div id="add" class="col s10 offset-s1">
        <div class="container">
-        <div class="col s12">       
+        <div class="col s10 offset-s1">       
         <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
           <div class="row">
             <h6>Parents' information:</h6>
             <div class="row">
               <div class="col s8">
-                <%= f.input :dam_id, label: "Dam's ear notch number:" %>
+                <%# f.input :dam_id, label: "Dam's ear notch number:" %>
+                <%= f.hidden_field :dam_id, :id => "dam_value" %>
+                <%= f.input :dam, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number:" %>
               </div>
               <div class="col s4">
                 <%= f.input :parity_number, as: :select, collection: 1...10,label: "Parity number (P#):" %>
               </div>
+              <div class="col s12">
+                <%= f.hidden_field :sire_id, :id => "sire_value" %>
+                <%= f.input :sire, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number:"  %>
+              </div>
             </div>
             <div class="row">
               <div class="col s8">
-                <%= f.input :sire_id, label: "Sire's ear notch number:" %>
+                <%# f.input :sire_id, label: "Sire's ear notch number:" %>
               </div>
             </div>
           </div>
@@ -80,28 +86,23 @@
           <div class="row">
             <h6>Relevant dates:</h6>
             <div class="row">
-              <div class="col s7">
+              <div class="col s6">
                 <%= f.input :date_bred, as: :string, input_html: {type: :date} %>
               </div>   
             </div>
             <div class="row">
-              <div class="col s7">
+              <div class="col s16">
                 <%= f.input :due_to_farrow, as: :string, input_html: {type: :date} %>
               </div>
             </div>
             <div class="row">
-              <div class="col s7">
+              <div class="col s6">
                <%= f.input :actual_date_of_farrowing, as: :string, input_html: {type: :date}%>
               </div>
             </div>
           </div>
           <div class="row">
-            <h6>Birth information:</h6>
-            <div class="row">
-              <div class="col s12">
-
-              </div>
-            </div>
+            <h6>Piglets' information:</h6>
             <div class="row">
               <div class="col s6">
                 <%= f.input :mummified_piglets %>
@@ -110,11 +111,6 @@
             <div class="row">
               <div class="col s6">
                 <%= f.input :stillborn_piglets %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s6">
-                <%= f.input :litter_size_at_birth %>
               </div>
             </div>
             <div class="row">
@@ -170,7 +166,7 @@
             <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
             <% end%>
             <div id="links">
-              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true%>
+              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|pig| pig = Pig.new }%>
 
             </div>
           </div>

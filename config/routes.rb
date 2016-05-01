@@ -7,7 +7,9 @@ Rails.application.routes.draw do
    get 'pages/removal', as: :removal
 
    resources :pigs
-   resources :litters
+   resources :litters do
+     get :autocomplete_pig_ear_notch_number, :on => :collection
+   end
    resources :pens
 
   # The priority is based upon order of creation: first created -> highest priority.
