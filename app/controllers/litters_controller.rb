@@ -14,6 +14,12 @@ class LittersController < ApplicationController
     super(parameters).where(:sex => params[:sex])
   end
 
+  def edit 
+    @litter = Litter.find(params[:id])
+    @dam = Pig.where(pig_id: @litter.dam_id).first
+    @sire = Pig.where(pig_id: @litter.sire_id).first
+  end
+
   def new 
     @litter = Litter.new
     @litter.pigs.build

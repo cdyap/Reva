@@ -234,6 +234,7 @@ main {
 	.data {
 		margin-top: 90px;
 		z-index: 7;
+		margin-bottom: 100px;
 	}
 	a {float:right ;}
 }
@@ -247,7 +248,7 @@ main {
 		font-weight: bold;
 		margin-bottom: 20px;
 	}
-	margin-bottom: 100px;
+	
 	input:focus:not([readonly]) {
 		border-bottom: 1px solid #263238;
 		box-shadow: 0 1px 0 0 #263238;

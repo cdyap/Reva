@@ -1,0 +1,147 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+  <div class="fixed container ">
+      <div class="row valign-wrapper">
+        <%=image_tag "logo.svg", id: 'logo'%>
+        <%= link_to "Daily Litter Records", litters_path, class:'valign', method: :get%>
+        <!-- <h5 class="valign">Daily Litter Records</h5> -->
+        <h5 class="valign separator">></h5>
+        <h5 class="valign">Update Piglets</h5>
+        <!-- <a href="">logout</a> -->
+      </div>
+  </div>
+  <!-- DATA -->
+  <div class="row data">
+        <div id="add" class="col s10 offset-s1">
+              
+        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
+          <div class="row">
+            <h6>Parents' information:</h6>
+            <div class="row">
+              <div class="col s4">
+                <table>
+                  <thead>
+                    <th colspan="2">SOW'S INFORMATION</th>  
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dam ID:</td>
+                      <td><%=@dam.ear_notch_number.to_s[2..-1]%></td>
+                    </tr>
+                    <tr>
+                      <td>Breed:</td>
+                      <td><%= @dam.breed %></td>
+                    </tr>
+                    <tr>
+                      <td>Dam: </td>
+                      <td><%=dam_damid = Pig.where(pig_id: @dam.dam_id).first.ear_notch_number dam_damid unless dam_damid.nil? %></td>
+                    </tr>
+                    <tr>
+                      <td>Sire: </td>
+                      <td><%=dam_sireid = Pig.where(pig_id: @dam.sire_id).first.ear_notch_number dam_damid unless dam_damid.nil? %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col s4">
+                <table>
+                  <thead>
+                    <th colspan="2">LITTER'S INFORMATION</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Actual Date of Farrowing:</td>
+                      <td><%= @litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                    </tr>
+                    <tr>
+                      <td>Due to Farrow: </td>
+                      <td><%= @litter.due_to_farrow.strftime("%B %d, %Y")%></td>
+                    </tr>
+                    <tr>
+                      <td>Parity #:</td>
+                      <td><%= @litter.parity_number %></td>
+                    </tr>
+                    <tr>
+                      <td>Litter Size at Birth:</td>
+                      <td><%= @litter.litter_size_at_birth %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col s4">
+                <table>
+                  <thead>
+                    <th colspan="2">SIRE'S INFORMATION</th>  
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Ear notch number:</td>
+                      <td><%=@sire.ear_notch_number.to_s[2..-1]%></td>
+                    </tr>
+                    <tr>
+                      <td>Breed:</td>
+                      <td><%= @sire.breed %></td>
+                    </tr>
+                    <tr>
+                      <td>Dam: </td>
+                      <td><%=sire_damid = Pig.where(pig_id: @sire.dam_id).first.ear_notch_number sire_damid unless sire_damid.nil? %></td>
+                    </tr>
+                    <tr>
+                      <td>Sire: </td>
+                      <td><%=sire_sireid = Pig.where(pig_id: @sire.sire_id).first.ear_notch_number sire_damid unless sire_sireid.nil? %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <h6>Piglets' information:</h6>
+            <div class="col s3">
+              <table>
+                <tr> 
+                  <td>Mummified piglets: </td>
+                  <td><%= @litter.mummified_piglets %></td>
+                </tr>
+                <tr> 
+                  <td>Stillborn piglets: </td>
+                  <td><%= @litter.stillborn_piglets %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div id="pigs" class="row"> 
+            <table>
+              <thead>
+                <th>Ear Notch Number</th>
+                <th>Sex</th>
+                <th>Birth Weight</th>
+                <th>Weaning Weight</th>
+                <th>Date Weaned</th>
+              </thead>
+              <tbody>         
+                <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
+                  <tr>
+                      <td><%= p.object.ear_notch_number.to_s[2..-1] %></td>
+                      <td><%= p.object.sex %></td>
+                      <td><%= p.object.birth_weight %></td>
+                      <%=render 'update_pig_fields', f: p%>
+                  </tr>
+                <% end%>
+              </tbody>
+            </table>
+          </div>
+          <div class="center-align row">
+            <%= f.button :submit, label: 'CREATE NEW LITTER',  class: 'center-align', id: 'submit-litter' %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</main>

@@ -31,6 +31,7 @@
                   <th data-field="bweight">Sire's ID</th>
                   <th data-field="bweight">Litter Size at Birth</th>
                   <th data-field="wweight">Actual Date of Farrowing</th>
+                  <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -45,6 +46,7 @@
                   <td><%=litter.sire_id%></td>
                   <td><%=litter.litter_size_at_birth%></td>
                   <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                  <td><%=link_to "Edit", edit_litter_path(litter.id), method: :get, target: :new %></td>
                 </tr>
               <% end %>
             </tbody>
