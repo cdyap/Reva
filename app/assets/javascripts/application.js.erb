@@ -63,15 +63,14 @@ $(document).ready(function(){
 			var maleCounter = 1;
 			var latest = parseInt($('#last-ear-notch').html());
 			$('.nested-fields').each(function(){
-				$(this).find('#pig-num').text("Pig " + pigNums++ + ":");
-				$(this).find('.litter_pigs_ear_notch_number input').val(++latest);
+				$(this).find('#pig-num').text("Ear notch number " + ++latest + ":");
+				//$(this).find('.ear-notch').html(++latest);
 				if (maleCounter <= parseInt($('#male-piglets').val())) {
 					$(this).find('select').val("M");
 					maleCounter++;
 				} else {
 					$(this).find('select').val("F");
 				}
-
 			});
 			$('select').material_select();
 			
@@ -90,7 +89,13 @@ $(document).ready(function(){
 		pig.fadeOut('slow');
 	});
 
-  $('.modal-trigger').leanModal();
+  $('.modal-trigger').leanModal({
+      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+      opacity: .8, // Opacity of modal background
+      in_duration: 300, // Transition in duration
+      out_duration: 200, // Transition out duration
+    }
+  );
   $('select').material_select();
   Materialize.updateTextFields();
 });

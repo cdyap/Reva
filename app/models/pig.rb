@@ -5,15 +5,15 @@ class Pig < ActiveRecord::Base
 	protokoll :ear_notch_number, :pattern => "%y%m###"
 
 
-	# after_initialize do
-	#   if self.new_record?
-	#     self.ear_notch_number = :ear_notch_number
-	#   end
-	# end
-
-	before_create do
-    	self.ear_notch_number = :ear_notch_number
+	after_initialize do
+	  if self.new_record?
+	    self.ear_notch_number = :ear_notch_number
+	  end
 	end
+
+	# before_create do
+ #    	self.ear_notch_number = :ear_notch_number
+	# end
 
 	def autocorrect_values
 		"#{self.ear_notch_number}"[2..-1] + " - #{self.date_of_birth.strftime('%Y')}"

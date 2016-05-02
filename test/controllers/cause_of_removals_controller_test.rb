@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CauseOfRemovalControllerTest < ActionController::TestCase
+class CauseOfRemovalsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

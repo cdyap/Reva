@@ -1,0 +1,2 @@
+module CauseOfRemovalsHelper
+end

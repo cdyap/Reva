@@ -6,184 +6,51 @@
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-  <div class="fixed container">
-      <%=image_tag "logo.svg", id: 'logo'%>
-      <a href="">logo</a>
-    <!-- Tabs of dashboard -->  
-      <div class="row">
-        <div class="col s10 offset-s1">
-          <div class="indicator deep-orange darken-2" style="z-index:1">
-            <ul class="tabs deep-orange-text text-darken-2">
-              <li class="tab grey lighten-4"><a href="#all">All Daily Litter Records</a></li>
-              <li class="tab  grey lighten-4"><a href="#add">Add New Litter</a></li>
-              <li class="tab grey lighten-4"><a href="#search">Search and Update</a></li>
-            </ul>
-          </div>
-      </div>
+  <div class="fixed container ">
+      <div class="row valign-wrapper">
+        <%=image_tag "logo.svg", id: 'logo'%>
+        <h5 class="valign">Daily Litter Records</h5>
+        <!-- <a href="">logout</a> -->
       </div>
   </div>  
   <!-- DATA -->
   <div class="row data">
     <div id="all" class="col s12">
       <div class="container" style="width:100%">
-      <div class="col s8 offset-s2">
-      <br>
-      <table class="striped">
-        <thead>
-          <tr>
-              <th data-field="pig_id">Dam's ID</th>
-              <th data-field="sex">Parity #</th>
-              <th data-field="bweight">Sire's ID</th>
-              <th data-field="bweight">Litter Size at Birth</th>
-              <th data-field="wweight">Actual Date of Farrowing</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @litters.each do |litter| %>
-            <tr>
-              <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
-              <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
-              <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-              <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-              <td><%=dam_earnotch.to_s[2..-1]%></td>
-              <td><%=litter.parity_number%></td>
-              <td><%=litter.sire_id%></td>
-              <td><%=litter.litter_size_at_birth%></td>
-              <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+        <div class="col s8 offset-s2">
+          <!-- Modal Trigger -->
+          <div class="center-align row"><!-- 
+            <a class="modal-trigger waves-effect waves-light btn deep-orange darken-2 center-align" href="#litterform">ADD NEW LITTER</a> -->
+            <%= link_to "ADD NEW LITTER", new_litter_path, class: "btn deep-orange darken-2 center-align", method: :get %>
+          </div>
+          <table class="striped">
+            <thead>
+              <tr>
+                  <th data-field="pig_id">Dam's ID</th>
+                  <th data-field="sex">Parity #</th>
+                  <th data-field="bweight">Sire's ID</th>
+                  <th data-field="bweight">Litter Size at Birth</th>
+                  <th data-field="wweight">Actual Date of Farrowing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @litters.each do |litter| %>
+                <tr>
+                  <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
+                  <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
+                  <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                  <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                  <td><%=dam_earnotch.to_s[2..-1]%></td>
+                  <td><%=litter.parity_number%></td>
+                  <td><%=litter.sire_id%></td>
+                  <td><%=litter.litter_size_at_birth%></td>
+                  <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
-      </div></div>
-
-  <!-- ADD -->
-    <div id="add" class="col s10 offset-s1">
-       <div class="container">
-        <div class="col s10 offset-s1">       
-        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
-          <div class="row">
-            <h6>Parents' information:</h6>
-            <div class="row">
-              <div class="col s8">
-                <%# f.input :dam_id, label: "Dam's ear notch number:" %>
-                <%= f.hidden_field :dam_id, :id => "dam_value" %>
-                <%= f.input :dam, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number:" %>
-              </div>
-              <div class="col s4">
-                <%= f.input :parity_number, as: :select, collection: 1...10,label: "Parity number (P#):" %>
-              </div>
-              <div class="col s12">
-                <%= f.hidden_field :sire_id, :id => "sire_value" %>
-                <%= f.input :sire, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number:"  %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s8">
-                <%# f.input :sire_id, label: "Sire's ear notch number:" %>
-              </div>
-            </div>
-          </div>
-          
-          
-          <div class="row">
-            <h6>Relevant dates:</h6>
-            <div class="row">
-              <div class="col s6">
-                <%= f.input :date_bred, as: :string, input_html: {type: :date} %>
-              </div>   
-            </div>
-            <div class="row">
-              <div class="col s16">
-                <%= f.input :due_to_farrow, as: :string, input_html: {type: :date} %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s6">
-               <%= f.input :actual_date_of_farrowing, as: :string, input_html: {type: :date}%>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <h6>Piglets' information:</h6>
-            <div class="row">
-              <div class="col s6">
-                <%= f.input :mummified_piglets %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s6">
-                <%= f.input :stillborn_piglets %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <select id="male-piglets">
-                  <option value="0" selected>0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                </select>
-                <label>How many alive male piglets?</label>
-              </div>
-              <div class="input-field col s6">
-                <select id="female-piglets">
-                  <option value="0" selected>0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                </select>
-                <label>How many alive female piglets?</label>
-              </div>
-            </div>
-            <div class="row center-align">
-              <a class="waves-effect waves-light btn center-align blue-grey darken-4" id="add-piglets">Add Piglet Fields</a>
-            </div>
-          </div>
-          <div id="pigs" class="row">
-          <h6>Piglets:</h6>
-          <p>Last ear notch number: <span id="last-ear-notch"><%=@maxvalue.to_s[2..-1]%></span></p>
-            <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
-            <% end%>
-            <div id="links">
-              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new}%>
-
-            </div>
-          </div>
-          <div class="center-align row">
-            <%= f.button :submit, label: 'CREATE NEW LITTER', disabled: true, class: 'center-align', id: 'submit-litter' %>
-          </div>
-        <% end %>
-        
-        </div>       
-      </div>
-    </div>
-    <div id="search" class="col s12">
     </div>
   </div>
 </main>

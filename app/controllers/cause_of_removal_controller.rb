@@ -1,2 +1,0 @@
-class CauseOfRemovalController < ApplicationController
-end
