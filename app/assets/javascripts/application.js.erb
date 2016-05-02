@@ -10,9 +10,13 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require highcharts.js
+//= require chartkick
 //= require jquery
 //= require cocoon
 //= require jquery_ujs
+//= require jquery-ui
+//= require autocomplete-rails
 //= require materialize-sprockets
 //= require turbolinks
 //= require_tree .
@@ -57,8 +61,10 @@ $(document).ready(function(){
 			}
 			var pigNums = 1;
 			var maleCounter = 1;
+			var latest = parseInt($('#last-ear-notch').html());
 			$('.nested-fields').each(function(){
-				$(this).find('#pig-num').text("Pig " + pigNums++ + ":");
+				$(this).find('#pig-num').text("Ear notch number " + ++latest + ":");
+				//$(this).find('.ear-notch').html(++latest);
 				if (maleCounter <= parseInt($('#male-piglets').val())) {
 					$(this).find('select').val("M");
 					maleCounter++;
@@ -67,6 +73,7 @@ $(document).ready(function(){
 				}
 			});
 			$('select').material_select();
+			
 		}
 		$(this).addClass('disabled');
 		$('#submit-litter').attr("disabled", false);
@@ -115,8 +122,15 @@ $(document).ready(function(){
 		pig.fadeOut('slow');
 	});
 
-  $('.modal-trigger').leanModal();
+  $('.modal-trigger').leanModal({
+      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+      opacity: .8, // Opacity of modal background
+      in_duration: 300, // Transition in duration
+      out_duration: 200, // Transition out duration
+    }
+  );
   $('select').material_select();
+  Materialize.updateTextFields();
 });
 
 // DYNAMIC REMOVAL 

@@ -26,7 +26,9 @@ gem 'simple_form'
 gem 'materialize-sass'
 gem 'cocoon'
 gem 'protokoll'
-
+gem 'chartkick'
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

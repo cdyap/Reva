@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-ui
  */
 /*NELSON CODE*/
 ::-webkit-scrollbar{width: 15px;}
@@ -49,12 +50,6 @@
 	src: asset-url('SourceBold.otf') format('opentype');
 	font-weight: 700;
 	font-style: normal;
-}
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url('fonts/MaterialIcons.woff') format('woff');
 }
 
 .material-icons {
@@ -202,9 +197,12 @@ header, main, footer {
 
 main {
 	#logo {
-		width: 250px;
+		width: 280px;
 		margin-left: 30px;
 		float:left;
+		padding-right: 30px;
+		border-right: 2px solid #3F525B;
+		margin-right: 30px;
 	}
 	.fixed {
 		position: fixed;	
@@ -216,9 +214,25 @@ main {
 		background: #f5f5f5; 
 		width: 100%;
 		z-index: 9;
+		h5 {
+			color: #3F525B;
+			font-family: "Source";
+			font-weight: normal;
+			font-size: 1.64rem;
+		}
+		a {
+			color: lighten(#3F525B, 30%);
+			font-family: "Source";
+			font-weight: normal;
+			font-size: 1.64rem;
+		}
+		a:hover {
+			color: #3F525B;
+		}
+		.separator {margin-left: 10px; margin-right: 10px;}
 	}
 	.data {
-		margin-top: 120px;
+		margin-top: 90px;
 		z-index: 7;
 	}
 	a {float:right ;}

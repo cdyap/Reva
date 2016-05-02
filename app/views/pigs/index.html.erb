@@ -51,6 +51,16 @@
 					</tr>
 				</thead>
 				<tbody>
+					<% Pig.all.each do |pig| %>
+						<tr>
+							<td><%= pig.ear_notch_number.to_s[2..-1] %></td>
+							<td><%= pig.sex %></td>
+							<td><%= pig.breed %></td>
+							<td><%= pig.date_of_birth.strftime("%B %d, %Y") %></td>
+							<td><%= pig.litter.dam_id %></td>
+							<td><%= pig.litter.sire_id %></td>
+						</tr>
+					<% end %>
 				</tbody>
 			</table>
 		</div>
