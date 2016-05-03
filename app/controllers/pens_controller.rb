@@ -1,14 +1,23 @@
 class PensController < ApplicationController
-	def index
-		@building_headcount = Array.new(17)
-		building_total = 0
-		(1..16).each do |building|
-			Pen.where(building_number: building).each do |pen|
-				building_total = building_total + pen.daily_headcount
-			end
-			@building_headcount[building] = building_total
-		end
+	def new 		
+		@pen = Pen.new
+	end 
 
-		@pens = Pen.all
+	def create 
+		@pen = Pen.new(pen_params)
+
+		if @pen.save 
+			redirect_to new_pen_path
+		else 
+			render :new
+		end 
+	end 
+
+	def index 
+		@pen = Pen.new
 	end
+
+	def pig_params 
+		params.require(:pen).permit!
+	end 
 end
