@@ -1,0 +1,38 @@
+//= require cocoon
+
+$(document).ready(function(){
+	$('#add-piglets').click(function(){
+		if (!($(this).hasClass("disabled"))){
+			totalPigs = parseInt($('#male-piglets').val()) + parseInt($('#female-piglets').val());
+			for (x = 0; x < totalPigs; x++) {
+				$('#add-pig').click();	
+			}
+			var pigNums = 1;
+			var maleCounter = 1;
+			var latest = parseInt($('#last-ear-notch').html());
+			$('.nested-fields').each(function(){
+				$(this).find('#pig-num').text("Ear notch number " + ++latest + ":");
+				//$(this).find('.ear-notch').html(++latest);
+				if (maleCounter <= parseInt($('#male-piglets').val())) {
+					$(this).find('select').val("M");
+					maleCounter++;
+				} else {
+					$(this).find('select').val("F");
+				}
+			});
+			$('select').material_select();			
+		}
+		$(this).addClass('disabled');
+		$('#submit-litter').attr("disabled", false);
+	});
+	$('#add-litter-form').on('cocoon:before-insert', function(e,pig_to_be_added) {
+	    pig_to_be_added.fadeIn('slow');
+	})
+	.on('cocoon:after-insert', function(e, added_pig) {
+	 	$('select').material_select();
+	})
+	.on('cocoon:before-remove', function(e, pig) {
+		$(this).data('remove-timeout', 1000);
+		pig.fadeOut('slow');
+	});
+});

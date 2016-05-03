@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `Reva_development`
 --
-CREATE DATABASE IF NOT EXISTS `Reva_development` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+DROP DATABASE `Reva_development`;
+CREATE DATABASE `Reva_development` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `Reva_development`;
 
 -- --------------------------------------------------------
@@ -27,8 +28,8 @@ USE `Reva_development`;
 --
 -- Table structure for table `cause_of_removals`
 --
-
-CREATE TABLE IF NOT EXISTS `cause_of_removals` (
+DROP TABLE IF EXISTS `cause_of_removals`;
+CREATE TABLE `cause_of_removals` (
   `removal_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pig_id` mediumint(7) UNSIGNED DEFAULT NULL,
   `date_of_removal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -41,11 +42,25 @@ CREATE TABLE IF NOT EXISTS `cause_of_removals` (
 
 -- --------------------------------------------------------
 
+
+DROP TABLE IF EXISTS `custom_auto_increments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `custom_auto_increments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `counter_model_name` varchar(255) DEFAULT NULL,
+  `counter` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_custom_auto_increments_on_counter_model_name` (`counter_model_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 --
 -- Table structure for table `litters`
 --
-
-CREATE TABLE IF NOT EXISTS `litters` (
+DROP TABLE IF EXISTS `litters`;
+CREATE TABLE `litters` (
   `litter_id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier of litter',
   `parity_number` tinyint(2) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'number of pregnancies',
   `actual_date_of_farrowing` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'actual date of birth',
@@ -65,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `litters` (
 --
 -- Table structure for table `pens`
 --
-
+DROP TABLE IF EXISTS `pens`;
 CREATE TABLE IF NOT EXISTS `pens` (
   `pen_id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pen_number` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
@@ -81,14 +96,14 @@ CREATE TABLE IF NOT EXISTS `pens` (
 --
 -- Table structure for table `pigs`
 --
-
-CREATE TABLE IF NOT EXISTS `pigs` (
+DROP TABLE IF EXISTS `pigs`;
+CREATE TABLE `pigs` (
   `pig_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ear_notch_number` mediumint(7) UNSIGNED NOT NULL DEFAULT '0',
   `breed` varchar(14) DEFAULT NULL,
   `birth_weight` decimal(5,2) NOT NULL DEFAULT '0.00',
   `weaning_weight` decimal(5,2) NOT NULL DEFAULT '0.00',
-  `date_weaned` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_weaned` timestamp NULL DEFAULT NULL,
   `dam_id` smallint(5) UNSIGNED DEFAULT NULL,
   `sire_id` smallint(5) UNSIGNED DEFAULT NULL,
   `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',

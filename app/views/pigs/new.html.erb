@@ -3,24 +3,56 @@
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Add Pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Add Pig</p></div>".html_safe, new_pig_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-	<%=image_tag "logo.svg", id: 'logo'%>
-	<a href="">logo</a>
-	<div class="container">
+	<div class="fixed container header">
+      <div class="row valign-wrapper">
+        <%=image_tag "logo.svg", id: 'logo'%>
+        <%= link_to "Pigs", pigs_path, class:'valign', method: :get%>
+        <!-- <h5 class="valign">Daily Litter Records</h5> -->
+        <h5 class="valign separator">></h5>
+        <h5 class="valign">New Pig</h5>
+        <!-- <a href="">logout</a> -->
+      </div>
+  	</div>
+	<div class="container data">
 		<div class="row">
-			<div class="col s12">
-			  	<%= simple_form_for(@pig) do |f| %>
-				  	<%= f.input :ear_notch_number %>
-			  		<%= f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white", "CEFN","Hybrid"] %>
-			  		<%= f.input :birth_weight %>
-			  		<%= f.input :date_weaned %>
-			  		<%= f.input :dam_id%>
-			  		<%= f.input :sire_id%>
-			  		<%= f.input :pen_id%>
-			  		<%= f.input :sex%>
+			<div class="col s8 offset-s2">
+			  	<%= simple_form_for @pig, html: {class:"input-form"} do |f| %>
+			  		<div class="row">
+			  			<div class="col s9">
+				  			<%= f.input :ear_notch_number, value: @maxvalue, placeholder: @maxvalue.to_s[2..-1] %>
+				  		</div>
+				  	</div>
+				  	<div class="row">
+				  		<div class="col s12">
+			  				<%= f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white", "CEFN","Hybrid"] %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s5">
+			  				<%= f.input :birth_weight %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s4">
+			  				<%= f.input :sex, as: :select, collection: ["M", "F"] %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s9">
+			  				<%= f.hidden_field :dam_id, :id => "dam_value" %>
+                			<%= f.input :dam_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number", required: true %>
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="col s9">
+                			<%= f.hidden_field :sire_id, :id => "sire_value" %>
+                			<%= f.input :sire_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
+			  			</div>
+			  		</div>
 			  		<%= f.button :submit %>
 				<% end %>
 			</div>

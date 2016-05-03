@@ -220,19 +220,22 @@ main {
 			font-weight: normal;
 			font-size: 1.64rem;
 		}
-		a {
+		.header a {
 			color: lighten(#3F525B, 30%);
 			font-family: "Source";
 			font-weight: normal;
 			font-size: 1.64rem;
-		}
-		a:hover {
-			color: #3F525B;
+			&:hover {color: #3F525B;}
 		}
 		.separator {margin-left: 10px; margin-right: 10px;}
 	}
 	.data {
 		margin-top: 90px;
+		z-index: 7;
+		margin-bottom: 100px;
+	}
+	.data-withtabs {
+		margin-top: 130px;
 		z-index: 7;
 		margin-bottom: 100px;
 	}

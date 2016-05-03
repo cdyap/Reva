@@ -13,7 +13,8 @@
 
 ActiveRecord::Schema.define(version: 20160430015636) do
 
-  create_table "cause_of_removals", primary_key: "pig_id", force: :cascade do |t|
+  create_table "cause_of_removals", primary_key: "removal_id", force: :cascade do |t|
+    t.integer  "pig_id",            limit: 3
     t.datetime "date_of_removal",                                                      null: false
     t.boolean  "sale?",                                                default: false, null: false
     t.boolean  "death?",                                               default: false, null: false
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160430015636) do
     t.integer  "ear_notch_number", limit: 3,                          default: 0,   null: false
     t.string   "breed",            limit: 14
     t.decimal  "birth_weight",                precision: 5, scale: 2, default: 0.0, null: false
+    t.decimal  "weaning_weight",              precision: 5, scale: 2, default: 0.0, null: false
     t.datetime "date_weaned"
     t.integer  "dam_id",           limit: 2
     t.integer  "sire_id",          limit: 2

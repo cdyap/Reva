@@ -4,7 +4,10 @@ class Pig < ActiveRecord::Base
 	after_save :set_birthday
 	protokoll :ear_notch_number, :pattern => "%y%m###"
 
-
+	validates :breed, presence: true
+	validates :birth_weight, presence: true
+	validates :sex, presence: true
+	
 	after_initialize do
 	  if self.new_record?
 	    self.ear_notch_number = :ear_notch_number

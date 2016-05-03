@@ -3,24 +3,22 @@
     <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Actual Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
   <div class="fixed container ">
-      <div class="row valign-wrapper">
-        <%=image_tag "logo.svg", id: 'logo'%>
-        <h5 class="valign">Daily Litter Records</h5>
-        <!-- <a href="">logout</a> -->
-      </div>
+    <div class="row valign-wrapper header">
+      <%=image_tag "logo.svg", id: 'logo'%>
+      <h5 class="valign">Daily Litter Records</h5>
+      <!-- <a href="">logout</a> -->
+    </div>
   </div>  
   <!-- DATA -->
   <div class="row data">
     <div id="all" class="col s12">
-      <div class="container" style="width:100%">
-        <div class="col s8 offset-s2">
-          <!-- Modal Trigger -->
-          <div class="center-align row"><!-- 
-            <a class="modal-trigger waves-effect waves-light btn deep-orange darken-2 center-align" href="#litterform">ADD NEW LITTER</a> -->
+      <div class="container">
+          <div class="center-align row">
             <%= link_to "ADD NEW LITTER", new_litter_path, class: "btn deep-orange darken-2 center-align", method: :get %>
           </div>
           <table class="striped">
@@ -35,23 +33,26 @@
               </tr>
             </thead>
             <tbody>
-              <% @litters.each do |litter| %>
-                <tr>
-                  <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
-                  <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
-                  <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-                  <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-                  <td><%=dam_earnotch.to_s[2..-1]%></td>
-                  <td><%=litter.parity_number%></td>
-                  <td><%=litter.sire_id%></td>
-                  <td><%=litter.litter_size_at_birth%></td>
-                  <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
-                  <td><%=link_to "Edit", edit_litter_path(litter.id), method: :get, target: :new %></td>
-                </tr>
+              <% if @litters.size == 0 %>
+                <td colspan="7"><p class="center-align">No litters yet! Add a new litter above.</p></td>
+              <% else %>
+                <% @litters.each do |litter| %>
+                  <tr>
+                    <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
+                    <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
+                    <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                    <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                    <td><%=dam_earnotch.to_s[2..-1]%></td>
+                    <td><%=litter.parity_number%></td>
+                    <td><%=litter.sire_id%></td>
+                    <td><%=litter.litter_size_at_birth%></td>
+                    <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                    <td><%=link_to "Edit", edit_litter_path(litter.id), method: :get, target: :new %></td>
+                  </tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>
-        </div>
       </div>
     </div>
   </div>
