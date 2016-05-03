@@ -87,7 +87,7 @@ $(document).ready(function(){
 	$('#add-dailycount').click(function(){
 		if (!($(this).hasClass("disabled"))){
 			building = parseInt($('#buildings').val());
-			totalPens = SELECT building_number FROM pens WHERE building_number ==building;
+			//totalPens = SELECT building_number FROM pens WHERE building_number ==building;
 			for (x = 0; x < totalPens; x++) {
 				$('#add-pig').click();	
 			}
