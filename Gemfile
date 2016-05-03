@@ -25,7 +25,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simple_form'
 gem 'materialize-sass'
 gem 'cocoon'
-gem 'protokoll'
 gem 'chartkick'
 gem 'rails4-autocomplete'
 gem 'jquery-ui-rails'

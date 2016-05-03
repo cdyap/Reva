@@ -1,0 +1,14 @@
+$(document).ready(function(){
+	$('#open').click(function(){
+		$(".collapsible-header").addClass("active");
+  		$(".collapsible").collapsible({accordion: false});
+	});
+	$('#close').click(function(){
+		$(".collapsible-header").removeClass(function(){
+    		return "active";
+  		});
+  		$(".collapsible").collapsible({accordion: true});
+  		$(".collapsible").collapsible({accordion: false});
+	});
+	//http://codepen.io/jasonpaul/pen/NxjvjW
+});

@@ -3,7 +3,7 @@ class PigsController < ApplicationController
 	
 	def new 		
 		@pig = Pig.new
-		@maxvalue = ActiveRecord::Base.connection.execute("select max(ear_notch_number) from pigs where pigs.ear_notch_number like '#{DateTime.now.strftime('%y%m')}%'").first[0]
+		@earnotch = Pig.set_ear_notch - Integer(DateTime.now.strftime('%y'))*100000
 	end 
 
 	def get_autocomplete_items(parameters)
@@ -12,9 +12,9 @@ class PigsController < ApplicationController
 
 	def create 
 		@pig = Pig.new(pig_params)
-
-		if @pig.save 
-			redirect_to new_pig_path
+		
+		if @pig.save
+			redirect_to pigs_path
 		else 
 			render :new
 		end 

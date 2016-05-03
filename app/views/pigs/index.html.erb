@@ -37,10 +37,10 @@
 							<tr>
 								<td><%= pig.ear_notch_number.to_s[2..-1] %></td>
 								<td><%= pig.sex %></td>
-								<td><%= pig.breed %></td>
-								<td><%= pig.date_of_birth.strftime("%B %d, %Y") %></td>
-								<td><%= pig.litter.dam_id %></td>
-								<td><%= pig.litter.sire_id %></td>
+								<td><%= pig.try(:breed) %></td>
+								<td><%= pig.try(:date_of_birth).strftime("%B %d, %Y") %></td>
+								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] %></td>
+								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] %></td>
 							</tr>
 						<% end %>
 					<% end %>

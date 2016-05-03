@@ -260,6 +260,10 @@ main {
 	input[type="submit"]:not([disabled]) {
 		@extend .deep-orange, .darken-2;
 	}
+	#warning-piglets {
+		@extend .deep-orange-text, .text-darken-2;
+		font-size: 1.4em;
+	}
 }
 
 .error {

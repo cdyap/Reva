@@ -23,12 +23,17 @@
 			  	<%= simple_form_for @pig, html: {class:"input-form"} do |f| %>
 			  		<div class="row">
 			  			<div class="col s9">
-				  			<%= f.input :ear_notch_number, value: @maxvalue, placeholder: @maxvalue.to_s[2..-1] %>
+				  			<%= f.input :ear_notch_number, value: @earnotch, input_html: {value: @earnotch}, label: "Ear notch number (add digits of year)"%>
 				  		</div>
 				  	</div>
 				  	<div class="row">
 				  		<div class="col s12">
 			  				<%= f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white", "CEFN","Hybrid"] %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s6">
+			  				<%= f.input :date_of_birth, as: :string, input_html: {type: :date}%>
 			  			</div>
 			  		</div>
 			  		<div class="row">

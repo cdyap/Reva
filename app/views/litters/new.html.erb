@@ -24,19 +24,21 @@
         <div class="col s10 offset-s1">       
         <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
           <div class="row">
-            <h6>Parents' information:</h6>
+            <div class="row">
+              <h6>Parents' information:</h6>
+            </div>
             <div class="row">
               <div class="col s8">
                 <%# f.input :dam_id, label: "Dam's ear notch number:" %>
                 <%= f.hidden_field :dam_id, :id => "dam_value" %>
-                <%= f.input :dam, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number", required: true %>
+                <%= f.input :dam, url: autocomplete_pig_ear_notch_number_litters_path(sex: "M"), as: :autocomplete,id_element: '#dam_value', label: "Dam's ear notch number", required: true %>
               </div>
               <div class="col s4">
                 <%= f.input :parity_number, as: :select, collection: 1...10,label: "Parity number (P#)" %>
               </div>
               <div class="col s12">
                 <%= f.hidden_field :sire_id, :id => "sire_value" %>
-                <%= f.input :sire, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
+                <%= f.input :sire, url: autocomplete_pig_ear_notch_number_litters_path(sex: "F"), as: :autocomplete, id_element: '#sire_value', label: "Sire's ear notch number", required: true  %>
               </div>
             </div>
             <div class="row">
@@ -48,7 +50,9 @@
           
           
           <div class="row">
-            <h6>Relevant dates:</h6>
+            <div class="row">
+              <h6>Relevant dates:</h6>
+            </div>
             <div class="row">
               <div class="col s6">
                 <%= f.input :date_bred, as: :string, input_html: {type: :date} %>
@@ -66,7 +70,19 @@
             </div>
           </div>
           <div class="row">
-            <h6>Piglets' information:</h6>
+            <div class="row">
+              <h6>Piglets' information:</h6>
+            </div>
+            <div class="row">
+              <div class="col s8">
+                <%# f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"] %>
+                <%# select("breed", ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"], {include_blank: 'Select the breed of the piglets'}) %>
+                <div class="select-wrapper">
+                  <%= select_tag "breed", options_for_select(@breeds.each.map {|name| [name]}), required: true,  include_blank: "", id: 'select-breed'%>
+                  <label>Select breed of piglets:</label>
+                </div>                
+              </div>
+            </div>
             <div class="row">
               <div class="col s6">
                 <%= f.input :mummified_piglets %>
@@ -77,17 +93,7 @@
                 <%= f.input :stillborn_piglets %>
               </div>
             </div>
-            <div class="row">
-              <div class="col s8">
-                <%# f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"] %>
-                <%# select("breed", ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"], {include_blank: 'Select the breed of the piglets'}) %>
-                <div class="select-wrapper">
-                <%= select_tag "breed", options_for_select(@breeds.each.map {|name| [name]}), required: true,  include_blank: ""%>
-                <label>Select breed of piglets:</label>
-                </div>
-                
-              </div>
-            </div>
+            
             <div class="row">
               <div class="input-field col s6">
                 <select id="male-piglets">
@@ -133,11 +139,13 @@
               </div>
             </div>
             <div class="row center-align">
-              <a class="waves-effect waves-light btn center-align blue-grey darken-4" id="add-piglets">Add Piglet Fields</a>
+              <a class="waves-effect waves-light btn center-align blue-grey darken-4 disabled" id="add-piglets">SELECT BREED ABOVE</a>
+              <p id="warning-piglets" class="center-align">Add at least 1 alive piglet</p>
             </div>
           </div>
           <div id="pigs" class="row">
-          <h6>Piglets: <span id="ear">(Last ear notch number: <span id="last-ear-notch"><%=@maxvalue.to_s[2..-1]%></span>)</span></h6>
+          <%# without prefix (@earnotch-1).to_s[2..-1]%>
+          <h6>Piglets: <span id="ear">(Last ear notch number: <span id="last-ear-notch"><%=(@earnotch-1).to_s%></span>)</span></h6>
           
             <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
             <% end%>

@@ -1,29 +1,42 @@
 //= require cocoon
 
 $(document).ready(function(){
+	$('#warning-piglets').toggle(100);
+
+	$('#select-breed').change(function() {
+		$('#add-piglets').removeClass('disabled');
+		$('#add-piglets').html("ADD PIGLETS");
+	});
 	$('#add-piglets').click(function(){
 		if (!($(this).hasClass("disabled"))){
-			totalPigs = parseInt($('#male-piglets').val()) + parseInt($('#female-piglets').val());
-			for (x = 0; x < totalPigs; x++) {
-				$('#add-pig').click();	
+
+			if ($('#male-piglets').val() == 0 && $('#female-piglets').val() == 0) {
+				$('#warning-piglets').toggle(100);
 			}
-			var pigNums = 1;
-			var maleCounter = 1;
-			var latest = parseInt($('#last-ear-notch').html());
-			$('.nested-fields').each(function(){
-				$(this).find('#pig-num').text("Ear notch number " + ++latest + ":");
-				//$(this).find('.ear-notch').html(++latest);
-				if (maleCounter <= parseInt($('#male-piglets').val())) {
-					$(this).find('select').val("M");
-					maleCounter++;
-				} else {
-					$(this).find('select').val("F");
+			else {
+				$('#warning-piglets').toggle(100);
+				totalPigs = parseInt($('#male-piglets').val()) + parseInt($('#female-piglets').val());
+				for (x = 0; x < totalPigs; x++) {
+					$('#add-pig').click();	
 				}
-			});
-			$('select').material_select();			
+				var pigNums = 1;
+				var maleCounter = 1;
+				var latest = parseInt($('#last-ear-notch').html());
+				$('.nested-fields').each(function(){
+					$(this).find('.litter_pigs_ear_notch_number input[type=number]').val(++latest);
+					if (maleCounter <= parseInt($('#male-piglets').val())) {
+						$(this).find('select').val("M");
+						maleCounter++;
+					} else {
+						$(this).find('select').val("F");
+					}
+				});
+				$('select').material_select();	
+				$(this).addClass('disabled');
+				$('#submit-litter').attr("disabled", false);
+			}		
 		}
-		$(this).addClass('disabled');
-		$('#submit-litter').attr("disabled", false);
+		
 	});
 	$('#add-litter-form').on('cocoon:before-insert', function(e,pig_to_be_added) {
 	    pig_to_be_added.fadeIn('slow');
@@ -36,3 +49,5 @@ $(document).ready(function(){
 		pig.fadeOut('slow');
 	});
 });
+
+//SOLVE ISSUE, TOGGLE OF WARNING

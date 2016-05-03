@@ -10,6 +10,7 @@ class LittersController < ApplicationController
 	 		redirect_to litters_path
 		else
       @breeds = ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"]
+      @earnotch = Pig.set_ear_notch - Integer(DateTime.now.strftime('%y'))*100000
 			render 'new'
   	end
 	end
@@ -29,7 +30,7 @@ class LittersController < ApplicationController
     @litter.pigs.build
     @breeds = ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"]
     # select max(ear_notch_number) from pigs where pigs.ear_notch_number like "1604%";
-    @maxvalue = ActiveRecord::Base.connection.execute("select max(ear_notch_number) from pigs where pigs.ear_notch_number like '#{DateTime.now.strftime('%y%m')}%'").first[0]
+    @earnotch = Pig.set_ear_notch - Integer(DateTime.now.strftime('%y'))*100000
   end
 
 	def index		

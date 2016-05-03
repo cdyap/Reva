@@ -39,15 +39,15 @@
               <% else %>
                 <% @litters.each do |litter| %>
                   <tr>
-                    <%# dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
-                    <%# sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
-                    <% dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-                    <% sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                    <% dam_earnotch = Pig.where(pig_id: litter.dam_id).first.ear_notch_number %>
+                    <% sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
+                    <%# dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
+                    <%# sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
                     <td><%=dam_earnotch.to_s[2..-1]%></td>
-                    <td><%=litter.parity_number%></td>
-                    <td><%=litter.sire_id%></td>
-                    <td><%=litter.litter_size_at_birth%></td>
-                    <td><%=litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                    <td><%=litter.try(:parity_number)%></td>
+                    <td><%=sire_earnotch.to_s[2..-1]%></td>
+                    <td><%=litter.try(:litter_size_at_birth)%></td>
+                    <td><%=litter.try(:actual_date_of_farrowing).strftime("%B %d, %Y") %></td>
                     <td><%=link_to "Edit", edit_litter_path(litter.id), method: :get, target: :new %></td>
                   </tr>
                 <% end %>
