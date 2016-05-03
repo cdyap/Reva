@@ -4,9 +4,13 @@ class LittersController < ApplicationController
   def create 
 		@litter=Litter.new(litter_params)
 		if @litter.save
+      @litter.pigs.each do |p|
+        p.update_column(:breed, params[:breed])
+      end
 	 		redirect_to litters_path
 		else
-			render 'litters#new'
+      @breeds = ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"]
+			render 'new'
   	end
 	end
 
@@ -23,6 +27,7 @@ class LittersController < ApplicationController
   def new 
     @litter = Litter.new
     @litter.pigs.build
+    @breeds = ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"]
     # select max(ear_notch_number) from pigs where pigs.ear_notch_number like "1604%";
     @maxvalue = ActiveRecord::Base.connection.execute("select max(ear_notch_number) from pigs where pigs.ear_notch_number like '#{DateTime.now.strftime('%y%m')}%'").first[0]
   end
@@ -32,7 +37,7 @@ class LittersController < ApplicationController
 	end
 
 	def litter_params
-		params.require(:litter).permit(:dam_id, :parity_number, :sire_id, :date_bred, :due_to_farrow, :actual_date_of_farrowing, :mummified_piglets, :stillborn_piglets, :litter_size_at_birth, pigs_attributes: [:pig_id, :ear_notch_number, :sex, :birth_weight, :_destroy])
+		params.require(:litter).permit(:dam_id, :parity_number, :sire_id, :date_bred, :due_to_farrow, :actual_date_of_farrowing, :mummified_piglets, :stillborn_piglets, :litter_size_at_birth, :breed, pigs_attributes: [:pig_id, :ear_notch_number, :sex, :birth_weight, :_destroy])
 	end
 
 end

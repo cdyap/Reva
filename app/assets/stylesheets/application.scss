@@ -258,5 +258,10 @@ main {
 	}
 }
 
+.error {
+	font-size: 1em;
+	@extend .deep-orange-text, .text-darken-2;
+}
+
 
 

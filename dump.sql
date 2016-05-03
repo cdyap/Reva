@@ -29,13 +29,14 @@ USE `Reva_development`;
 --
 
 CREATE TABLE IF NOT EXISTS `cause_of_removals` (
-  `pig_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `removal_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `pig_id` mediumint(7) UNSIGNED DEFAULT NULL,
   `date_of_removal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sale?` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'date pig removed from farm',
   `death?` tinyint(1) NOT NULL DEFAULT '0',
-  `weight_on_removal` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `weight_on_removal` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
   `remarks` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`pig_id`)
+  PRIMARY KEY (`removal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -86,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `pigs` (
   `ear_notch_number` mediumint(7) UNSIGNED NOT NULL DEFAULT '0',
   `breed` varchar(14) DEFAULT NULL,
   `birth_weight` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `weaning_weight` decimal(5,2) NOT NULL DEFAULT '0.00',
   `date_weaned` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dam_id` smallint(5) UNSIGNED DEFAULT NULL,
   `sire_id` smallint(5) UNSIGNED DEFAULT NULL,
@@ -101,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `pigs` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+-- Starter Data
 -- Actual Monthly Count
 -- 1 FATTENER
 INSERT INTO pens (pen_number, building_number, building_name) VALUES (1, 1, "Fattener");

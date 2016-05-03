@@ -54,7 +54,7 @@
               </div>   
             </div>
             <div class="row">
-              <div class="col s16">
+              <div class="col s6">
                 <%= f.input :due_to_farrow, as: :string, input_html: {type: :date} %>
               </div>
             </div>
@@ -74,6 +74,17 @@
             <div class="row">
               <div class="col s6">
                 <%= f.input :stillborn_piglets %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s8">
+                <%# f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"] %>
+                <%# select("breed", ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"], {include_blank: 'Select the breed of the piglets'}) %>
+                <div class="select-wrapper">
+                <%= select_tag "breed", options_for_select(@breeds.each.map {|name| [name]}), required: true,  include_blank: ""%>
+                <label>Select breed of piglets:</label>
+                </div>
+                
               </div>
             </div>
             <div class="row">
@@ -130,7 +141,7 @@
             <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
             <% end%>
             <div id="links">
-              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new}%>
+              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new},  :locals => { :breed => params[:breed]}%>
 
             </div>
           </div>
