@@ -44,7 +44,11 @@
     <div class="col s6 offset-s3 center-align">
       <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
       <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a>
+       <div class="center-align row">
+            <%= link_to "ADD NEW COUNT", new_pen_path, class: "btn deep-orange darken-2 center-align", method: :get %>
+          </div>
     </div>
+
   </div>
   <div class="row">
     <p class="center-align">Click on a building name to expand.</p>
@@ -81,7 +85,7 @@
     </div>          
   </div>
 </div>
-  <!-- <div class="row" id="add">
+<!-- <div class="row" id="add">
       <div id="add" class="col s10 offset-s1">
        <div class="container">
         <div class="col s12"> 
@@ -122,5 +126,5 @@
         </div>
       </div>
     </div>
-  </div>  --> 
+  </div>   -->
 </main>

@@ -150,7 +150,7 @@
             <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
             <% end%>
             <div id="links">
-              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method": :after, "render_options": :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new},  :locals => { :breed => params[:breed]}%>
+              <%= link_to_add_association 'add pig', f, :pigs, html_options: {"data-association-insertion-method"=> :after, "render_options"=> :simple_fields_for}, id: 'add-pig', hidden: true, :wrap_object => Proc.new {|p| p = Pig.new},  :locals => { :breed => params[:breed]}%>
 
             </div>
           </div>
