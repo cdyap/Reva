@@ -1,0 +1,4 @@
+class HeadcountsController < ApplicationController
+
+
+end
