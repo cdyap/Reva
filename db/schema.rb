@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430015636) do
+ActiveRecord::Schema.define(version: 20160504071317) do
 
   create_table "cause_of_removals", primary_key: "removal_id", force: :cascade do |t|
     t.integer  "pig_id",            limit: 3
@@ -22,14 +22,11 @@ ActiveRecord::Schema.define(version: 20160430015636) do
     t.string   "remarks",           limit: 30
   end
 
-  create_table "custom_auto_increments", force: :cascade do |t|
-    t.string   "counter_model_name", limit: 255
-    t.integer  "counter",            limit: 4,   default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "headcounts", primary_key: "headcount_id", force: :cascade do |t|
+    t.datetime "actual_date_of_farrowing",                       null: false
+    t.integer  "pen_id",                   limit: 1, default: 0, null: false
+    t.integer  "headcount",                limit: 1, default: 0, null: false
   end
-
-  add_index "custom_auto_increments", ["counter_model_name"], name: "index_custom_auto_increments_on_counter_model_name", using: :btree
 
   create_table "litters", primary_key: "litter_id", force: :cascade do |t|
     t.integer  "parity_number",            limit: 1, default: 0, null: false

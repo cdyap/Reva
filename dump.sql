@@ -41,21 +41,18 @@ CREATE TABLE `cause_of_removals` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
-
-
-DROP TABLE IF EXISTS `custom_auto_increments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `custom_auto_increments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `counter_model_name` varchar(255) DEFAULT NULL,
-  `counter` int(11) DEFAULT '0',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_custom_auto_increments_on_counter_model_name` (`counter_model_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
+--
+-- Table structure for table `headcount`
+--
+DROP TABLE IF EXISTS `headcounts`;
+CREATE TABLE `headcounts` (
+  `headcount_id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier of headcount',
+  `actual_date_of_farrowing` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'timestamp of headcount',
+  `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT'0' COMMENT 'pen_id of the headcount',
+  `headcount` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'COMMENT 'headcount value',
+  PRIMARY KEY (`headcount_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
 --
 -- Table structure for table `litters`
 --
@@ -119,6 +116,12 @@ CREATE TABLE `pigs` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- Starter Data
+
+--Pigs
+INSERT INTO `pigs` VALUES (3,1605000,'Pure land race',30.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-02 16:00:00','M',NULL),(4,1605001,'Pure land race',40.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-03 16:00:00','F',NULL),(5,1605002,'Pure land race',0.00,0.00,NULL,3,4,0,1,'2016-05-02 16:00:00','M',NULL),(6,1605002,'Pure land race',0.00,0.00,NULL,3,4,0,1,'2016-05-02 16:00:00','F',NULL),(7,1605003,'Chester white',0.00,0.00,NULL,3,4,0,2,'2016-05-05 16:00:00','M',NULL),(8,1605004,'Chester white',0.00,0.00,NULL,3,4,0,2,'2016-05-05 16:00:00','M',NULL),(9,1605005,'Chester white',0.00,0.00,NULL,3,4,0,2,'2016-05-05 16:00:00','M',NULL),(10,1605006,'CEFN',30.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-05 16:00:00','M',NULL),(11,1605007,'Chester white',0.00,0.00,NULL,10,4,0,3,'2016-05-06 16:00:00','M',NULL),(12,1605008,'Chester white',0.00,0.00,NULL,10,4,0,3,'2016-05-06 16:00:00','M',NULL),(13,1605009,'Chester white',0.00,0.00,NULL,10,4,0,3,'2016-05-06 16:00:00','M',NULL);
+
+--Litters
+INSERT INTO `litters` VALUES (1,1,'2016-05-02 16:00:00','2016-05-01 16:00:00',0,0,'2016-05-01 16:00:00',0,3,4,2),(2,2,'2016-05-05 16:00:00','2016-05-03 16:00:00',0,0,'2016-05-03 16:00:00',0,3,4,3),(3,4,'2016-05-06 16:00:00','2016-05-06 16:00:00',0,0,'2016-05-06 16:00:00',0,10,4,3);
 -- Actual Monthly Count
 -- 1 FATTENER
 INSERT INTO pens (pen_number, building_number, building_name) VALUES (1, 1, "Fattener");
