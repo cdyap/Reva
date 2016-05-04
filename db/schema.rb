@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 20160504071317) do
   end
 
   create_table "headcounts", primary_key: "headcount_id", force: :cascade do |t|
-    t.datetime "actual_date_of_farrowing",                       null: false
-    t.integer  "pen_id",                   limit: 1, default: 0, null: false
-    t.integer  "headcount",                limit: 1, default: 0, null: false
+    t.datetime "headcount_date",                       null: false
+    t.integer  "pen_id",         limit: 1, default: 0, null: false
+    t.integer  "headcount",      limit: 1, default: 0, null: false
   end
 
   create_table "litters", primary_key: "litter_id", force: :cascade do |t|
@@ -42,11 +42,9 @@ ActiveRecord::Schema.define(version: 20160504071317) do
   end
 
   create_table "pens", primary_key: "pen_id", force: :cascade do |t|
-    t.integer  "pen_number",        limit: 1,  default: 0, null: false
-    t.integer  "daily_headcount",   limit: 2,  default: 0, null: false
-    t.integer  "building_number",   limit: 1,  default: 0, null: false
-    t.string   "building_name",     limit: 15
-    t.datetime "date_of_headcount",                        null: false
+    t.integer "pen_number",      limit: 1,  default: 0, null: false
+    t.integer "building_number", limit: 1,  default: 0, null: false
+    t.string  "building_name",   limit: 15
   end
 
   create_table "pigs", primary_key: "pig_id", force: :cascade do |t|

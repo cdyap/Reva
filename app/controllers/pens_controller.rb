@@ -1,17 +1,43 @@
 class PensController < ApplicationController
 	def new 		
-		@pen = Pen.new
 	end 
 
 	def create 
-		@pen = Pen.new(pen_params)
+		@headcount = Headcount.new(headcount_params)
 
-		if @pen.save 
-			redirect_to new_pen_path
+		if @headcount.save 
+			redirect_to pens_path
 		else 
 			render :new
 		end 
 	end 
+
+	def edit_all
+		#@building = Building.find(params[:id])
+		@pens = Pen.where(building_number: params[:pen_id])
+		@building = [@pens.first.building_number, @pens.first.building_name]
+		@pens.each do |pen| 
+			pen.headcounts.build
+		end
+	end
+
+	def update_all
+		params['pen'].keys.each do |id|
+		    @pen = Pen.find(id.to_i)
+		    @headcount = Headcount.new(pen_id: id.to_i, headcount: params['pen'][id]['headcount']['headcount'].to_i, headcount_date: DateTime.parse(params['headcount_date']['headcount_date']))
+		    @headcount.save
+		    @pen.headcounts << @headcount
+		end
+		redirect_to dashboard_path
+	end
+
+	def update_each_pen(parameters)
+
+	end
+
+	def show 
+
+	end
 
 	def index 
 		@pen = Pen.new
@@ -34,4 +60,8 @@ class PensController < ApplicationController
 	def pig_params 
 		params.require(:pen).permit!
 	end 
+
+	def headcount_params
+		params.require(:headcount).permit!
+	end
 end

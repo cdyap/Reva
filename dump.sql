@@ -47,7 +47,7 @@ CREATE TABLE `cause_of_removals` (
 DROP TABLE IF EXISTS `headcounts`;
 CREATE TABLE `headcounts` (
   `headcount_id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier of headcount',
-  `actual_date_of_farrowing` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'timestamp of headcount',
+  `headcount_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'timestamp of headcount',
   `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT'0' COMMENT 'pen_id of the headcount',
   `headcount` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'COMMENT 'headcount value',
   PRIMARY KEY (`headcount_id`)
@@ -81,10 +81,8 @@ DROP TABLE IF EXISTS `pens`;
 CREATE TABLE IF NOT EXISTS `pens` (
   `pen_id` tinyint(2) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pen_number` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
-  `daily_headcount` smallint(2) UNSIGNED NOT NULL DEFAULT '0',
   `building_number` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   `building_name` varchar(15) DEFAULT NULL,
-  `date_of_headcount` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pen_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
