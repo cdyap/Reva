@@ -2,7 +2,7 @@
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Mortality Records</p></div>".html_safe, removal_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
     <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
@@ -17,7 +17,7 @@
   <div class="row data">
     <div class="row" id="all">
       <div class="col s10 offset-s1">
-        <h6>Total counts as of: <%=@pens.first.date_of_headcount.strftime("%B %d, %Y")%></h6>
+        <h6>Total counts as of: <%=@latest_date.strftime("%B %d, %Y")%></h6>
         <table class="responsive-table">
           <thead>
             <tr>
@@ -30,10 +30,16 @@
           </thead>
 
           <tbody>
-            <td class="right-align"><%=@pens.first.date_of_headcount.strftime("%B %d, %Y")%></td>
-            <% (1..16).each do |building| %>
-                <td class="center-align"><%=@building_headcount[building]%></td>
-            <% end %>
+            <% @dates.each do |date| %>
+              <td class="right-align"><%= date.headcount_date.strftime("%B %d, %Y")%></td>
+              <% (1..16).each do |building| %>
+                <% Pen.where(building_number: building).each do |pen| %>
+                  <% building_headcount = 0 %>
+                  <% building_headcount = building_headcount + pen.headcounts.where(headcount_date: date.headcount_date.beginning_of_day..date.headcount_date.end_of_day).headcount unless nil?%>
+                <% end %>
+                <td>@building_headcount</td>
+              <% end %>
+            <% end %>            
             <td><%=@total_count%></td>
           </tbody>
         </table>

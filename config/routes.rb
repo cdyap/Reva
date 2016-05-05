@@ -7,9 +7,12 @@ Rails.application.routes.draw do
    get 'pages/removal', as: :removal
 
    resources :pigs
+   resources :cause_of_removals
    resources :headcounts
    resources :buildings
-   resources :litters 
+   resources :litters  do
+    get :autocomplete_pig_ear_notch_number, :on => :collection
+   end
    resources :pens do
     get :edit_all
     put :update_all

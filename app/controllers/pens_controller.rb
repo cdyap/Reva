@@ -40,21 +40,24 @@ class PensController < ApplicationController
 	end
 
 	def index 
-		@pen = Pen.new
-		@pens = Pen.all
+		# @pen = Pen.new
+		# @pens = Pen.all
 		@building_headcount = Array.new(17, 0)
 
-		(1..16).each do |building|
-			building_total = 0
-			Pen.where(building_number: building).each do |pen|
-				building_total = building_total + pen.daily_headcount
-			end
-			@building_headcount[building] = building_total
-		end
-		@total_count = @pens.sum("daily_headcount")
+		# (1..16).each do |building|
+		# 	building_total = 0
+		# 	Pen.where(building_number: building).each do |pen|
+		# 		#building_total = building_total + pen.headcounts.daily_headcount
+		# 	end
+		# 	@building_headcount[building] = building_total
+		# end
+		# @total_count = @pens.sum("daily_headcount")
 
-		@buildings = Pen.select('DISTINCT building_number, building_name')
-		#select distinct building_number, building_name from pens;
+		# @buildings = Pen.select('DISTINCT building_number, building_name')
+
+		#select distinct headcount_date from headcounts order by desc;
+		@dates = Headcount.select('DISTINCT headcount_date').order('headcount_date DESC')
+		@latest_date = Headcount.maximum('headcount_date')
 	end
 
 	def pig_params 
