@@ -1,8 +1,7 @@
 //= require cocoon
 
 $(document).ready(function(){
-	$('#warning-piglets').toggle(100);
-
+	$('#warning-piglets').hide();
 	$('#select-breed').change(function() {
 		$('#add-piglets').removeClass('disabled');
 		$('#add-piglets').html("ADD PIGLETS");
@@ -11,10 +10,10 @@ $(document).ready(function(){
 		if (!($(this).hasClass("disabled"))){
 
 			if ($('#male-piglets').val() == 0 && $('#female-piglets').val() == 0) {
-				$('#warning-piglets').toggle(100);
+				$('#warning-piglets').fadeIn;
 			}
 			else {
-				$('#warning-piglets').toggle(100);
+				$('#warning-piglets').fadeOut;
 				totalPigs = parseInt($('#male-piglets').val()) + parseInt($('#female-piglets').val());
 				for (x = 0; x < totalPigs; x++) {
 					$('#add-pig').click();	
@@ -38,6 +37,8 @@ $(document).ready(function(){
 		}
 		
 	});
+
+	
 	$('#add-litter-form').on('cocoon:before-insert', function(e,pig_to_be_added) {
 	    pig_to_be_added.fadeIn('slow');
 	})
@@ -48,6 +49,25 @@ $(document).ready(function(){
 		$(this).data('remove-timeout', 1000);
 		pig.fadeOut('slow');
 	});
+	$('#male-piglets').change(function(){
+		if ($('#male-piglets').val() == 0 && $('#female-piglets').val()==0) {
+		$('#warning-piglets').fadeIn();
+		}
+		else
+		{
+			$('#warning-piglets').fadeOut();
+		}
+	});
+	$('#female-piglets').change(function(){
+			if ($('#male-piglets').val() == 0 && $('#female-piglets').val()==0) {
+			$('#warning-piglets').fadeIn();
+			}
+			else
+			{
+				$('#warning-piglets').fadeOut();
+			}
+	});
+
 });
 
 //SOLVE ISSUE, TOGGLE OF WARNING

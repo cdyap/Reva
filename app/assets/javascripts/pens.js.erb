@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('#add-pens').addClass('disabled');
 	$('#open').click(function(){
 		$(".collapsible-header").addClass("active");
   		$(".collapsible").collapsible({accordion: false});
@@ -11,4 +12,51 @@ $(document).ready(function(){
   		$(".collapsible").collapsible({accordion: false});
 	});
 	//http://codepen.io/jasonpaul/pen/NxjvjW
+
+	$('#add-pens').click(function(){
+		if (!($(this).hasClass("disabled"))){
+
+			if ($('#buildings').val() == 0) {
+				$('#warning-piglets').fadeIn();
+				$(this).addClass('disabled');
+			}
+			else {
+				totalPens = parseInt($('#buildings').val());
+				for (x = 1; x < totalPens; x++) {
+					// 	
+				}
+				var pigNums = 1;
+				var maleCounter = 1;
+				var latest = parseInt($('#last-ear-notch').html());
+				$('.nested-fields').each(function(){
+					// $(this).find('.litter_pigs_ear_notch_number input[type=number]').val(++latest);
+					// if (maleCounter <= parseInt($('#male-piglets').val())) {
+					// 	$(this).find('select').val("M");
+					// 	maleCounter++;
+					// } else {
+					// 	$(this).find('select').val("F");
+					// }
+				});
+				$('select').material_select();	
+				$(this).addClass('disabled');
+				$('#submit-litter').attr("disabled", false);
+			}		
+		}
+		
+	});
+	$('#buildings').change(function(){
+		$('#add-pens').removeClass('disabled');
+		$('#warning-piglets').fadeOut();
+	});
+
 });
+
+//STUFF TO PUT INTO LOOP
+// var dynamicdiv = document.createElement('div');
+// dynamicdiv.setAttribute("class", "row");
+// var div1 = document.createElement('div')
+// dynamicdiv.setAttribute("class", "col s3");
+// div1.innerHTML = INSERT FORM THINGIE HERE;
+// dynamicdiv.appendChild(div1);
+// document.getElementById(entryofpens).appendChild(dynamicdiv);
+

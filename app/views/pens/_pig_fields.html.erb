@@ -1,0 +1,13 @@
+<div class="divider pig-divider"></div>
+<div class='row nested-fields'>
+	<div class='col s5'>
+		<%= f.input :ear_notch_number %>
+		<%# link_to_remove_association "Remove Pig", f, class: 'waves-effect waves-teal btn-flat' %>
+	</div>
+	<div class='col s3'>
+		<%= f.input :sex, as: :select, collection: ["M", "F"] %>
+	</div>
+	<div class='col s4'>
+		<%= f.input :birth_weight %>
+	</div>
+</div>
