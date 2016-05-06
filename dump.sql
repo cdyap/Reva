@@ -69,6 +69,11 @@ CREATE TABLE `litters` (
   PRIMARY KEY (`litter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `litters` WRITE;
+/*!40000 ALTER TABLE `litters` DISABLE KEYS */;
+INSERT INTO `litters` VALUES (1,1,'2016-05-06 16:00:00','2016-05-06 16:00:00',0,1,'2016-05-04 16:00:00',0,2,1,6),(2,1,'2016-05-05 16:00:00','2016-05-05 16:00:00',0,0,'2016-05-03 16:00:00',0,5,4,2);
+/*!40000 ALTER TABLE `litters` ENABLE KEYS */;
+UNLOCK TABLES;
 -- --------------------------------------------------------
 
 --
@@ -106,6 +111,11 @@ CREATE TABLE `pigs` (
   PRIMARY KEY (`pig_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `pigs` WRITE;
+/*!40000 ALTER TABLE `pigs` DISABLE KEYS */;
+INSERT INTO `pigs` VALUES (1,1605000,'Large white',30.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-04 16:00:00','M',NULL),(2,1605001,'Pure land race',31.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-04 16:00:00','F',NULL),(3,1605002,'Pure land race',20.00,0.00,NULL,2,1,0,1,'2016-05-06 16:00:00','M',NULL),(4,1605003,'Pure land race',20.00,0.00,NULL,2,1,0,1,'2016-05-06 16:00:00','M',NULL),(5,1605004,'Pure land race',20.00,0.00,NULL,2,1,0,1,'2016-05-06 16:00:00','F',NULL),(6,1605005,'Pure land race',20.00,0.00,NULL,2,1,0,1,'2016-05-06 16:00:00','F',NULL),(7,1605006,'Pure land race',20.00,0.00,NULL,2,1,0,1,'2016-05-06 16:00:00','F',NULL),(8,1605007,'Pure land race',25.00,0.00,NULL,5,4,0,2,'2016-05-05 16:00:00','M',NULL),(9,1605008,'Pure land race',25.00,0.00,NULL,5,4,0,2,'2016-05-05 16:00:00','F',NULL);
+/*!40000 ALTER TABLE `pigs` ENABLE KEYS */;
+UNLOCK TABLES;
 -- ----------------------------------------------------
 -- Starter Data
 
