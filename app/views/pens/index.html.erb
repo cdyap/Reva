@@ -17,7 +17,7 @@
   <div class="row data">
     <div class="row" id="all">
       <div class="col s10 offset-s1">
-        <h6>Total counts as of: <%=@latest_date.strftime("%B %d, %Y")%></h6>
+        <h6>Total counts as of: <%#@latest_date.strftime("%B %d, %Y")%></h6>
         <table class="responsive-table">
           <thead>
             <tr>
@@ -30,41 +30,37 @@
           </thead>
 
           <tbody>
-            <% @dates.each do |date| %>
-              <td class="right-align"><%= date.headcount_date.strftime("%B %d, %Y")%></td>
-              <% (1..16).each do |building| %>
-                <% Pen.where(building_number: building).each do |pen| %>
-                  <% building_headcount = 0 %>
-                  <% building_headcount = building_headcount + pen.headcounts.where(headcount_date: date.headcount_date.beginning_of_day..date.headcount_date.end_of_day).headcount unless nil?%>
-                <% end %>
-                <td>@building_headcount</td>
-              <% end %>
-            <% end %>            
-            <td><%=@total_count%></td>
+            <% if @headcounts.size == 0 %>
+              <tr>
+                <td colspan="18" class="center-align">No headcounts yet! Add a headcount</td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
-      </td>
+      </div>
+    </div>
+    <div class="row buttons">
+      <div class="col s6 offset-s3 center-align">
+        <!-- <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
+        <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a> -->
+        <div class="center-align row">
+          <%= form_tag headcount_pens_path, method: :get do %>
+            <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today)%>
+            <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row buttons">
-    <div class="col s6 offset-s3 center-align">
-      <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
-      <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a>
-       <div class="center-align row">
-            <%= link_to "ADD NEW COUNT", new_pen_path, class: "btn deep-orange darken-2 center-align", method: :get %>
-          </div>
-    </div>
-
-  </div>
-  <div class="row">
+  <!-- <div class="row">
     <p class="center-align">Click on a building name to expand.</p>
   </div>
   <div class="row">    
     <div class="col s8 offset-s2">
       <ul class="collapsible" data-collapsible="expandable">
-        <% @buildings.each do |building| %>
+        <%# @buildings.each do |building| %>
           <li>
-            <div class="collapsible-header blue-grey lighten-5">Building <%=building.building_number%>: <%=building.building_name%></div>
+            <div class="collapsible-header blue-grey lighten-5">Building <%#building.building_number%>: <%#building.building_name%></div>
             <div class="collapsible-body">
               <div class="row">
                 <div class="col s10 offset-s1 m6 offset-m3">
@@ -74,63 +70,20 @@
                       <th>Headcount</th>
                     </thead>
                     <tbody>
-                      <%Pen.where(building_number: building.building_number).each do |pen|%>
+                      <%#Pen.where(building_number: building.building_number).each do |pen|%>
                         <tr>
-                          <td><%=pen.pen_number%></td>
-                          <td><%=pen.daily_headcount%></td>
+                          <td><%#pen.pen_number%></td>
+                          <td><%#pen.daily_headcount%></td>
                         </tr>
-                      <% end %>
+                      <%# end %>
                     </tbody>
                   </table>
                 </div>
               </div>              
             </div>
           </li>
-        <% end %>
+        <%# end %>
       </ul>
     </div>          
-  </div>
-</div>
-<!-- <div class="row" id="add">
-      <div id="add" class="col s10 offset-s1">
-       <div class="container">
-        <div class="col s12"> 
-            <%= simple_form_for @pen, html: { class: "input-form", id: "add-pen-form"} do |f|%>
-            <div class="row">
-                  <div class="input-field col s6">
-                    <select id="buildings">
-                        <option value="0" selected>0</option>
-                        <option value="1">Building 1: Fattener</option>
-                        <option value="2">Building 2: Grower</option>
-                        <option value="3">Building 3: Grower</option>
-                        <option value="4">Building 4: Grower</option>
-                        <option value="5">Building 5: Grower</option>
-                        <option value="6">Building 6: Grower</option>
-                        <option value="7">Building 7: Grower</option>
-                        <option value="8">Building 8: Gestating</option>
-                        <option value="9">Building 9: Gestating</option>
-                        <option value="10">Building 10: Gestating</option>
-                        <option value="11">Building 11: Gestating</option>
-                        <option value="12">Building 12: Starter</option>
-                        <option value="13">Building 13: Pre-Starter</option>
-                        <option value="14">Building 14: Farrowing</option>
-                        <option value="15">Building 15: Farrowing</option>
-                        <option value="15">Building 16: Farrowing</option>
-                   </select>
-                <label>Building Number and Name</label>
-              </div>
-            </div>
-            <div class="row">
-                  <div class="col s6">
-                     <%= f.input :date_of_headcount,  as: :string, input_html: {type: :date},label: "Date Recorded:" %>
-                  </div>
-            </div>
-            <div class="row center-align">
-              <a class="waves-effect waves-light btn center-align blue-grey darken-4" id="add-pens">Add Pen Fields</a>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>   -->
+  </div>-->
 </main>

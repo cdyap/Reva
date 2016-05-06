@@ -35,8 +35,8 @@ class PensController < ApplicationController
 
 	end
 
-	def show 
-
+	def headcount
+		@date = params[:headcount_date][:headcount_date]
 	end
 
 	def index 
@@ -56,6 +56,7 @@ class PensController < ApplicationController
 		# @buildings = Pen.select('DISTINCT building_number, building_name')
 
 		#select distinct headcount_date from headcounts order by desc;
+		@headcounts = Headcount.all
 		@dates = Headcount.select('DISTINCT headcount_date').order('headcount_date DESC')
 		@latest_date = Headcount.maximum('headcount_date')
 	end

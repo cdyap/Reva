@@ -10,10 +10,10 @@ $(document).ready(function(){
 		if (!($(this).hasClass("disabled"))){
 
 			if ($('#male-piglets').val() == 0 && $('#female-piglets').val() == 0) {
-				$('#warning-piglets').fadeIn;
+				$('#warning-piglets').fadeIn();
 			}
 			else {
-				$('#warning-piglets').fadeOut;
+				$('#warning-piglets').fadeOut();
 				totalPigs = parseInt($('#male-piglets').val()) + parseInt($('#female-piglets').val());
 				for (x = 0; x < totalPigs; x++) {
 					$('#add-pig').click();	

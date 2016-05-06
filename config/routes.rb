@@ -16,6 +16,8 @@ Rails.application.routes.draw do
    resources :pens do
     get :edit_all
     put :update_all
+    get :headcount, on: :collection
+
    end
 
 
