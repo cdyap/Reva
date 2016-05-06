@@ -36,7 +36,8 @@ class PensController < ApplicationController
 	end
 
 	def headcount
-		@date = params[:headcount_date][:headcount_date]
+		@date = Date.parse(params[:headcount_date][:headcount_date])
+		@buildings = Pen.select('DISTINCT building_number, building_name')
 	end
 
 	def index 

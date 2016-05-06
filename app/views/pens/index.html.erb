@@ -15,9 +15,28 @@
     </div>
   </div>  
   <div class="row data">
+    <div class="row buttons">
+      <div class="col s6 offset-s3 center-align">
+        <!-- <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
+        <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a> -->
+        <div class="center-align row">
+          <%= form_tag headcount_pens_path, method: :get, class: 'input-form' do %>
+            <div class="row">
+            <label class="right-align" for="headcount_date">Select date for new headcount:</label>
+              <div class="col s8 offset-s2">
+                <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today, label: "Date of headcount:", class:'center-align')%>
+              </div>
+            </div>
+            <div class="row">
+              <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <div class="row" id="all">
       <div class="col s10 offset-s1">
-        <h6>Total counts as of: <%#@latest_date.strftime("%B %d, %Y")%></h6>
+        <!-- <h6>Total counts as of: <%#@latest_date.strftime("%B %d, %Y")%></h6> -->
         <table class="responsive-table">
           <thead>
             <tr>
@@ -39,18 +58,7 @@
         </table>
       </div>
     </div>
-    <div class="row buttons">
-      <div class="col s6 offset-s3 center-align">
-        <!-- <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
-        <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a> -->
-        <div class="center-align row">
-          <%= form_tag headcount_pens_path, method: :get do %>
-            <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today)%>
-            <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    
   </div>
   <!-- <div class="row">
     <p class="center-align">Click on a building name to expand.</p>
