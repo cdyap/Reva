@@ -29,8 +29,9 @@
             </div>
             <div class="row">
               <div class="col s8">
-                <%= f.hidden_field :pig_id, :id => "id_value" %>
-                <%= f.input :ear_notch_number, url: autocomplete_pig_ear_notch_number_cause_of_removals_path(sex: "F"), as: :autocomplete, id_element: '#pig_id', label: "Dam's ear notch number", required: true %>
+
+                <%= f.input :pig_id, url: autocomplete_pig_ear_notch_number_cause_of_removals_path, as: :autocomplete, id_element: '#pig_id', label: "Ear notch number", required: true %>
+                <%= f.hidden_field :pig, :value => Pig[:id], id: 'pig_id' %>
               </div>
               <div class="col s4">
                 <%= f.input :date_of_removal, as: :string, input_html: {type: :date} %>
@@ -40,13 +41,8 @@
                   
             </div>
             <div class="row">
-                 <div class="input-field col s12">
-                  <select id="mode_of_removal?">
-                    <option value="2" selected>Please select a mode of removal</option>
-                    <option value="1">Sale</option>
-                    <option value="0">Death</option>
-                  </select>
-                  <label>Mode of Removal</label>
+              <div class="col s12">
+                  <%= f.input :mode_of_removal?, as: :select, collection: [["Sale", 1], [ "Death", 0]], id_element:"mode_of_removal", label: "Mode of Removal"%>
                 </div>
             </div>
             <div class="row">
@@ -60,7 +56,7 @@
             </div>
           </div>
           <div class="center-align row">
-            <%= f.button :submit, label: 'CREATE CAUSE OF REMOVAL', disabled: true, class: 'center-align', id: 'submit-cause_of_removal' %>
+            <%= f.button :submit, label: 'CREATE CAUSE OF REMOVAL', class: 'center-align', id: 'submit-cause_of_removal' %>
           </div>
         <% end %>
         </div>       
