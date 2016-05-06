@@ -1,14 +1,20 @@
 class CauseOfRemovalsController < ApplicationController
-autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth, :breed, :sex], :full => true, :display_value => :autocorrect_values
+autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth, :breed, :sex], :full => true, :display_value => :autocorrect_values, scope: [:removed?]
 	def new 
 		@cause_of_removal = CauseOfRemoval.new 		
 	end 
+	def get_autocomplete_items(parameters)
+   		 super(parameters).where(:removed => params[:removed?])
+    end
+
 
 	def create 
 		@cause_of_removal = CauseOfRemoval.new(cause_of_removal_params)
 
+
 		if @cause_of_removal.save 
-			redirect_to cause_of_removal_path
+			# Pig.where(pig_id: @cause_of_removal.pig_id)
+			redirect_to cause_of_removals_path
 		else 
 			render :new
 		end 

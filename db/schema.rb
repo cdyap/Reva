@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160504071317) do
   create_table "cause_of_removals", primary_key: "removal_id", force: :cascade do |t|
     t.integer  "pig_id",            limit: 3
     t.datetime "date_of_removal",                                                    null: false
-    t.boolean  "mode_of_removal?"
+    t.boolean  "mode_of_removal"
     t.decimal  "weight_on_removal",            precision: 5, scale: 2, default: 0.0, null: false
     t.string   "remarks",           limit: 30
   end
@@ -47,18 +47,19 @@ ActiveRecord::Schema.define(version: 20160504071317) do
   end
 
   create_table "pigs", primary_key: "pig_id", force: :cascade do |t|
-    t.integer  "ear_notch_number", limit: 3,                          default: 0,   null: false
+    t.integer  "ear_notch_number", limit: 3,                          default: 0,     null: false
     t.string   "breed",            limit: 14
-    t.decimal  "birth_weight",                precision: 5, scale: 2, default: 0.0, null: false
-    t.decimal  "weaning_weight",              precision: 5, scale: 2, default: 0.0, null: false
+    t.decimal  "birth_weight",                precision: 5, scale: 2, default: 0.0,   null: false
+    t.decimal  "weaning_weight",              precision: 5, scale: 2, default: 0.0,   null: false
     t.datetime "date_weaned"
     t.integer  "dam_id",           limit: 2
     t.integer  "sire_id",          limit: 2
-    t.integer  "pen_id",           limit: 1,                          default: 0,   null: false
+    t.integer  "pen_id",           limit: 1,                          default: 0,     null: false
     t.integer  "litter_id",        limit: 2
-    t.datetime "date_of_birth",                                                     null: false
-    t.string   "sex",              limit: 1,                          default: "x", null: false
+    t.datetime "date_of_birth",                                                       null: false
+    t.string   "sex",              limit: 1,                          default: "x",   null: false
     t.string   "remarks",          limit: 30
+    t.boolean  "removed?",                                            default: false, null: false
   end
 
 end
