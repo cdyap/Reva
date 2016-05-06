@@ -1,0 +1,71 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class=" sidebar-active  valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+  <div class="fixed container ">
+      <div class="row valign-wrapper header">
+        <%=image_tag "logo.svg", id: 'logo'%>
+        <%= link_to "Daily Litter Records", litters_path, class:'valign', method: :get%>
+        <!-- <h5 class="valign">Daily Litter Records</h5> -->
+        <h5 class="valign separator">></h5>
+        <h5 class="valign">New Litter</h5>
+        <!-- <a href="">logout</a> -->
+      </div>
+  </div>
+  <!-- DATA -->
+  <div class="row data">
+        <div id="add" class="col s10 offset-s1">
+       <div class="container">
+        <div class="col s10 offset-s1">       
+        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
+          <div class="row">
+            <div class="row">
+              <h6>Cause of Removal Information:</h6>
+            </div>
+            <div class="row">
+              <div class="col s8">
+                <%# f.input :dam_id, label: "Dam's ear notch number:" %>
+                <%= f.hidden_field :dam_id, :id => "dam_value" %>
+                <%= f.input :ear_notch_number  url: autocomplete_pig_ear_notch_number_litters_path(sex: "F"), as: :autocomplete,id_element: '#dam_value', label: "Dam's ear notch number", required: true %>
+              </div>
+              <div class="col s4">
+                <%= f.input :date_of_removal, as: :string, input_html: {type: :date} %>
+              </div>
+              
+            
+                  
+            </div>
+            <div class="row">
+                 <div class="input-field col s12">
+                  <select id="mode_of_removal?">
+                    <option value="2" selected>Please select a mode of removal</option>
+                    <option value="1">Sale</option>
+                    <option value="0">Death</option>
+                  </select>
+                  <label>Mode of Removal</label>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <%= f.input :weight_on_removal, :as :radio_buttons, collection: ''%>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <%= f.input :remarks %>
+            </div>
+          </div>
+          <div class="center-align row">
+            <%= f.button :submit, label: 'CREATE CAUSE OF REMOVAL', disabled: true, class: 'center-align', id: 'submit-cause_of_removal' %>
+          </div>
+        <% end %>
+        </div>       
+      </div>
+    </div>
+  </div>
+</main>
