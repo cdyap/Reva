@@ -30,7 +30,8 @@
             <div class="row">
               <div class="col s8">
 
-                <%= f.association :pig, url: autocomplete_pig_ear_notch_number_cause_of_removals_path(removed: "0"), as: :autocomplete, label: "Ear notch number", required: true %>
+                <%= f.hidden_field :pig_id, :id => "pig_val" %>
+                <%= f.association :pig, url: autocomplete_pig_ear_notch_number_cause_of_removals_path(removed: "0"), as: :autocomplete, id_element: '#pig_val', label: "Ear notch number", required: true %>
     
               </div>
               <div class="col s4">

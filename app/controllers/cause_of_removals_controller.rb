@@ -12,9 +12,10 @@ class CauseOfRemovalsController < ApplicationController
 		@cause_of_removal = CauseOfRemoval.new(cause_of_removal_params)
 
 		if @cause_of_removal.save 
-			pig = Pig.find_by(pig_id: @cause_of_removal.pig_id)
-			pig.removed = 1;
-			pig.save
+				@pig = Pig.new
+				@pig = Pig.find_by_pig_id(@cause_of_removal.pig_id)
+				@pig.removed = 1;
+				@pig.save
 			redirect_to cause_of_removals_path
 		else 
 			render :new
