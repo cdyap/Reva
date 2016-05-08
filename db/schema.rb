@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20160504071317) do
     t.datetime "date_of_birth",                                                       null: false
     t.string   "sex",              limit: 1,                          default: "x",   null: false
     t.string   "remarks",          limit: 30
-    t.boolean  "removed?",                                            default: false, null: false
+    t.boolean  "removed",                                             default: false, null: false
   end
 
 end
