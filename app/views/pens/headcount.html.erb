@@ -25,21 +25,35 @@
     </div>
     <div class="row">
       <div class="col s6 offset-s3">
-        <ul class="collapsible" data-collapsible="expandable">
+        <ul class="collapsible popout" data-collapsible="expandable">
           <% @buildings.each do |building| %>
             <% @pens = Pen.where(building_number: building.building_number) %>
             <% @half = @pens.length/2 %>
             <li>
-              <div class="collapsible-header"><span class="new badge">4</span>Building <%=building.building_number%>: <%=building.building_name%></div>
+              <div class="collapsible-header">
+                <div class="row valign-wrapper">
+                  <div class="col s4 valign">
+                    <% if @pens.first.headcounts.headcountpens(@date).count == 0 %>
+                      <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
+                    <% else %>
+                      
+                      <span class="headcounts"><%=@pens.includes(:headcounts).sum("headcount")%></span>
+                    <% end %>
+                  </div>
+                  <div class="col s8 valign">
+                    Building <%=building.building_number%>: <%=building.building_name%>
+                  </div>
+                </div>
+              </div>
               <div class="collapsible-body">
                 <div class="row">
-                  <div class="col s4 offset-s4">
+                  <div class="col s6 offset-s3">
                     <table>
                       <tbody>
                         <% @pens[0..@half-1].each_with_index do |pen, index| %>
                           <tr>
-                            <td><%=pen.pen_number%>: 0</td>
-                            <td><%=@pens[index+@half].pen_number%>: 0</td>
+                            <td>P<%=pen.pen_number%>: <%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></td>
+                            <td>P<%=@pens[index+@half].pen_number%>: <%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></td>
                           </tr>                
                         <% end %>
                       </tbody>

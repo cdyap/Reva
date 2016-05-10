@@ -33,6 +33,10 @@ class Pig < ActiveRecord::Base
 		end
 	end
 
+	def alive
+		removed ? self.cause_of_removal.reason : 'Alive'
+	end
+
 	private def set_birthday
 		if !self.litter_id.nil?
 			self.update_column(:date_of_birth, self.litter.actual_date_of_farrowing)

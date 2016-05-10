@@ -27,6 +27,7 @@
 						<th>Date of Birth</th>
 						<th>Dam</th>
 						<th>Sire</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,6 +42,7 @@
 								<td><%= pig.try(:date_of_birth).strftime("%B %d, %Y") %></td>
 								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] %></td>
 								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] %></td>
+								<td><%= pig.alive %></td>
 							</tr>
 						<% end %>
 					<% end %>

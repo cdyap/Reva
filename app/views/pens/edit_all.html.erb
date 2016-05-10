@@ -25,11 +25,11 @@
         
         
         <%=simple_form_for :pen, url: pen_update_all_path, html: {class: 'input-form', method: :put} do %>
-          <%= date_field("headcount_date", "headcount_date", default: DateTime.now)%>
+          <%= date_field("headcount_date", "headcount_date", value: @date)%>
           <% @pens.each do |pen| %>
             <%= simple_fields_for "pen[]", pen do |p| %>
               <%=p.simple_fields_for :headcount do |h|%>
-                <%= h.input :headcount %>
+                <%= h.input :headcount, value: 0, label: "Pen "+pen.pen_number.to_s %>
               <% end %>
             <% end %>
           <% end %>

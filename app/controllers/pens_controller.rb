@@ -13,9 +13,9 @@ class PensController < ApplicationController
 	end 
 
 	def edit_all
-		#@building = Building.find(params[:id])
 		@pens = Pen.where(building_number: params[:pen_id])
 		@building = [@pens.first.building_number, @pens.first.building_name]
+		@date = params[:headcount_date]
 		@pens.each do |pen| 
 			pen.headcounts.build
 		end
@@ -28,7 +28,7 @@ class PensController < ApplicationController
 		    @headcount.save
 		    @pen.headcounts << @headcount
 		end
-		redirect_to dashboard_path
+		redirect_to headcount_pens_path(Date.parse(params[:headcount_date][:headcount_date]))
 	end
 
 	def update_each_pen(parameters)
@@ -36,7 +36,13 @@ class PensController < ApplicationController
 	end
 
 	def headcount
-		@date = Date.parse(params[:headcount_date][:headcount_date])
+		begin
+			@date = Date.parse(params[:headcount_date][:headcount_date])
+		rescue NoMethodError
+			@date = Date.parse(params[:format])
+		end
+		 
+		@headcounts = Headcount.where('start BETWEEN ? AND ?', DateTime.parse(@date.to_s).beginning_of_day, DateTime.parse(@date.to_s).end_of_day).all
 		@buildings = Pen.select('DISTINCT building_number, building_name')
 	end
 

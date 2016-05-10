@@ -21,15 +21,18 @@
         <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a> -->
         <div class="center-align row">
           <%= form_tag headcount_pens_path, method: :get, class: 'input-form' do %>
-            <div class="row">
-            <label class="right-align" for="headcount_date">Select date for new headcount:</label>
-              <div class="col s8 offset-s2">
-                <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today, label: "Date of headcount:", class:'center-align')%>
+            <div class="row valign-wrapper">
+              <div class="col s6 valign">
+                <label class="right-align valign" for="headcount_date">Select date for new headcount:</label>
+              </div>
+              <div class="col s6">
+                <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today, label: "Date of headcount:", class:'left-align', :order => [:month, :day, :year])%>
               </div>
             </div>
-            <div class="row">
-              <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
-            </div>
+              <div class="row">
+                <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
+              </div>
+
           <% end %>
         </div>
       </div>
@@ -42,7 +45,7 @@
             <tr>
                 <th data-field="building_number" class="right-align">Building #</th>
                 <% (1..16).each do |i| %>
-                  <td class="center-align"><%=i%></td>
+                  <td class="right-align"><%=i%></td>
                 <%end%>
                 <th>Total</th>
             </tr>
@@ -53,6 +56,23 @@
               <tr>
                 <td colspan="18" class="center-align">No headcounts yet! Add a headcount</td>
               </tr>
+            <% else %>
+              <%Headcount.select('DISTINCT headcount_date').each do |date| %>
+                <tr>
+                  <% @total = 0 %>
+                  <td class="right-align"><%=link_to date.headcount_date.strftime('%B %d, %Y'), headcount_pens_path(headcount_date: {headcount_date: date.headcount_date}), method: :get, target: '_new'%></td>
+                  <% if (Pen.all.count - Pen.joins("LEFT OUTER JOIN headcounts on pens.pen_id = headcounts.pen_id").where("headcounts.headcount_date >= ? AND headcounts.headcount_date <= ?", date.headcount_date.beginning_of_day, date.headcount_date.end_of_day).count != -4) %>
+                      <td colspan="18" class="center-align">Incomplete headcounts!</td>
+                  <% else %>
+
+                    <% (1..16).each do |bldg| %>
+                      <td class="right-align"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date >= ? AND headcounts.headcount_date <= ?', bldg, date.headcount_date, date.headcount_date).sum('headcount') %></td>
+                      <% @total = @total + @headcounts %>
+                    <% end %>
+                    <td class="text-bold"><%=@total%></td>
+                  <% end %>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>

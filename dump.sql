@@ -31,7 +31,7 @@ CREATE TABLE `cause_of_removals` (
   `removal_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pig_id` mediumint(7) UNSIGNED DEFAULT NULL,
   `date_of_removal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `mode_of_removal` tinyint(1)  DEFAULT NULL,
+  `sale` tinyint(1)  DEFAULT NULL,
   `weight_on_removal` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
   `remarks` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`removal_id`)

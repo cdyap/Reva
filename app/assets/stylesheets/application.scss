@@ -272,4 +272,16 @@ main {
 }
 
 
+.headcounts {
+	@extend .blue-grey, .darken-4, .white-text;
+	padding: 6px;
+	margin-right: 15px;
+	width: 30px;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
+
 
