@@ -4,6 +4,6 @@
 		<%= f.input :weaning_weight, label: '' %>
 	</td>
 	<td>
-		<%= f.input :date_weaned, as: :string, input_html: {type: :date, value: f.object.date_weaned}, label: '', value: f.object.date_weaned%>
+		<%= f.input :date_weaned, as: :string, input_html: {type: :date, value: f.object.date_weaned.try(:strftime,"%Y-%m-%d")}, label: ''%>
 	</td>
 </div>

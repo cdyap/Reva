@@ -104,7 +104,7 @@
           </div>
           
           <div class="row">
-            <h6 class="center-align">Piglets' information:</h6>
+            <h6 class="center-align text-bold">Piglets' information:</h6>
             <div class="col s6 offset-s3">
               <table>
                 <tr> 
@@ -114,7 +114,7 @@
                   <td class="center-align">Stillborn piglets: <%= @litter.stillborn_piglets %></td>
                 </tr>
                 <tr>
-                  <td class="center-align">Breed of piglets: <%= @litter.pigs.first.breed %></td>
+                  <td class="center-align">Breed: <%= @litter.pigs.first.breed %></td>
                 </tr>
               </table>
             </div>
@@ -129,7 +129,7 @@
                 <th>Date Weaned</th>
               </thead>
               <tbody> 
-                   
+
                 <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
                   <tr>
                       <td><%= p.object.ear_notch_number.to_s[2..-1] %></td>

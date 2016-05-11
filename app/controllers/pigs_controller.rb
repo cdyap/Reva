@@ -14,7 +14,7 @@ class PigsController < ApplicationController
 		@pig = Pig.new(pig_params)
 		
 		if @pig.save
-			redirect_to pigs_path
+			redirect_to pigs_path, notice: "Pig record #{@pig.ear_notch_number.to_s[2..-1]} successfully created."
 		else 
 			render :new
 		end 

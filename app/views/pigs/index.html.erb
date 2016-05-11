@@ -18,6 +18,11 @@
 			<div class="center-align row">
 	            <%= link_to "ADD NEW PIG", new_pig_path, class: "btn deep-orange darken-2 center-align", method: :get %>
           	</div>
+          	<div class="row">
+	          	<% flash.each do |name, msg| -%>
+			      <%= content_tag :div, msg, class: name %>
+			    <% end -%>
+		    </div>
 			<table class="striped responsive-table">
 				<thead>
 					<tr>
@@ -32,7 +37,7 @@
 				</thead>
 				<tbody>
 					<% if Pig.all.size == 0 %>
-						<td colspan="6"><p class="center-align">No pigs yet! Add a new pig above.</p></td>
+						<td colspan="7"><p class="center-align">No pigs yet! Add a new pig above.</p></td>
 					<% else %>
 						<% Pig.all.each do |pig| %>
 							<tr>
