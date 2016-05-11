@@ -42,7 +42,7 @@ class PensController < ApplicationController
 			@date = Date.parse(params[:format])
 		end
 		 
-		@headcounts = Headcount.where('start BETWEEN ? AND ?', DateTime.parse(@date.to_s).beginning_of_day, DateTime.parse(@date.to_s).end_of_day).all
+		@headcounts = Headcount.where('start = ?', Date.parse(@date.to_s)).all
 		@buildings = Pen.select('DISTINCT building_number, building_name')
 	end
 

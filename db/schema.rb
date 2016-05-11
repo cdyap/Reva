@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "headcounts", primary_key: "headcount_id", force: :cascade do |t|
-    t.datetime "headcount_date",                       null: false
-    t.integer  "pen_id",         limit: 1, default: 0, null: false
-    t.integer  "headcount",      limit: 1, default: 0, null: false
+    t.date    "headcount_date",                       null: false
+    t.integer "pen_id",         limit: 1, default: 0, null: false
+    t.integer "headcount",      limit: 1, default: 0, null: false
   end
 
   create_table "litters", primary_key: "litter_id", force: :cascade do |t|

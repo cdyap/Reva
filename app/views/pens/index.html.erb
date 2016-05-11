@@ -57,16 +57,16 @@
                 <td colspan="18" class="center-align">No headcounts yet! Add a headcount</td>
               </tr>
             <% else %>
-              <%Headcount.select('DISTINCT headcount_date').each do |date| %>
+              <%@dates.each do |date| %>
                 <tr>
                   <% @total = 0 %>
                   <td class="right-align"><%=link_to date.headcount_date.strftime('%B %d, %Y'), headcount_pens_path(headcount_date: {headcount_date: date.headcount_date}), method: :get, target: '_new'%></td>
-                  <% if (Pen.all.count - Pen.joins("LEFT OUTER JOIN headcounts on pens.pen_id = headcounts.pen_id").where("headcounts.headcount_date >= ? AND headcounts.headcount_date <= ?", date.headcount_date.beginning_of_day, date.headcount_date.end_of_day).count != -4) %>
+                  <% if (Pen.all.count - Pen.joins("LEFT OUTER JOIN headcounts on pens.pen_id = headcounts.pen_id").where("headcounts.headcount_date = ? ", date.headcount_date).count != -4) %>
                       <td colspan="18" class="center-align">Incomplete headcounts!</td>
                   <% else %>
 
                     <% (1..16).each do |bldg| %>
-                      <td class="right-align"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date >= ? AND headcounts.headcount_date <= ?', bldg, date.headcount_date, date.headcount_date).sum('headcount') %></td>
+                      <td class="right-align"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg, date.headcount_date).sum('headcount') %></td>
                       <% @total = @total + @headcounts %>
                     <% end %>
                     <td class="text-bold"><%=@total%></td>

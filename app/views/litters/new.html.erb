@@ -31,14 +31,14 @@
               <div class="col s8">
                 <%# f.input :dam_id, label: "Dam's ear notch number:" %>
                 <%= f.hidden_field :dam_id, :id => "dam_value" %>
-                <%= f.input :dam, url: autocomplete_pig_ear_notch_number_litters_path(sex: "F"), as: :autocomplete,id_element: '#dam_value', label: "Dam's ear notch number", required: true %>
+                <%= f.input :dam, url: autocomplete_pig_ear_notch_number_litters_path(sex: "F", removed: :false), as: :autocomplete,id_element: '#dam_value', label: "Dam's ear notch number", required: true %>
               </div>
               <div class="col s4">
                 <%= f.input :parity_number, as: :select, collection: 1...10,label: "Parity number (P#)" %>
               </div>
               <div class="col s12">
                 <%= f.hidden_field :sire_id, :id => "sire_value" %>
-                <%= f.input :sire, url: autocomplete_pig_ear_notch_number_litters_path(sex: "M"), as: :autocomplete, id_element: '#sire_value', label: "Sire's ear notch number", required: true  %>
+                <%= f.input :sire, url: autocomplete_pig_ear_notch_number_litters_path(sex: "M", removed: :false), as: :autocomplete, id_element: '#sire_value', label: "Sire's ear notch number", required: true  %>
               </div>
             </div>
             <div class="row">

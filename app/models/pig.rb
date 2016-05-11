@@ -2,7 +2,7 @@ class Pig < ActiveRecord::Base
 	belongs_to :litter
 	has_many :litters
 	has_one :cause_of_removal
-	after_save :set_birthday
+	after_create :set_birthday
 	#after_initialize :set_earnotch
 	#protokoll :ear_notch_number, :pattern => "%y%m###"
 	#validates :breed, presence: true

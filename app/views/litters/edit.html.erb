@@ -21,7 +21,7 @@
   <div class="row data">
         <div id="add" class="col s10 offset-s1">
               
-        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>
+        <%= simple_form_for @litter, html: { class: "input-form", id: "add-litter-form"} do |f|%>   
           <div class="row">
             <h6>Parents' information:</h6>
             <div class="row">
@@ -41,11 +41,11 @@
                     </tr>
                     <tr>
                       <td>Dam: </td>
-                      <td><%=dam_damid = Pig.where(pig_id: @dam.dam_id).first.ear_notch_number dam_damid unless dam_damid.nil? %></td>
+                      <td><%=dam_damid = Pig.where(pig_id: @dam.dam_id).first.try(:ear_notch_number).to_s[2..-1] unless !dam_damid.nil? %></td>
                     </tr>
                     <tr>
                       <td>Sire: </td>
-                      <td><%=dam_sireid = Pig.where(pig_id: @dam.sire_id).first.ear_notch_number dam_damid unless dam_damid.nil? %></td>
+                      <td><%=dam_sireid = Pig.where(pig_id: @dam.sire_id).first.try(:ear_notch_number).to_s[2..-1] unless !dam_sireid.nil? %></td>
                     </tr>
                   </tbody>
                 </table>
@@ -91,11 +91,11 @@
                     </tr>
                     <tr>
                       <td>Dam: </td>
-                      <td><%=sire_damid = Pig.where(pig_id: @sire.dam_id).first.ear_notch_number sire_damid unless sire_damid.nil? %></td>
+                      <td><%=sire_damid = Pig.where(pig_id: @sire.dam_id).first.try(:ear_notch_number).to_s[2..-1] unless !sire_damid.nil? %></td>
                     </tr>
                     <tr>
                       <td>Sire: </td>
-                      <td><%=sire_sireid = Pig.where(pig_id: @sire.sire_id).first.ear_notch_number sire_damid unless sire_sireid.nil? %></td>
+                      <td><%=sire_sireid = Pig.where(pig_id: @sire.sire_id).first.try(:ear_notch_number).to_s[2..-1] unless !sire_sireid.nil? %></td>
                     </tr>
                   </tbody>
                 </table>
@@ -104,16 +104,17 @@
           </div>
           
           <div class="row">
-            <h6>Piglets' information:</h6>
-            <div class="col s3">
+            <h6 class="center-align">Piglets' information:</h6>
+            <div class="col s6 offset-s3">
               <table>
                 <tr> 
-                  <td>Mummified piglets: </td>
-                  <td><%= @litter.mummified_piglets %></td>
+                  <td class="center-align">Mummified piglets: <%= @litter.mummified_piglets %></td>
                 </tr>
                 <tr> 
-                  <td>Stillborn piglets: </td>
-                  <td><%= @litter.stillborn_piglets %></td>
+                  <td class="center-align">Stillborn piglets: <%= @litter.stillborn_piglets %></td>
+                </tr>
+                <tr>
+                  <td class="center-align">Breed of piglets: <%= @litter.pigs.first.breed %></td>
                 </tr>
               </table>
             </div>
@@ -127,7 +128,8 @@
                 <th>Weaning Weight</th>
                 <th>Date Weaned</th>
               </thead>
-              <tbody>         
+              <tbody> 
+                   
                 <%= f.simple_fields_for :pigs, html: {id: "add-pigs-form"} do |p| %>
                   <tr>
                       <td><%= p.object.ear_notch_number.to_s[2..-1] %></td>

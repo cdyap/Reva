@@ -1,5 +1,5 @@
 class LittersController < ApplicationController
-	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex]
+	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex, :removed]
 
   def create 
 		@litter=Litter.new(litter_params)
@@ -16,10 +16,26 @@ class LittersController < ApplicationController
 	end
 
   def get_autocomplete_items(parameters)
-    super(parameters).where(:sex => params[:sex])
+    super(parameters).where(:sex => params[:sex], :removed => params[:removed])
   end
 
   def edit 
+    @litter = Litter.find(params[:id])
+    @dam = Pig.where(pig_id: @litter.dam_id).first
+    @sire = Pig.where(pig_id: @litter.sire_id).first
+  end
+
+  def update
+    params[:litter][:pigs_attributes].each do |p|
+      @pig = Pig.find(Integer(p[1][:id]))
+      @pig.update_column(:weaning_weight, p[1][:weaning_weight])
+      @pig.update_attribute(:date_weaned, p[1][:date_weaned])
+    end
+
+    redirect_to litters_path    
+  end
+
+  def show
     @litter = Litter.find(params[:id])
     @dam = Pig.where(pig_id: @litter.dam_id).first
     @sire = Pig.where(pig_id: @litter.sire_id).first
@@ -38,7 +54,7 @@ class LittersController < ApplicationController
 	end
 
 	def litter_params
-		params.require(:litter).permit(:dam_id, :parity_number, :sire_id, :date_bred, :due_to_farrow, :actual_date_of_farrowing, :mummified_piglets, :stillborn_piglets, :litter_size_at_birth, :breed, pigs_attributes: [:pig_id, :ear_notch_number, :sex, :birth_weight, :_destroy])
+		params.require(:litter).permit(:dam_id, :parity_number, :sire_id, :date_bred, :due_to_farrow, :actual_date_of_farrowing, :mummified_piglets, :stillborn_piglets, :litter_size_at_birth, :breed, pigs_attributes: [:pig_id, :id, :ear_notch_number, :sex, :birth_weight, :weaning_weight, :date_weaned, :_destroy])
 	end
 
 end

@@ -40,8 +40,8 @@
 								<td><%= pig.sex %></td>
 								<td><%= pig.try(:breed) %></td>
 								<td><%= pig.try(:date_of_birth).strftime("%B %d, %Y") %></td>
-								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] %></td>
-								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] %></td>
+								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
+								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
 								<td><%= pig.alive %></td>
 							</tr>
 						<% end %>

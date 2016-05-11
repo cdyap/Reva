@@ -52,8 +52,8 @@
                       <tbody>
                         <% @pens[0..@half-1].each_with_index do |pen, index| %>
                           <tr>
-                            <td>P<%=pen.pen_number%>: <%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></td>
-                            <td>P<%=@pens[index+@half].pen_number%>: <%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></td>
+                            <td>P<%=pen.pen_number%>: <span class="text-bold"><%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></span></td>
+                            <td>P<%=@pens[index+@half].pen_number%>: <span class="text-bold"><%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></span></td>
                           </tr>                
                         <% end %>
                       </tbody>

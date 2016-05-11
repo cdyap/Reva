@@ -25,12 +25,12 @@
           <table class="striped">
             <thead>
               <tr>
-                  <th data-field="pig_id">Dam's ID</th>
-                  <th data-field="sex">Parity #</th>
-                  <th data-field="bweight">Sire's ID</th>
-                  <th data-field="bweight">Litter Size at Birth</th>
-                  <th data-field="wweight">Actual Date of Farrowing</th>
-                  <th>Actions</th>
+                  <th data-field="pig_id" class="right-align">Dam's ID</th>
+                  <th data-field="sex" class="right-align">Parity #</th>
+                  <th data-field="bweight" class="right-align">Sire's ID</th>
+                  <th data-field="bweight" class="right-align">Litter Size at Birth</th>
+                  <th data-field="wweight" class="right-align">Actual Date of Farrowing</th>
+                  <th class="right-align">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -43,12 +43,12 @@
                     <% sire_earnotch = Pig.where(pig_id: litter.sire_id).first.ear_notch_number %>
                     <%# dam_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
                     <%# sire_earnotch = Pig.where(pig_id: 12).first.ear_notch_number %>
-                    <td><%=dam_earnotch.to_s[2..-1]%></td>
-                    <td><%=litter.try(:parity_number)%></td>
-                    <td><%=sire_earnotch.to_s[2..-1]%></td>
-                    <td><%=litter.try(:litter_size_at_birth)%></td>
-                    <td><%=litter.try(:actual_date_of_farrowing).strftime("%B %d, %Y") %></td>
-                    <td><%=link_to "Edit", edit_litter_path(litter.id), method: :get, target: :new %></td>
+                    <td class="right-align"><%=dam_earnotch.to_s[2..-1]%></td>
+                    <td class="right-align"><%=litter.try(:parity_number)%></td>
+                    <td class="right-align"><%=sire_earnotch.to_s[2..-1]%></td>
+                    <td class="right-align"><%=litter.try(:litter_size_at_birth)%></td>
+                    <td class="right-align"><%=litter.try(:actual_date_of_farrowing).strftime("%B %d, %Y") %></td>
+                    <td class="right-align"><%=link_to "View", litter_path(litter.id), method: :get, target: :new %><%=link_to "Update", edit_litter_path(litter.id), method: :get, target: :new %></td>
                   </tr>
                 <% end %>
               <% end %>
