@@ -44,7 +44,7 @@ CREATE TABLE `cause_of_removals` (
 DROP TABLE IF EXISTS `headcounts`;
 CREATE TABLE `headcounts` (
   `headcount_id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier of headcount',
-  `headcount_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'timestamp of headcount',
+  `headcount_date` date NOT NULL COMMENT 'timestamp of headcount',
   `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT'0' COMMENT 'pen_id of the headcount',
   `headcount` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'COMMENT 'headcount value',
   PRIMARY KEY (`headcount_id`)
