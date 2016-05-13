@@ -1,5 +1,6 @@
 class CauseOfRemovalsController < ApplicationController
-		autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:removed]
+	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:removed]
+	before_action :authenticate_user!
 	
 	def new 
 		@cause_of_removal = CauseOfRemoval.new 		

@@ -1,0 +1,30 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("login.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Login</p></div>".html_safe, new_user_session_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+</ul>
+<main>
+	<div class="fixed container header">
+		<div class="row valign-wrapper header">
+	      	<%=image_tag "logo.svg", id: 'logo'%>
+	      	<h5 class="valign">Login</h5>
+	   	</div>
+	</div>
+   	<div class="container data">
+   		<div class="row">
+   			<div class="col s6 offset-s3">
+			   	<%= simple_form_for @user, url: session_path(@user), html: {class: 'input-form', id: 'login-form'} do |f| %>
+				  <div class="form-inputs">
+				    <%= f.input :login, required: false %>
+				    <%= f.input :password, required: false %>
+				  </div>
+
+				  <div class="form-actions">
+				    <%= f.button :submit, "Log in" %>
+				  </div>
+				<% end %>
+			</div>
+		</div>
+   	</div>
+</main>
+
+

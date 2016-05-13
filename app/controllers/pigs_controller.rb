@@ -1,5 +1,6 @@
 class PigsController < ApplicationController
 	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex]
+	before_action :authenticate_user!
 	
 	def new 		
 		@pig = Pig.new
@@ -21,7 +22,12 @@ class PigsController < ApplicationController
 	end 
 
 	def index 
-		@pig = Pig.new
+		@pigs = Pig.all
+
+		respond_to do |format|
+			format.html
+	    	format.csv { send_data @pigs.to_csv }	    
+	  	end
 	end
 
 	def pig_params 

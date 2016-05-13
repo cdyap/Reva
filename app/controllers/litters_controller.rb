@@ -1,6 +1,7 @@
 class LittersController < ApplicationController
 	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex, :removed]
-
+  before_action :authenticate_user!
+  
   def create 
 		@litter=Litter.new(litter_params)
 		if @litter.save

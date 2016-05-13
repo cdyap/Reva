@@ -29,7 +29,7 @@ USE `Reva_development`;
 DROP TABLE IF EXISTS `cause_of_removals`;
 CREATE TABLE `cause_of_removals` (
   `removal_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `pig_id` mediumint(7) UNSIGNED DEFAULT NULL,
+  `pig_id` smallint(5) UNSIGNED DEFAULT '0',
   `date_of_removal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sale` tinyint(1)  DEFAULT NULL,
   `weight_on_removal` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `headcounts`;
 CREATE TABLE `headcounts` (
   `headcount_id` smallint(6) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier of headcount',
   `headcount_date` date NOT NULL COMMENT 'timestamp of headcount',
-  `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT'0' COMMENT 'pen_id of the headcount',
+  `pen_id` tinyint(3) UNSIGNED NOT NULL DEFAULT'0' COMMENT 'pen_id of the headcount',
   `headcount` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'COMMENT 'headcount value',
   PRIMARY KEY (`headcount_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -104,7 +104,7 @@ CREATE TABLE `pigs` (
   `date_weaned` timestamp NULL DEFAULT NULL,
   `dam_id` smallint(5) UNSIGNED DEFAULT NULL,
   `sire_id` smallint(5) UNSIGNED DEFAULT NULL,
-  `pen_id` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
+  `pen_id` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `litter_id` smallint(6) UNSIGNED DEFAULT NULL,
   `date_of_birth` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sex` char(1) NOT NULL DEFAULT 'x',

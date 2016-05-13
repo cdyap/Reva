@@ -1,9 +1,14 @@
 <ul id="sidebar" class="side-nav fixed blue-grey darken-4">
   	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-  	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<% if user_signed_in? %>
+	  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	  	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("logout.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Logout</p></div>".html_safe, destroy_user_session_path, method: :delete, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	<% else %>
+	  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("login.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Login</p></div>".html_safe, new_user_session_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+	<% end %>
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
@@ -11,13 +16,11 @@
       	<div class="row valign-wrapper">
       		<%=image_tag "logo.svg", id: 'logo'%>
       		<h5 class="valign">Pigs</h5>
+      		<%= link_to "ADD NEW PIG", new_pig_path, class: "btn deep-orange darken-2", method: :get %>
     	</div>
     </div>
 	<div class="row data">
 		<div class="col s8 offset-s2" id="all">
-			<div class="center-align row">
-	            <%= link_to "ADD NEW PIG", new_pig_path, class: "btn deep-orange darken-2 center-align", method: :get %>
-          	</div>
           	<div class="row">
 	          	<% flash.each do |name, msg| -%>
 			      <%= content_tag :div, msg, class: name %>
@@ -36,10 +39,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% if Pig.all.size == 0 %>
+					<% if @pigs.size == 0 %>
 						<td colspan="7"><p class="center-align">No pigs yet! Add a new pig above.</p></td>
 					<% else %>
-						<% Pig.all.each do |pig| %>
+						<% @pigs.each do |pig| %>
 							<tr>
 								<td><%= pig.ear_notch_number.to_s[2..-1] %></td>
 								<td><%= pig.sex %></td>

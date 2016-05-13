@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get 'pages/dashboard', as: :dashboard
   root to: 'pages#dashboard'
 
@@ -7,19 +8,23 @@ Rails.application.routes.draw do
    get 'pages/removal', as: :removal
 
    resources :pigs
+
    resources :cause_of_removals do
     get :autocomplete_pig_ear_notch_number, :on => :collection
    end
+
    resources :headcounts
+
    resources :buildings
+
    resources :litters  do
     get :autocomplete_pig_ear_notch_number, :on => :collection
    end
+
    resources :pens do
     get :edit_all
     put :update_all
     get :headcount, on: :collection
-
    end
 
 
