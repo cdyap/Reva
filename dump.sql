@@ -37,6 +37,12 @@ CREATE TABLE `cause_of_removals` (
   PRIMARY KEY (`removal_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `cause_of_removals` WRITE;
+/*!40000 ALTER TABLE `cause_of_removals` DISABLE KEYS */;
+INSERT INTO `cause_of_removals` VALUES (1,7,'2016-05-11 16:00:00',0,50.00,''),(2,26,'2016-05-11 16:00:00',0,100.00,'Huhu');
+/*!40000 ALTER TABLE `cause_of_removals` ENABLE KEYS */;
+UNLOCK TABLES;
+
 -- --------------------------------------------------------
 --
 -- Table structure for table `headcount`
@@ -75,6 +81,11 @@ CREATE TABLE `litters` (
   PRIMARY KEY (`litter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `litters` WRITE;
+/*!40000 ALTER TABLE `litters` DISABLE KEYS */;
+INSERT INTO `litters` VALUES (1,1,'2016-05-09 16:00:00','2016-05-09 16:00:00',1,1,'2016-05-09 16:00:00',0,2,1,6),(2,1,'2016-05-03 16:00:00','2016-05-03 16:00:00',0,0,'2016-05-01 16:00:00',0,6,4,16),(3,1,'2016-04-19 16:00:00','2016-04-06 16:00:00',2,0,'2016-04-06 16:00:00',0,16,3,5);
+/*!40000 ALTER TABLE `litters` ENABLE KEYS */;
+UNLOCK TABLES;
 -- --------------------------------------------------------
 
 --
@@ -113,6 +124,47 @@ CREATE TABLE `pigs` (
   PRIMARY KEY (`pig_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `pigs` WRITE;
+/*!40000 ALTER TABLE `pigs` DISABLE KEYS */;
+INSERT INTO `pigs` VALUES (1,1605000,'Pure land race',15.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-10 16:00:00','M',NULL,0),(2,1605001,'Pure land race',15.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-10 16:00:00','F',NULL,0),(3,1605002,'Pure land race',15.00,30.00,'2016-05-12 16:00:00',2,1,0,1,'2016-05-09 16:00:00','M',NULL,0),(4,1605003,'Pure land race',15.00,30.00,'2016-05-13 16:00:00',2,1,0,1,'2016-05-09 16:00:00','M',NULL,0),(5,1605004,'Pure land race',15.00,30.00,'2016-05-13 16:00:00',2,1,0,1,'2016-05-09 16:00:00','F',NULL,0),(6,1605005,'Pure land race',15.00,30.00,'2016-05-13 16:00:00',2,1,0,1,'2016-05-09 16:00:00','F',NULL,0),(7,1605006,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(8,1605007,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(9,1605008,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(10,1605009,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(11,1605010,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(12,1605011,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','M',NULL,0),(13,1605012,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(14,1605013,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(15,1605014,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(16,1605015,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(17,1605016,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(18,1605017,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(19,1605018,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(20,1605019,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(21,1605020,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(22,1605021,'CEFN',20.00,0.00,NULL,6,4,0,2,'2016-05-03 16:00:00','F',NULL,0),(23,1605022,'Hybrid',16.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-20 16:00:00','F',NULL,0),(24,1605023,'Pure land race',16.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-10 16:00:00','M',NULL,0),(25,1605024,'Chester white',14.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-04 16:00:00','M',NULL,0),(26,1605025,'Pure land race',-29.00,0.00,NULL,NULL,NULL,0,NULL,'2016-05-05 16:00:00','F',NULL,1),(27,1605026,'Pure land race',30.00,0.00,NULL,16,3,0,3,'2016-04-19 16:00:00','M',NULL,0),(28,1605027,'Pure land race',30.00,0.00,NULL,16,3,0,3,'2016-04-19 16:00:00','M',NULL,0),(29,1605028,'Pure land race',30.00,0.00,NULL,16,3,0,3,'2016-04-19 16:00:00','F',NULL,0);
+/*!40000 ALTER TABLE `pigs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `encrypted_password` varchar(255) NOT NULL DEFAULT '',
+  `reset_password_token` varchar(255) DEFAULT NULL,
+  `reset_password_sent_at` datetime DEFAULT NULL,
+  `remember_created_at` datetime DEFAULT NULL,
+  `sign_in_count` int(11) NOT NULL DEFAULT '0',
+  `current_sign_in_at` datetime DEFAULT NULL,
+  `last_sign_in_at` datetime DEFAULT NULL,
+  `current_sign_in_ip` varchar(255) DEFAULT NULL,
+  `last_sign_in_ip` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_users_on_email` (`email`),
+  UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
+  UNIQUE KEY `index_users_on_username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'cdyap@outlook.com','$2a$10$SkKYYaNgG3h6Xhrqtkiw5.dxcUsb6tdHqkfHMo6MrH7Asrpeu6VgS',NULL,NULL,NULL,6,'2016-05-13 17:22:08','2016-05-13 14:58:27','::1','::1','2016-05-13 08:43:05','2016-05-13 17:22:08','reva_admin');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 -- ----------------------------------------------------
 -- Starter Data
 
