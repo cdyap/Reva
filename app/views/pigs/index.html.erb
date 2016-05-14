@@ -17,6 +17,12 @@
       		<%=image_tag "logo.svg", id: 'logo'%>
       		<h5 class="valign">Pigs</h5>
       		<%= link_to "ADD NEW PIG", new_pig_path, class: "btn deep-orange darken-2", method: :get %>
+      		<div class="legend">
+      			<p class="valign-wrapper">Legend:
+      			<svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="Alive" r="6"></circle></svg>Alive
+      			<svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="Died" r="6"></circle></svg>Died
+      			<svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="Sold" r="6"></circle></svg>Sold</p>
+      		</div>
     	</div>
     </div>
 	<div class="row data">
@@ -26,7 +32,7 @@
 			      <%= content_tag :div, msg, class: name %>
 			    <% end -%>
 		    </div>
-			<table class="striped responsive-table">
+			<table class="striped responsive-table fixed-table">
 				<thead>
 					<tr>
 						<th>Ear Notch Number</th>
@@ -44,18 +50,18 @@
 					<% else %>
 						<% @pigs.each do |pig| %>
 							<tr>
-								<td><%= pig.ear_notch_number.to_s[2..-1] %></td>
+								<td class="valign-wrapper"><svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="<%=pig.alive%>" r="6"></circle></svg><%= pig.ear_notch_number.to_s[2..-1] %></td>
 								<td><%= pig.sex %></td>
 								<td><%= pig.try(:breed) %></td>
 								<td><%= pig.try(:date_of_birth).strftime("%B %d, %Y") %></td>
 								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
 								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
-								<td><%= pig.alive %></td>
 							</tr>
 						<% end %>
 					<% end %>
 				</tbody>
 			</table>
+			<table id="header-fixed"></table>
 		</div>
 	</div>
 </main>

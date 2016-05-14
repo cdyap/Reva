@@ -15,10 +15,12 @@
   <div class="fixed container ">
       <div class="row valign-wrapper header">
         <%=image_tag "logo.svg", id: 'logo'%>
-        <%= link_to "Daily Counts", litters_path, class:'valign', method: :get%>
+        <%= link_to "All Daily Counts", pens_path, class:'valign', method: :get%>
         <!-- <h5 class="valign">Daily Litter Records</h5> -->
         <h5 class="valign separator">></h5>
-        <h5 class="valign">New Daily Count</h5>
+        <%= link_to "Counts for " + Date.parse(@date).strftime('%B %d, %Y'), headcount_pens_path(Date.parse(@date)), class:'valign', method: :get%>
+        <h5 class="valign separator">></h5>
+        <h5 class="valign">Building <%=@building[0]%>: <%=@building[1]%></h5>
         <!-- <a href="">logout</a> -->
       </div>
   </div>
@@ -27,14 +29,15 @@
     <div id="add" class="col s4 offset-s4">
             
         <h5>Building <%=@building[0]%>: <%=@building[1]%></h5>
-        
-        
+        <h5>Date: <%= Date.parse(@date).strftime('%B %d, %Y') %></h5>
+        <br>
         <%=simple_form_for :pen, url: pen_update_all_path, html: {class: 'input-form', method: :put} do %>
-          <%= date_field("headcount_date", "headcount_date", value: @date)%>
+
+          <%= date_field("headcount_date", "headcount_date", value: @date, hidden: true)%>
           <% @pens.each do |pen| %>
             <%= simple_fields_for "pen[]", pen do |p| %>
               <%=p.simple_fields_for :headcount do |h|%>
-                <%= h.input :headcount, value: 0, label: "Pen "+pen.pen_number.to_s %>
+                <%= h.input :headcount, as: :integer, value: 0, label: "Pen "+pen.pen_number.to_s %>
               <% end %>
             <% end %>
           <% end %>

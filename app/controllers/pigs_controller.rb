@@ -22,7 +22,7 @@ class PigsController < ApplicationController
 	end 
 
 	def index 
-		@pigs = Pig.all
+		@pigs = Pig.all.order('ear_notch_number ASC')
 
 		respond_to do |format|
 			format.html

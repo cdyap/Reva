@@ -15,10 +15,10 @@
   <div class="fixed container ">
       <div class="row valign-wrapper header">
         <%=image_tag "logo.svg", id: 'logo'%>
-        <%= link_to "Daily Litter Records", litters_path, class:'valign', method: :get%>
+        <%= link_to "Removal Records", cause_of_removals_path, class:'valign', method: :get%>
         <!-- <h5 class="valign">Daily Litter Records</h5> -->
         <h5 class="valign separator">></h5>
-        <h5 class="valign">New Litter</h5>
+        <h5 class="valign">New Removal Record</h5>
         <!-- <a href="">logout</a> -->
       </div>
   </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="row">
               <div class="col s12">
-                <%= f.input :weight_on_removal%>
+                <%= f.input :weight_on_removal, label: 'Weight on removal (kg)'%>
               </div>
             </div>
             <div class="row">

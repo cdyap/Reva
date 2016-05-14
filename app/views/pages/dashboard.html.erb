@@ -84,80 +84,131 @@
 				        </thead>
 
 				        <tbody>
-				          <tr>
-				            <td>Alvin</td>
-				            <td>Eclair</td>
-				            <td>$0.87</td>
-				          </tr>
-				          <tr>
-				            <td>Alan</td>
-				            <td>Jellybean</td>
-				            <td>$3.76</td>
-				          </tr>
-				          <tr>
-				            <td>Jonathan</td>
-				            <td>Lollipop</td>
-				            <td>$7.00</td>
-				          </tr>
+				        	<%@dates.each do |date| %>
+				                <tr>	
+				                  	<% total = 0 %>
+				                  	<% starter = 0 %>
+				                  	<% pre_starter = 0 %>
+				                  	<% fattener = 0 %>
+				                  	<% grower = 0 %>
+				                  	<% gestating = 0 %>
+				                  	<% farrowing = 0 %>
+				                  	<td class="right-align"><%=link_to date.headcount_date.strftime('%B %d, %Y'), headcount_pens_path(headcount_date: {headcount_date: date.headcount_date}), method: :get, target: '_new'%></td>
+				                  	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                	<td></td>
+				                    <% (1..16).each do |bldg| %>
+				                      <td class="right-align"><%= headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg, date.headcount_date).sum('headcount') %></td>
+				                      <% total = total + headcounts %>
+				                      <% @building_headcount[bldg] = total %>
+				                    <% end %>
+				                </tr>
+				              <% end %>
 				        </tbody>
 			      	</table>
   	  			</div>
   	  		</div>
   	  	</div>
-
 	<!-- Put mortality records shit here -->
 		<div id="monthly" class="col s12">
-			 <div class="container">
-      			<div class="col s12">
-			      <table class="striped" style="width:100%">
-			        <thead>
-			          <tr>
-			              <th data-field="date">Date</th>
-			              <th data-field="pig_id">Pig Number</th>
-			              <th data-field="sex">Sex</th>
-			              <th data-field="building_id">Building Number</th>
-			              <th data-field="psigns">Previous Signs</th>
-			              <th data-field="treatment">Treatment</th>
-			              <th data-field="cdeath">Cause of Death</th>
-			              <th data-field="remarks">Remarks</th>
-			          </tr>
-			        </thead>
-
-			        <tbody>
-			          <tr>
-			            <td>04212016</td>
-			            <td>2013-0001</td>
-			            <td>F</td>
-			            <td>10</td>
-			            <td>Virgo</td>
-			            <td>Okay</td>
-			            <td>Heartbreak</td>
-			            <td>R.I.P</td>
-			          </tr>
-			          <tr>
-			            <td>04172016</td>
-			            <td>2013-0055</td>
-			            <td>M</td>
-			            <td>25</td>
-			            <td>No Entry</td>
-			            <td>Cinderella</td>
-			            <td>Unknown</td>
-			            <td>Beloved</td>
-			          </tr>
-			        </tbody>
-			      </table>
-      			</div>
-      		</div>
-       	 	<div class="container">
-        		<div class="col s4">
-         
-      			</div>
-      		</div>
+		      
 		</div>
 
 	<!-- Put yearly parameters shit here -->
 		<div id="yearly" class="col s12">
-			Test 3
+			<table class="striped responsive-table">
+		        <thead>
+		          <tr>
+		          	  <th></th>
+		              <th data-field="date">Litters Farrowed</th>
+		              <th data-field="pig_id">Litter Size at Birth</th>
+		              <th data-field="sex">Alive</th>
+		              <th data-field="building_id">Mummified</th>
+		              <th data-field="psigns">Stillborn</th>
+		              <th data-field="treatment">Percentage Mummified</th>
+		              <th data-field="cdeath">Percentage Stillborn</th>
+		              <th data-field="remarks">Average Birth Weight</th>
+		              <th data-field="remarks">Litter Size at Weaning</th>
+		              <th data-field="remarks">Weaning Age Days</th>
+		              <th data-field="remarks">Average Weaning Weight</th>
+		              <th data-field="remarks">WCI Days</th>
+		              <th data-field="remarks">Gestation Period</th>
+		              <th data-field="remarks">Farrowing Interval Days</th>
+		              <th data-field="remarks">Conception Rate</th>
+		              <th data-field="remarks">Farrowing Rate</th>
+		              <th data-field="remarks">Pre-Weaning Mortality</th>
+		              <th data-field="remarks">Mortality - Total Population</th>
+		              <th data-field="remarks">Adjusted 30 Days Weight</th>
+		              <th data-field="remarks">Average Daily Gain</th>
+		              <th data-field="remarks">Adjusted 180 Days Weight</th>
+		              <th data-field="remarks">Average Parity</th>
+		              <th data-field="remarks">Pure/F1/Premium</th>
+		              <th data-field="remarks">Replacement Gilt</th>
+		              <th data-field="remarks">EG EST Parity EDTF/ADF</th>
+		              <th data-field="remarks">RB/WO (Breeding)</th>
+		              <th data-field="remarks">Effective Sow</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		          <% @monthlyparameters.each do |month| %>
+		          	<tr>
+		          		<% @litter = Litter.litters_per_time(month.first)%>
+		          		<% average_birth_weight = 0.0 %>
+		          		<% number_of_pigs = 0 %>
+		          		<% weaning_age = 0 %>
+		          		<% weaning_weight = 0.0 %>
+		          		<% gestation_period = 0 %>
+		          		<% parity = 0 %>
+		          		<% @litter.each do |litter| %>	
+		          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
+		          			<% parity = parity + litter.parity_number %>
+		          			<% litter.pigs.each do |pig| %>
+		          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
+		          				<% if !pig.date_weaned.nil? %>
+		          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
+		          				<% end %>
+		          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
+		          				<% number_of_pigs = number_of_pigs + 1 %>
+		          			<% end %>
+		          		<% end %>
+		          		<td class="right-align"><%=Date::MONTHNAMES[Integer(month.first[5..6])] + ", " + month.first[0..3]%></td>
+		          		<td class="right-align"><%=@litter.count%></td>
+		          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
+		          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
+		          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
+		          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
+		          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+		          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+		          		
+		          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
+		          		<td></td>
+		          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
+		          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
+		          		<td>WCI</td>
+		          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td></td>
+		          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
+		          	</tr>
+		          <% end %>
+		        </tbody>
+	      	</table>
 		</div>
 	</div>
 </main>

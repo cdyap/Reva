@@ -14,6 +14,16 @@ class Litter < ActiveRecord::Base
 	
 	after_save :set_lsb
 
+	scope :litters_per_time, -> (date) { where('actual_date_of_farrowing >= ? AND actual_date_of_farrowing <= ?', date<<"-01", date.chomp("-01")<<"-31")}
+
+	def parameters_litters_farrowed(time)
+		self.litters_per_time(time).count
+	end
+
+	def parameters_LSB(time)
+		self.litters_per_time(time).sum(:litter_size_at_birth);
+	end
+
 	private def set_lsb
 		self.update_column(:litter_size_at_birth, self.mummified_piglets + self.stillborn_piglets + self.pigs.size)
 	end

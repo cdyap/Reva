@@ -29,7 +29,7 @@ class CauseOfRemovalsController < ApplicationController
 	end
 	
 	def index 
-		# @cause_of_removals = Cause_of_removal.all
+		@cause_of_removals = CauseOfRemoval.all
 	end
 
 	def cause_of_removal_params 

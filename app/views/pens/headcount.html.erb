@@ -42,7 +42,7 @@
                       <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
                     <% else %>
                       
-                      <span class="headcounts"><%=@pens.includes(:headcounts).sum("headcount")%></span>
+                      <span class="headcounts"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
                     <% end %>
                   </div>
                   <div class="col s8 valign">
