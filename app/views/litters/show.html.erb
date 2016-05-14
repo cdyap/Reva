@@ -141,8 +141,8 @@
                   <td><%= p.ear_notch_number.to_s[2..-1] %></td>
                   <td><%= p.sex %></td>
                   <td class="right-align"><%= p.birth_weight %></td>
-                  <td class="right-align"><%= p.weaning_weight != 0 ? p.weaning_weight : "Not yet"%></td>
-                  <td class="right-align"><%= p.date_weaned.present? ? p.date_weaned.strftime("%B %d, %Y") : "Not yet"  %></td>
+                  <td class="right-align"><%= p.weaning_weight != 0 ? p.weaning_weight : "Not yet weaned."%></td>
+                  <td class="right-align"><%= p.date_weaned.present? ? p.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %></td>
               </tr>
             <% end%>
           </tbody>

@@ -21,6 +21,19 @@ class PigsController < ApplicationController
 		end 
 	end 
 
+	def edit
+		@pig = Pig.find(params[:id])
+	end
+
+	def update
+		@pig = Pig.find(params[:id])
+		if @pig.update(pig_params)
+			redirect_to pigs_path
+		else
+			render :edit
+		end 
+	end
+
 	def index 
 		@pigs = Pig.all.order('ear_notch_number ASC')
 

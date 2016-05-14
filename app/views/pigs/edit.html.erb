@@ -1,0 +1,71 @@
+<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+  	<li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
+</ul>
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+<main>
+	<div class="fixed container">
+      <div class="row valign-wrapper header">
+        <%=image_tag "logo.svg", id: 'logo'%>
+        <%= link_to "Pigs", pigs_path, class:'valign', method: :get%>
+        <!-- <h5 class="valign">Daily Litter Records</h5> -->
+        <h5 class="valign separator">></h5>
+        <h5 class="valign">Edit P# <%=@pig.ear_notch_number.to_s[2..-1]%></h5>
+        <!-- <a href="">logout</a> -->
+      </div>
+  	</div>
+	<div class="container data">
+		<div class="row">
+          	<% flash.each do |name, msg| -%>
+		      	<%= content_tag :div, msg, class: name %>
+		    <% end -%>
+	    </div>
+		<div class="row">
+			<div class="col s8 offset-s2">
+			  	<%= simple_form_for @pig, html: {class:"input-form"} do |f| %>
+				  	<div class="row">
+				  		<div class="col s12">
+			  				<%= f.input :breed, as: :select, collection: ["Large white", "Pure land race", "Chester white", "CEFN","Hybrid"], value: f.object.breed %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s6">
+			  				<%= f.input :date_of_birth, as: :string, input_html: {type: :date, value: f.object.date_of_birth.try(:strftime,"%Y-%m-%d")}%>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s5">
+			  				<%= f.input :birth_weight, label: 'Birth weight (kg)' %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s4">
+			  				<%= f.input :sex, as: :select, collection: ["M", "F"] %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+			  			<div class="col s9">
+			  				<%= f.hidden_field :dam_id, :id => "dam_value" %>
+                			<%= f.input :dam_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number", required: true %>
+                		</div>
+                	</div>
+                	<div class="row">
+                		<div class="col s9">
+                			<%= f.hidden_field :sire_id, :id => "sire_value" %>
+                			<%= f.input :sire_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
+			  			</div>
+			  		</div>
+			  		<div class="row">
+                		<div class="col s12 input-field">
+                			<%= f.input :remarks,as: :text, input_html: {class: 'materialize-textarea'} %>
+			  			</div>
+			  		</div>
+			  		<%= f.button :submit %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</main>
