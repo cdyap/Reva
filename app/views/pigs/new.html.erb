@@ -63,6 +63,11 @@
                 			<%= f.input :sire_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
 			  			</div>
 			  		</div>
+			  		<div class="row">
+                		<div class="col s12 input-field">
+                			<%= f.input :remarks,as: :text, input_html: {class: 'materialize-textarea'} %>
+			  			</div>
+			  		</div>
 			  		<%= f.button :submit %>
 				<% end %>
 			</div>

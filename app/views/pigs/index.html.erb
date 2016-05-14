@@ -26,7 +26,7 @@
     	</div>
     </div>
 	<div class="row data">
-		<div class="col s8 offset-s2" id="all">
+		<div class="col s10 offset-s1" id="all">
           	<div class="row">
 	          	<% flash.each do |name, msg| -%>
 			      <%= content_tag :div, msg, class: name %>
@@ -41,7 +41,7 @@
 						<th>Date of Birth</th>
 						<th>Dam</th>
 						<th>Sire</th>
-						<th>Status</th>
+						<th>Remarks</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,13 +50,30 @@
 					<% else %>
 						<% @pigs.each do |pig| %>
 							<tr>
-								<td class="valign-wrapper"><svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="<%=pig.alive%>" r="6"></circle></svg><%= pig.ear_notch_number.to_s[2..-1] %></td>
+								<td class="valign-wrapper"><svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="<%=pig.alive%>" r="6"></circle></svg><a href="#<%=pig.pig_id%>" class="modal-trigger"><%= pig.ear_notch_number.to_s[2..-1] %></a></td>
 								<td><%= pig.sex %></td>
 								<td><%= pig.try(:breed) %></td>
 								<td><%= pig.try(:date_of_birth).strftime("%B %d, %Y") %></td>
 								<td><%= pig.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
 								<td><%= pig.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A"%></td>
+								<td><%= pig.try(:remarks) %></td>
 							</tr>
+							<div id="<%=pig.pig_id%>" class="modal modal-fixed-footer">
+							    <div class="modal-content">
+							      	<h3 class="center-align"><%=pig.ear_notch_number.to_s[2..-1]%></h3>
+							      	<div class="row">
+							      		<div class="col s6 right-align">
+							      			Date of birth:
+							      		</div>
+							      		<div class="col s6 left-align">
+							      			<%=pig.try(:date_of_birth).strftime("%B %d, %Y") %>
+							      		</div>
+							      	</div>
+							    </div>
+							    <div class="modal-footer">
+							      	<a href="#!" class="modal-action modal-close waves-effect waves-deep-orange btn-flat ">Close</a>
+							    </div>
+							</div>
 						<% end %>
 					<% end %>
 				</tbody>

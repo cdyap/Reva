@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160513081045) do
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "cause_of_removals", primary_key: "removal_id", force: :cascade do |t|
-    t.integer  "pig_id",            limit: 3
+    t.integer  "pig_id",            limit: 2,                          default: 0
     t.datetime "date_of_removal",                                                    null: false
     t.boolean  "sale"
     t.decimal  "weight_on_removal",            precision: 5, scale: 2, default: 0.0, null: false
