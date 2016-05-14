@@ -32,7 +32,10 @@
 			      <%= content_tag :div, msg, class: name %>
 			    <% end -%>
 		    </div>
-			<table class="striped responsive-table fixed-table">
+		    <div class="row">
+		    	<h5 class="center-align">Alive pigs: <span class="text-bold"><%=@pigs.where(removed: 0).count%></span> | Dead pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 0).count %></span> | Sold pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 1).count %></span></h5>
+		    </div>
+			<table class="striped responsive-table fixed-table" id="pigs-table">
 				<thead>
 					<tr>
 						<th>Ear Notch Number</th>
@@ -139,12 +142,6 @@
 							    </div>
 							</div>
 						<% end %>
-						<tr></tr>
-						<tr>
-							<td colspan="2" class="text-bold">Total alive piglets: <%=@pigs.where(removed: 0).count%></td>
-							<td colspan="2" class="text-bold">Total dead pigs: <%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 0).count %></td>
-							<td colspan="2" class="text-bold">Total sold pigs: <%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 1).count %></td>
-						</tr>
 					<% end %>
 				</tbody>
 			</table>

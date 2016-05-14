@@ -24,8 +24,17 @@ class CauseOfRemovalsController < ApplicationController
 		end 
 	end 
 
-	def show 
+	def edit
+		@cause_of_removal = CauseOfRemoval.find(params[:id])
+	end
 
+	def update
+		@cause_of_removal = CauseOfRemoval.find(params[:id])
+		if @cause_of_removal.update(cause_of_removal_params)
+			redirect_to cause_of_removals_path
+		else
+			render :edit
+		end
 	end
 	
 	def index 
