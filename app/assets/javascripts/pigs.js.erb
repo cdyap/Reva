@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var $header = $(".fixed-table");
 	var $header1 = $(".fixed-table1");
 
-	if ((tableOffset.length) && ($header.length) || (tableOffset1.length) && ($header1.length) || (tableOffset2.length) && ($header2.length)) {
+	if ((tableOffset.length) && (($header.length) || ($header1.length))) {
 		tableOffset = tableOffset.offset().top;
 
 		var $fixedHeader = $("#header-fixed").append($header.clone());

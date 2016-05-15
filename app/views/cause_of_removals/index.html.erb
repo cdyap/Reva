@@ -51,7 +51,7 @@
                 <td><%=record.pig.sex%></td>
                 <td class="right-align"><%=record.weight_on_removal%></td>
                 <td><%=record.remarks%></td>
-                <td><%= link_to "Edit", edit_cause_of_removal_path(record.removal_id)%></td>
+                <td><%= link_to "Edit", edit_cause_of_removal_path(record.removal_id), method: :get%></td>
               </tr>
               <div id="<%=record.pig.pig_id%>" class="modal modal-fixed-footer <%= record.pig.sex %>">
                   <div class="modal-content">
