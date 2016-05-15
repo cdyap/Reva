@@ -6,6 +6,9 @@ Rails.application.routes.draw do
    get 'pages/dailylitterrecord', as: :dailylitterrecord
    get 'pages/actualdailycount', as: :actualdailycount
    get 'pages/removal', as: :removal
+   get 'pages/export_cardograph', as: :export_cardograph
+   get 'pages/export_monthlyparameters', as: :export_monthlyparameters
+   get 'pages/export_yearlyparameters', as: :export_yearlyparameters
 
    resources :pigs
 

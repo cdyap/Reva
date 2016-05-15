@@ -16,7 +16,20 @@
       	<div class="row valign-wrapper">
 	      	<%=image_tag "logo.svg", id: 'logo'%>
 	      	<h5 class="valign">Dashboard</h5>
-	      	<a class="waves-effect waves-light blue-grey darken-4 btn exportbutton" name="litter">EXPORT CARDOGRAPHS</a>
+	      	<a class="waves-effect waves-light blue-grey darken-4 btn dropdown-button" name="litter" data-beloworigin="true" data-constrainwidth="false" data-activates='dropcardographs'>EXPORT CARDOGRAPHS</a>
+	      	<ul id='dropcardographs' class='dropdown-content'>
+			    <li class="center-align"><a class="exportbutton center-align">CSV</a></li>
+			    <li class="center-align"><%=link_to "PDF", export_cardograph_path(format: 'pdf'), method: :get, class: 'center-align', target: '_new'%></li>
+			</ul>
+			<ul id='dropyearly' class='dropdown-content'>
+			    <li class="center-align"><a class="exportbutton center-align">CSV</a></li>
+			    <li class="center-align"><%=link_to "PDF", export_yearlyparameters_path(format: 'pdf'), method: :get,  class: 'center-align', target: '_new'%></li>
+			</ul>
+			<ul id='dropmonthly' class='dropdown-content'>
+			    <li class="center-align"><a class="exportbutton center-align">CSV</a></li>
+			    <li class="center-align"><%=link_to "PDF", export_monthlyparameters_path(format: 'pdf'), method: :get,  class: 'center-align', target: '_new'%></li>
+			</ul>
+			
 	      <!-- <a href="">logout</a> -->
 	   	</div>
     <!-- Tabs of dashboard -->  

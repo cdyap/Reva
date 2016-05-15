@@ -1,0 +1,126 @@
+<main class="pdf-container ">
+  <div class="center-align">
+      <div class="row flex">
+        <div>
+          <%=wicked_pdf_image_tag "logo.svg", id: 'logo'%>
+          <h5>Litter Record</h5>
+        </div>
+      </div>
+  </div>
+  <!-- DATA -->
+  <div class="row data">
+    <div id="add" class="col s10 offset-s1 nofloat-a">
+      <div class="row">
+        <h6 class="text-bold">Parents' information:</h6>
+        <div class="row">
+          <div class="col s3">
+            <table class="">
+              <thead>
+                <th colspan="2">SOW'S INFORMATION</th>  
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dam ID:</td>
+                  <td class="left-align"><%= @dam.ear_notch_number.to_s[2..-1]%></td>
+                </tr>
+                <tr>
+                  <td>Breed:</td>
+                  <td><%= @dam.breed %></td>
+                </tr>
+                <tr>
+                  <td>Dam: </td>
+                  <td><%=dam_damid = Pig.where(pig_id: @dam.dam_id).first.try(:ear_notch_number).to_s[2..-1] unless !dam_damid.nil? %></td>
+                </tr>
+                <tr>
+                  <td>Sire: </td>
+                  <td><%=dam_sireid = Pig.where(pig_id: @dam.sire_id).first.try(:ear_notch_number).to_s[2..-1] unless !dam_sireid.nil? %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col s4">
+            <table>
+              <thead>
+                <th colspan="2">LITTER'S INFORMATION</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Actual Date of Farrowing:</td>
+                  <td><%= @litter.actual_date_of_farrowing.strftime("%B %d, %Y") %></td>
+                </tr>
+                <tr>
+                  <td>Due to Farrow: </td>
+                  <td><%= @litter.due_to_farrow.strftime("%B %d, %Y")%></td>
+                </tr>
+                <tr>
+                  <td>Parity #:</td>
+                  <td><%= @litter.parity_number %></td>
+                </tr>
+                <tr>
+                  <td>Litter Size at Birth:</td>
+                  <td><%= @litter.litter_size_at_birth %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col s3">
+            <table>
+              <thead>
+                <th colspan="2">SIRE'S INFORMATION</th>  
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ear notch number:</td>
+                  <td class="left-align"><%= @sire.ear_notch_number.to_s[2..-1] %></td>
+                </tr>
+                <tr>
+                  <td>Breed:</td>
+                  <td><%= @sire.breed %></td>
+                </tr>
+                <tr>
+                  <td>Dam: </td>
+                  <td><%=sire_damid = Pig.where(pig_id: @sire.dam_id).first.try(:ear_notch_number).to_s[2..-1] unless !sire_damid.nil? %></td>
+                </tr>
+                <tr>
+                  <td>Sire: </td>
+                  <td><%=sire_sireid = Pig.where(pig_id: @sire.sire_id).first.try(:ear_notch_number).to_s[2..-1] unless !sire_sireid.nil? %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <h6 class="center-align text-bold">Piglets' information:</h6>
+        <p class="center-align">Mummified piglets: <span class="text-bold"><%= @litter.mummified_piglets %></span> | Stillborn piglets: <span class="text-bold"><%= @litter.stillborn_piglets %></span> | Breed: <span class="text-bold"><%= @litter.pigs.first.breed %></span></p>
+      </div>
+      <div class="center-align row">
+      </div>
+      <div id="pigs" class="row"> 
+        <table>
+          <thead>
+            <th>Ear Notch Number</th>
+            <th>Sex</th>
+            <th class="right-align">Birth Weight</th>
+            <th class="right-align">Weaning Weight</th>
+            <th class="right-align">Date Weaned</th>
+          </thead>
+          <tbody> 
+               
+            <% @litter.pigs.each do |p| %>
+              <tr>
+                  <td class="left-align"><%= p.ear_notch_number.to_s[2..-1] %></td>
+                  <td><%= p.sex %></td>
+                  <td class="right-align"><%= p.birth_weight %></td>
+                  <td class="right-align"><%= p.weaning_weight != 0 ? p.weaning_weight : "Not yet weaned."%></td>
+                  <td class="right-align"><%= p.date_weaned.present? ? p.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %></td>
+              </tr>
+            <% end%>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</main>

@@ -194,16 +194,24 @@ $(document).ready(function(){
 	    }
 	};
 
+	
+
 	$('#cardographtab').click(function(){
-		$('.exportbutton').html("EXPORT CARDOGRAPHS");
+		$('.dropdown-button').html("EXPORT CARDOGRAPHS");
+		$('.dropdown-button').attr("data-activates", "dropcardographs");
+		$('.dropdown-button').dropdown();
 	});
 
 	$('#yearlytab').click(function(){
-		$('.exportbutton').html("EXPORT YEARLY PARAMETERS");
+		$('.dropdown-button').html("EXPORT YEARLY PARAMETERS");
+		$('.dropdown-button').attr("data-activates", "dropyearly");
+		$('.dropdown-button').dropdown();
 	});
 
 	$('#monthlytab').click(function(){
-		$('.exportbutton').html("EXPORT MONTHLY PARAMETERS");
+		$('.dropdown-button').html("EXPORT MONTHLY PARAMETERS");
+		$('.dropdown-button').attr("data-activates", "dropmonthly");
+		$('.dropdown-button').dropdown();
 	});
 
 	$('.exportbutton').click(function () {
@@ -213,16 +221,16 @@ $(document).ready(function(){
             window.location.href = 'data:text/csv;charset=UTF-8,' 
             + encodeURIComponent(csv);
         });
-
-  $('.modal-trigger').leanModal({
-      dismissible: false, // Modal can be dismissed by clicking outside of the modal
-      opacity: .8, // Opacity of modal background
-      in_duration: 300, // Transition in duration
-      out_duration: 200, // Transition out duration
-    }
-  );
-  $('select').material_select();
-  Materialize.updateTextFields();
+	$('.dropdown-button').dropdown();
+	  $('.modal-trigger').leanModal({
+	      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+	      opacity: .8, // Opacity of modal background
+	      in_duration: 300, // Transition in duration
+	      out_duration: 200, // Transition out duration
+	    }
+	  );
+	  $('select').material_select();
+	  Materialize.updateTextFields();
 });
 
 // DYNAMIC REMOVAL 

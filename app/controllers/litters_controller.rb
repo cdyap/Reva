@@ -40,6 +40,19 @@ class LittersController < ApplicationController
     @litter = Litter.find(params[:id])
     @dam = Pig.where(pig_id: @litter.dam_id).first
     @sire = Pig.where(pig_id: @litter.sire_id).first
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "litter",   # Excluding ".pdf" extension.
+          layout: 'pdf.html.erb',
+          template: 'litters/show.pdf.erb',
+          show_as_html: params[:debug].present?,
+          margin:  {   top:               5,                     # default 10 (mm)
+                    bottom:            5,
+                    left:              0,
+                    right:             0 }
+      end
+    end
   end
 
   def new 

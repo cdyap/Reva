@@ -1,0 +1,33 @@
+@import "materialize";
+
+#pdf {
+	main {
+		padding-left: 0;
+	}
+	main #logo {
+		border: none;
+		margin-left: auto;
+		margin-right: auto;
+		width: 200px;
+		height: 100px;
+		float: none;
+		padding: 0;
+	}
+	font-family: "Source";
+	.pdf-container {
+		background: white;
+		
+		.flex {
+			display: flex;
+			justify-content: center;
+		}
+		.data {
+			margin-top: 0;
+		}
+	}
+	background: white;
+	margin: 0;
+	table tbody tr {
+		border-top: 1px solid #d0d0d0;
+	}
+}

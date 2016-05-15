@@ -1,0 +1,78 @@
+<main class="pdf-container">
+	<div class="center-align">
+		<div class="row flex">
+			<div>
+			  <%=wicked_pdf_image_tag "logo.svg", id: 'logo'%>
+			  <h5>Yearly Parameters</h5>
+			</div>
+		</div>
+	</div>
+	<!-- DATA -->
+	<div class="row data">
+		<div class="container" style="width:100%">
+    			<div class="col s12">
+    				<table id="dashboard-table">
+				        <thead>
+				          <tr>
+				          	  <th></th>
+				              <th data-field="date">Litters Farrowed</th>
+				              <th data-field="pig_id" class="right-align">Litter Size at Birth</th>
+				              <th data-field="sex" class="right-align">Alive</th>
+				              <th data-field="building_id" class="right-align">Mummified</th>
+				              <th data-field="psigns" class="right-align">Stillborn</th>
+				              <th data-field="treatment" class="right-align">Percentage Mummified</th>
+				              <th data-field="cdeath" class="right-align">Percentage Stillborn</th>
+				              <th data-field="remarks" class="right-align">Average Birth Weight</th>
+				              <th data-field="remarks" class="right-align">Weaning Age Days</th>
+				              <th data-field="remarks" class="right-align">Average Weaning Weight</th>
+				              <th data-field="remarks" class="right-align">Gestation Period</th>
+				              <th data-field="remarks" class="right-align">Mortality - Total Population</th>
+				              <th data-field="remarks" class="right-align">Average Parity</th>
+				          </tr>
+				        </thead>
+
+				        <tbody>
+				          <% @yearlyparameters.each do |year| %>
+				          	<tr>
+				          		<% @litter = Litter.litters_per_year(year.first)%>
+				          		<% average_birth_weight = 0.0 %>
+				          		<% number_of_pigs = 0 %>
+				          		<% weaning_age = 0 %>
+				          		<% weaning_weight = 0.0 %>
+				          		<% gestation_period = 0 %>
+				          		<% parity = 0 %>
+				          		<% @litter.each do |litter| %>	
+				          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
+				          			<% parity = parity + litter.parity_number %>
+				          			<% litter.pigs.each do |pig| %>
+				          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
+				          				<% if !pig.date_weaned.nil? %>
+				          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
+				          				<% end %>
+				          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
+				          				<% number_of_pigs = number_of_pigs + 1 %>
+				          			<% end %>
+				          		<% end %>
+				          		<td class="text-bold"><%=year.first.to_s[0..3]%></td>
+				          		<td class="right-align"><%=@litter.count%></td>
+				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
+				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
+				          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
+				          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
+				          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+				          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+				          		
+				          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
+				          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
+				          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
+				          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
+				          		<td class="right-align"><%= CauseOfRemoval.mortality_per_year(year.first).count %></td>
+				          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
+				          	</tr>
+				          <% end %>
+				        </tbody>
+			      	</table>
+    			</div>
+    	</div>
+    </div>
+</main>

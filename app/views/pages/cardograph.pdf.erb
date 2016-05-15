@@ -1,0 +1,103 @@
+<main class="pdf-container">
+	<div class="center-align">
+		<div class="row flex">
+			<div>
+			  <%=wicked_pdf_image_tag "logo.svg", id: 'logo'%>
+			  <h5>Cardograph</h5>
+			</div>
+		</div>
+	</div>
+	<!-- DATA -->
+	<div class="row data">
+		<div class="container" style="width:100%">
+    			<div class="col s12">
+			    	<table class="" id="dashboard-table">
+				        <thead>
+				          <tr>
+				          	<th></th>
+				          	<th colspan="7" class="center-align border-side">Population</th>
+				          	<th colspan="2" class="center-align border-side">Removal</th>
+				          <tr>
+				            <th data-field="date">Date</th>
+				             <!--  <th data-field="cs">CS</th>
+				              <th data-field="cb">CB</th>
+				              <th data-field="cg">CG</th>
+				              <th data-field="wo">WO</th>
+				              <th data-field="lds">LDS</th>
+				              <th data-field="ds">DS</th>
+				              <th data-field="rg">RG</th>
+				              <th data-field="b">B</th>
+				              <th data-field="nbrb">NB/RB</th>
+				              <th data-field="ls">LS</th> -->
+							<th data-field="gs" class="right-align border-left">Gestating</th>
+							<th data-field="fs" class="right-align">Farrowing</th>
+							<th data-field="sp" class="right-align">Suckling Piglets</th>
+							<th data-field="ps" class="right-align">Pre-Starter</th>
+							<th data-field="s" class="right-align">Starter</th>
+							<th data-field="g" class="right-align">Grower</th>
+							<th data-field="f" class="right-align border-right">Fattener</th>
+							<th data-field="sp" class="right-align">Mortality</th>
+							<th data-field="f" class="right-align border-right">Sales</th>
+							<th data-field="tp" class="right-align">Total Population</th>
+							<th data-field="remarks">Remarks</th>
+
+				          </tr>
+				        </thead>
+
+				        <tbody>
+				        	<%@dates.each do |date| %>
+				                <tr>	
+				                	<% @building_headcount = Array.new(17, 0) %>
+				                  	<% total = 0 %>
+				                  	
+				                  	<% starter = 0 %>
+				                  	<% pre_starter = 0 %>
+				                  	<% fattener = 0 %>
+				                  	<% grower = 0 %>
+				                  	<% gestating = 0 %>
+				                  	<% farrowing = 0 %>
+				                  	<td class="left-align"><%=date.strftime('%B %d, %Y')%></td>
+
+				                    <% (1..16).each do |bldg| %>
+				                      <% headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg,date).sum('headcount') %>
+				                      <% total = total + headcounts %>
+				                      <% per_building = 0 %>
+				                      <% per_building = per_building + headcounts %>
+									  <% @building_headcount[bldg] = per_building %>
+				                    <% end %>
+
+				                    
+				                    <% (8..11).each do |bldg| %>
+				                    	<%gestating = gestating + @building_headcount[bldg] %>
+				                    <% end %>
+				                    <% (14..16).each do |bldg| %>
+				                    	<%farrowing = farrowing + @building_headcount[bldg] %>
+				                    <% end %>
+				                    <% (2..6).each do |bldg| %>
+				                    	<%grower = grower + @building_headcount[bldg] %>
+				                    <% end %>
+				                    <% pre_starter = @building_headcount[13] %>
+				                    <% starter = @building_headcount[7] + @building_headcount[12] %>
+				                    <% fattener = @building_headcount[1] %>
+				                    
+				                    <td class="right-align"><%= gestating %></td>
+				                    <td class="right-align"><%= farrowing %></td>
+				                    <td class="right-align"></td>
+				                    <td class="right-align"><%= pre_starter %></td>
+				                    <td class="right-align"><%= starter %></td>
+				                    <td class="right-align"><%= grower %></td>
+				                    <td class="right-align"><%= fattener %></td>
+				                    
+
+				                    <td class="right-align"><%= CauseOfRemoval.where(date_of_removal: date, sale: 0).count %></td>
+				                    <td class="right-align"><%= CauseOfRemoval.where(date_of_removal: date, sale: 1).count %></td>
+				                    <td class="right-align text-bold"><%= total - CauseOfRemoval.where(date_of_removal: date).count %></td>
+				                    <td></td>
+				                </tr>
+				              <% end %>
+				        </tbody>
+			      	</table>
+  	  			</div>
+  	  		</div>
+	</div>
+</main>

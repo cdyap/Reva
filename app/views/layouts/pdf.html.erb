@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'/>
+    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+    <%= wicked_pdf_stylesheet_link_tag "pdf", media: 'all' %>
+    <%= wicked_pdf_stylesheet_link_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body id="pdf">
+    <%= yield %>
+  </body>
+</html>

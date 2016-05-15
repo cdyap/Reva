@@ -52,8 +52,8 @@
                     <td class="right-align"><%=sire_earnotch.to_s[2..-1]%></td>
                     <td class="right-align"><%=litter.try(:litter_size_at_birth)%></td>
                     <td class="right-align"><%=litter.try(:actual_date_of_farrowing).strftime("%B %d, %Y") %></td>
-                    <td><%=link_to "Update", edit_litter_path(litter.id), method: :get, target: :new %></td>
-                    <td><%=link_to "View", litter_path(litter.id), method: :get, target: :new %></td>
+                    <td><%=link_to "Update", edit_litter_path(litter.id), method: :get, target: '_new' %></td>
+                    <td><%=link_to "View", litter_path(litter.id), method: :get, target: '_new'%></td>
                   </tr>
                 <% end %>
               <% end %>

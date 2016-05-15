@@ -12,13 +12,14 @@
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-  <div class="fixed container ">
+  <div class="fixed container">
       <div class="row valign-wrapper header">
         <%=image_tag "logo.svg", id: 'logo'%>
         <%= link_to "Daily Litter Records", litters_path, class:'valign', method: :get%>
         <!-- <h5 class="valign">Daily Litter Records</h5> -->
         <h5 class="valign separator">></h5>
         <h5 class="valign">View Litter</h5>
+        <%=link_to "EXPORT AS PDF", litter_path(@litter.id, format: 'pdf'), method: :get, target: '_new', class: 'waves-effect waves-light deep-orange darken-2 btn'%>
         <!-- <a href="">logout</a> -->
       </div>
   </div>
