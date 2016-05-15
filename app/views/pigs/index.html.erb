@@ -16,7 +16,8 @@
       	<div class="row valign-wrapper">
       		<%=image_tag "logo.svg", id: 'logo'%>
       		<h5 class="valign">Pigs</h5>
-      		<%= link_to "ADD NEW PIG", new_pig_path, class: "btn deep-orange darken-2", method: :get %>
+      		<%= link_to "ADD PIG", new_pig_path, class: "btn deep-orange darken-2", method: :get %>
+      		<a class="waves-effect waves-light blue-grey darken-4 btn exportbutton" name="litter">EXPORT</a>
       		<div class="legend">
       			<p class="valign-wrapper">Legend:
       			<svg width="20" height="20" class="valign pig-icons"><circle cx="10" cy="10" class="Alive" r="6"></circle></svg>Alive
@@ -35,7 +36,7 @@
 		    <div class="row">
 		    	<h5 class="center-align">Alive pigs: <span class="text-bold"><%=@pigs.where(removed: 0).count%></span> | Dead pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 0).count %></span> | Sold pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 1).count %></span></h5>
 		    </div>
-			<table class="striped responsive-table fixed-table" id="pigs-table">
+			<table class="striped responsive-table fixed-table export-table" id="pigs-table">
 				<thead>
 					<tr>
 						<th>Ear Notch Number</th>

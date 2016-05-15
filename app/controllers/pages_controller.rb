@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   	def dashboard
   		@monthlyparameters = ActiveRecord::Base.connection.execute("select distinct(date_format(actual_date_of_farrowing, '%Y-%m')) from litters")
   		@yearlyparameters = ActiveRecord::Base.connection.execute("select distinct(date_format(actual_date_of_farrowing, '%Y')) from litters")
+  		
   		@building_headcount = Array.new(17, 0)
   		@headcounts = Headcount.all
   		removals = CauseOfRemoval.uniq.pluck(:date_of_removal)

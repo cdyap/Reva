@@ -12,10 +12,11 @@
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-  <div class="fixed container ">
-    <div class="row valign-wrapper header">
+  <div class="fixed container header">
+    <div class="row valign-wrapper ">
       <%=image_tag "logo.svg", id: 'logo'%>
       <h5 class="valign">Daily Counts</h5>
+      <a class="waves-effect waves-light blue-grey darken-4 btn exportbutton" name="litter">EXPORT</a>
       <!-- <a href="">logout</a> -->
     </div>
   </div>  
@@ -35,7 +36,7 @@
               </div>
             </div>
               <div class="row">
-                <%= submit_tag "ADD NEW COUNT", class: "btn deep-orange darken-2 center-align" %>
+                <%= submit_tag "ADD DAILY COUNT", class: "btn deep-orange darken-2 center-align" %>
               </div>
 
           <% end %>
@@ -45,14 +46,14 @@
     <div class="row" id="all">
       <div class="col s10 offset-s1">
         <!-- <h6>Total counts as of: <%#@latest_date.strftime("%B %d, %Y")%></h6> -->
-        <table class="responsive-table striped fixed-table" id="headcounts-table">
+        <table class="responsive-table striped fixed-table export-table" id="headcounts-table">
           <thead>
             <tr>
-                <th data-field="building_number" class="right-align">Building #</th>
+                <td data-field="building_number" class="right-align text-bold">Building #</th>
                 <% (1..16).each do |i| %>
                   <td class="right-align border-side"><%=i%></td>
                 <%end%>
-                <th>Total</th>
+                <td class="text-bold">Total</th>
             </tr>
           </thead>
 
