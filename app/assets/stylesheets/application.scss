@@ -298,4 +298,7 @@ main {
 }
 .modal { width: 45vw !important  } 
 
+.nofloat-a {
+	td.left-align > a {float: none!important;}
+}
 

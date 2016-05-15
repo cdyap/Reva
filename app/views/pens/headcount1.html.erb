@@ -28,15 +28,23 @@
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%=building.building_name%></th>
               </tr>
               <tr>
-                <td colspan="2" class="center-align">Total: </td>
+                <% if @pens.first.headcounts.headcountpens(@date).count == 0 %>
+                  <td colspan="2" class="center-align">
+                    <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
+                  </td>
+                <% else %>
+                  <td colspan="2" class="center-align">
+                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                  </td>
+                <% end %>
               </tr>
             </thead>
             <tbody>
               
               <% @pens[0..@half-1].each_with_index do |pen, index| %>
                 <tr>
-                  <td><%=pen.pen_number%>: 0</td>
-                  <td><%=@pens[index+@half].pen_number%>: 0</td>
+                  <td>P<%=pen.pen_number%>: <span class="text-bold"><%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></span></td>
+                  <td>P<%=@pens[index+@half].pen_number%>: <span class="text-bold"><%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></span></td>
                 </tr>
               <% end %>
             </tbody>
@@ -53,7 +61,15 @@
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%= building.building_name %></th>
               </tr>
               <tr>
-                <td colspan="2" class="center-align">Total: </td>
+                <% if @pens.first.headcounts.headcountpens(@date).count == 0 %>
+                  <td colspan="2" class="center-align">
+                    <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
+                  </td>
+                <% else %>
+                  <td colspan="2" class="center-align">
+                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                  </td>
+                <% end %>
               </tr>
             </thead>
           </table>
@@ -69,15 +85,23 @@
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%=building.building_name%></th>
               </tr>
               <tr>
-                <td colspan="2" class="center-align">Total: </td>
+                <% if @pens.first.headcounts.headcountpens(@date).count == 0 %>
+                  <td colspan="2" class="center-align">
+                    <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
+                  </td>
+                <% else %>
+                  <td colspan="2" class="center-align">
+                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                  </td>
+                <% end %>
               </tr>
             </thead>
             <tbody>
               
               <% @pens[0..@half-1].each_with_index do |pen, index| %>
                 <tr>
-                  <td><%=pen.pen_number%>: 0</td>
-                  <td><%=@pens[index+@half].pen_number%>: 0</td>
+                  <td>P<%=pen.pen_number%>: <span class="text-bold"><%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></span></td>
+                  <td>P<%=@pens[index+@half].pen_number%>: <span class="text-bold"><%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></span></td>
                 </tr>
               <% end %>
             </tbody>
@@ -94,7 +118,15 @@
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%= building.building_name %></th>
               </tr>
               <tr>
-                <td colspan="2" class="center-align">Total: </td>
+                <% if @pens.first.headcounts.headcountpens(@date).count == 0 %>
+                  <td colspan="2" class="center-align">
+                    <%=link_to "Add Headcount", pen_edit_all_path(pen_id: building.building_number, headcount_date: @date), target: :new%>
+                  </td>
+                <% else %>
+                  <td colspan="2" class="center-align">
+                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                  </td>
+                <% end %>
               </tr>
             </thead>
           </table>

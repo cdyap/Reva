@@ -45,12 +45,12 @@
     <div class="row" id="all">
       <div class="col s10 offset-s1">
         <!-- <h6>Total counts as of: <%#@latest_date.strftime("%B %d, %Y")%></h6> -->
-        <table class="responsive-table striped">
+        <table class="responsive-table striped fixed-table" id="headcounts-table">
           <thead>
             <tr>
                 <th data-field="building_number" class="right-align">Building #</th>
                 <% (1..16).each do |i| %>
-                  <td class="right-align"><%=i%></td>
+                  <td class="right-align border-side"><%=i%></td>
                 <%end%>
                 <th>Total</th>
             </tr>
@@ -71,7 +71,7 @@
                   <% else %>
 
                     <% (1..16).each do |bldg| %>
-                      <td class="right-align"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg, date.headcount_date).sum('headcount') %></td>
+                      <td class="right-align  border-side"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg, date.headcount_date).sum('headcount') %></td>
                       <% @total = @total + @headcounts %>
                     <% end %>
                     <td class="text-bold"><%=@total%></td>
@@ -79,8 +79,18 @@
                 </tr>
               <% end %>
             <% end %>
+            <% (1..16).each do |row| %>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
+        <table id="header-fixed"></table>
       </div>
     </div>    
   </div>

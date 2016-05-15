@@ -20,6 +20,14 @@ $(document).ready(function(){
 			        $fixedHeader.hide();
 			    }
 		    }
+		    else if ($header.attr('id') == "headcounts-table") {
+		    	if (offset >= (tableOffset) && $fixedHeader.is(":hidden")) {
+			        $fixedHeader.show();
+			    }
+			    else if (offset < tableOffset) {
+			        $fixedHeader.hide();
+			    }
+		    }
 		    else {
 			    if (offset >= (tableOffset - 80) && $fixedHeader.is(":hidden")) {
 			        $fixedHeader.show();

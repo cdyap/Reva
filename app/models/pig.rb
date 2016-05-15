@@ -7,6 +7,7 @@ class Pig < ActiveRecord::Base
 	#protokoll :ear_notch_number, :pattern => "%y%m###"
 	#validates :breed, presence: true
 	validates :birth_weight, presence: true
+	validates :birth_weight, :numericality => { :greater_than_or_equal_to => 0 }
 	validates :sex, presence: true
 	
 

@@ -12,10 +12,11 @@
 </ul>
 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 <main>
-  <div class="fixed container ">
-    <div class="row valign-wrapper header">
+  <div class="fixed container header">
+    <div class="row valign-wrapper">
       <%=image_tag "logo.svg", id: 'logo'%>
       <h5 class="valign">Daily Litter Records</h5>
+      <%= link_to "ADD NEW LITTER", new_litter_path, class: "btn deep-orange darken-2 center-align", method: :get %>
       <!-- <a href="">logout</a> -->
     </div>
   </div>  
@@ -24,10 +25,7 @@
     <div id="all" class="col s12">
 
       <div class="container">
-          <div class="center-align row">
-            <%= link_to "ADD NEW LITTER", new_litter_path, class: "btn deep-orange darken-2 center-align", method: :get %>
-          </div>
-          <table class="striped">
+          <table class="striped fixed-table">
             <thead>
               <tr>
                   <th data-field="pig_id" class="right-align">Dam's ID</th>
@@ -35,7 +33,7 @@
                   <th data-field="bweight" class="right-align">Sire's ID</th>
                   <th data-field="bweight" class="right-align">Litter Size at Birth</th>
                   <th data-field="wweight" class="right-align">Actual Date of Farrowing</th>
-                  <th class="right-align">Actions</th>
+                  <th class="center-align" colspan="2">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -53,11 +51,22 @@
                     <td class="right-align"><%=sire_earnotch.to_s[2..-1]%></td>
                     <td class="right-align"><%=litter.try(:litter_size_at_birth)%></td>
                     <td class="right-align"><%=litter.try(:actual_date_of_farrowing).strftime("%B %d, %Y") %></td>
-                    <td class="right-align"><%=link_to "View", litter_path(litter.id), method: :get, target: :new %><%=link_to "Update", edit_litter_path(litter.id), method: :get, target: :new %></td>
+                    <td><%=link_to "Update", edit_litter_path(litter.id), method: :get, target: :new %></td>
+                    <td><%=link_to "View", litter_path(litter.id), method: :get, target: :new %></td>
                   </tr>
                 <% end %>
               <% end %>
+              <% (1..16).each do |row| %>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
+          <table id="header-fixed"></table>
   </div>
 </main>

@@ -24,19 +24,97 @@
   </div>
   <!-- DATA -->
   <div class="row data">
-    <div id="add" class="col s10 offset-s1">
+    <div id="add" class="col s10 offset-s1 nofloat-a">
       <div class="row">
         <h6 class="text-bold">Parents' information:</h6>
         <div class="row">
           <div class="col s4">
-            <table>
+            <table class="">
               <thead>
                 <th colspan="2">SOW'S INFORMATION</th>  
               </thead>
               <tbody>
                 <tr>
                   <td>Dam ID:</td>
-                  <td><%=@dam.ear_notch_number.to_s[2..-1]%></td>
+                  <td class="left-align"><a href="#D<%=@dam.pig_id%>" class="modal-trigger left-align"><%= @dam.ear_notch_number.to_s[2..-1]%></a></td>
+                  <div id="D<%=@dam.pig_id%>" class="modal modal-fixed-footer <%= @dam.sex %>">
+                  <div class="modal-content">
+                      <h3 class="center-align text-bold"><%=@dam.ear_notch_number.to_s[2..-1]%> - <%=@dam.sex%></h3>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Status:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.alive %>
+                        </div>
+                      </div><div class="row">
+                        <div class="col s6 right-align">
+                          Breed:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.try(:breed) %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Date of birth:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.try(:date_of_birth).strftime("%B %d, %Y") %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Birth weight:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.try(:birth_weight) %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Date weaned:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.date_weaned.present? ? @dam.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Weaning weight:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@dam.weaning_weight == 0.00 ? "Not yet weaned." : @dam.weaning_weight%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Dam:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%= @dam.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Sire:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%= @dam.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                        </div>
+                      </div>  
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Remarks:
+                        </div>
+                        <div class="col s4 left-align text-bold">
+                          <%= @dam.try(:remarks) || "N/A" %>
+                        </div>
+                      </div>                    
+                  </div>
+                  <div class="modal-footer">
+                      <a class="modal-action modal-close waves-effect waves-deep-orange text-bold btn-flat deep-orange-text text-darken-2">Close</a>
+                  </div>
                 </tr>
                 <tr>
                   <td>Breed:</td>
@@ -86,7 +164,7 @@
               <tbody>
                 <tr>
                   <td>Ear notch number:</td>
-                  <td><%=@sire.ear_notch_number.to_s[2..-1]%></td>
+                  <td class="left-align"><a href="#S<%=@sire.pig_id%>" class="modal-trigger left-align"><%= @sire.ear_notch_number.to_s[2..-1] %></a></td>
                 </tr>
                 <tr>
                   <td>Breed:</td>
@@ -100,6 +178,84 @@
                   <td>Sire: </td>
                   <td><%=sire_sireid = Pig.where(pig_id: @sire.sire_id).first.try(:ear_notch_number).to_s[2..-1] unless !sire_sireid.nil? %></td>
                 </tr>
+                <div id="S<%=@sire.pig_id%>" class="modal modal-fixed-footer <%= @sire.sex %>">
+                  <div class="modal-content">
+                      <h3 class="center-align text-bold"><%=@sire.ear_notch_number.to_s[2..-1]%> - <%=@sire.sex%></h3>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Status:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.alive %>
+                        </div>
+                      </div><div class="row">
+                        <div class="col s6 right-align">
+                          Breed:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.try(:breed) %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Date of birth:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.try(:date_of_birth).strftime("%B %d, %Y") %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Birth weight:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.try(:birth_weight) %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Date weaned:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.date_weaned.present? ? @sire.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Weaning weight:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%=@sire.weaning_weight == 0.00 ? "Not yet weaned." : @sire.weaning_weight%>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Dam:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%= @sire.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Sire:
+                        </div>
+                        <div class="col s6 left-align text-bold">
+                          <%= @sire.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                        </div>
+                      </div>  
+                      <div class="row">
+                        <div class="col s6 right-align">
+                          Remarks:
+                        </div>
+                        <div class="col s4 left-align text-bold">
+                          <%= @sire.try(:remarks) || "N/A" %>
+                        </div>
+                      </div>                    
+                  </div>
+                  <div class="modal-footer">
+                      <a class="modal-action modal-close waves-effect waves-deep-orange text-bold btn-flat deep-orange-text text-darken-2">Close</a>
+                  </div>
               </tbody>
             </table>
           </div>
@@ -138,12 +294,90 @@
                
             <% @litter.pigs.each do |p| %>
               <tr>
-                  <td><%= p.ear_notch_number.to_s[2..-1] %></td>
+                  <td class="left-align"><a href="#P<%=p.pig_id%>" class="modal-trigger left-align"><%= p.ear_notch_number.to_s[2..-1] %></a></td>
                   <td><%= p.sex %></td>
                   <td class="right-align"><%= p.birth_weight %></td>
                   <td class="right-align"><%= p.weaning_weight != 0 ? p.weaning_weight : "Not yet weaned."%></td>
                   <td class="right-align"><%= p.date_weaned.present? ? p.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %></td>
               </tr>
+              <div id="P<%=p.pig_id%>" class="modal modal-fixed-footer <%= p.sex %>">
+                <div class="modal-content">
+                    <h3 class="center-align text-bold"><%=p.ear_notch_number.to_s[2..-1]%> - <%=p.sex%></h3>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Status:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.alive %>
+                      </div>
+                    </div><div class="row">
+                      <div class="col s6 right-align">
+                        Breed:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.try(:breed) %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Date of birth:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.try(:date_of_birth).strftime("%B %d, %Y") %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Birth weight:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.try(:birth_weight) %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Date weaned:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.date_weaned.present? ? p.date_weaned.strftime("%B %d, %Y") : "Not yet weaned."  %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Weaning weight:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%=p.weaning_weight == 0.00 ? "Not yet weaned." : p.weaning_weight%>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Dam:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%= p.try(:litter).try(:dam).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Sire:
+                      </div>
+                      <div class="col s6 left-align text-bold">
+                        <%= p.try(:litter).try(:sire).try(:ear_notch_number).to_s[2..-1] || "N/A" %>
+                      </div>
+                    </div>  
+                    <div class="row">
+                      <div class="col s6 right-align">
+                        Remarks:
+                      </div>
+                      <div class="col s4 left-align text-bold">
+                        <%= p.try(:remarks) || "N/A" %>
+                      </div>
+                    </div>                    
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-action modal-close waves-effect waves-deep-orange text-bold btn-flat deep-orange-text text-darken-2">Close</a>
+                </div>
             <% end%>
           </tbody>
         </table>
