@@ -14,7 +14,8 @@ class Litter < ActiveRecord::Base
 	
 	after_save :set_lsb
 
-	scope :litters_per_time, -> (date) { where('actual_date_of_farrowing >= ? AND actual_date_of_farrowing <= ?', date<<"-01", date.chomp("-01")<<"-31")}
+	scope :litters_per_month, -> (date) { where('actual_date_of_farrowing >= ? AND actual_date_of_farrowing <= ?', date<<"-01", date.chomp("-01")<<"-31")}
+	scope :litters_per_year, -> (date) { where('actual_date_of_farrowing >= ? AND actual_date_of_farrowing <= ?', date<<"-01-01", date.chomp("-01-01")<<"-12-31")}
 
 	def parameters_litters_farrowed(time)
 		self.litters_per_time(time).count

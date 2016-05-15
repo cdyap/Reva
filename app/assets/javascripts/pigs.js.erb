@@ -1,14 +1,27 @@
 $(document).ready(function(){
 	var tableOffset = $(".fixed-table");
 	var $header = $(".fixed-table");
-	
+	var $header1 = $(".fixed-table1");
 
-	if ((tableOffset.length) && ($header.length)) {
+	if ((tableOffset.length) && ($header.length) || (tableOffset1.length) && ($header1.length) || (tableOffset2.length) && ($header2.length)) {
 		tableOffset = tableOffset.offset().top;
+
 		var $fixedHeader = $("#header-fixed").append($header.clone());
+		var $fixedHeader1 = $("#header-fixed1").append($header1.clone());
+		var $fixedHeader2 = $("#header-fixed2").append($header1.clone());
+
 		$fixedHeader.css("visibility","hidden");
+		$fixedHeader1.css("visibility","hidden");
+		$fixedHeader2.css("visibility","hidden");
+
 		$fixedHeader.find('thead').addClass('new-header');
+		$fixedHeader1.find('thead').addClass('new-header');
+		$fixedHeader2.find('thead').addClass('new-header');
+
 		$fixedHeader.width($header.width());
+		$fixedHeader1.width($header.width());
+		$fixedHeader2.width($header.width());
+
 		$(window).bind("scroll", function() {
 		    var offset = $(this).scrollTop();
 		    
@@ -16,8 +29,20 @@ $(document).ready(function(){
 		    	if (offset >= (tableOffset - 20) && $fixedHeader.is(":hidden")) {
 			        $fixedHeader.show();
 			    }
-			    else if (offset < tableOffset) {
+			    else if (offset < (tableOffset - 20)) {
 			        $fixedHeader.hide();
+			    }
+		    }
+		    else if ($header.attr('id') == "dashboard-table") {
+		    	if (offset >= (tableOffset - 40) && $fixedHeader.is(":hidden")) {
+			        $fixedHeader.show();
+			        $fixedHeader1.show();
+			        $fixedHeader2.show();
+			    }
+			    else if (offset < (tableOffset - 40)) {
+			        $fixedHeader.hide();
+			        $fixedHeader1.hide();
+			        $fixedHeader2.hide();
 			    }
 		    }
 		    else if ($header.attr('id') == "headcounts-table") {
@@ -32,7 +57,7 @@ $(document).ready(function(){
 			    if (offset >= (tableOffset - 80) && $fixedHeader.is(":hidden")) {
 			        $fixedHeader.show();
 			    }
-			    else if (offset < tableOffset) {
+			    else if (offset < (tableOffset - 80)) {
 			        $fixedHeader.hide();
 			    }
 			}
