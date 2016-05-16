@@ -31,6 +31,14 @@
     <div id="data" class="col s8 offset-s2">
       <div class="container" style="width:100%">
         <div class="col s12">
+        <div class="row">
+              <% flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, class: name + ' center-align green-text text-darken-4' %>
+          <% end -%>
+        </div>
+        <div class="row">
+        <h5 class="center-align">Dead pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 0).count %></span> | Sold pigs: <span class="text-bold"><%=CauseOfRemoval.count - CauseOfRemoval.where(sale: 1).count %></span></h5>
+        </div>
         <table class="striped fixed-table export-table" style="width:100%">
           <thead>
             <tr>                

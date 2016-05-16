@@ -1,28 +1,19 @@
-<ul id="sidebar" class="side-nav fixed blue-grey darken-4">
-    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Dashboard.svg", class:"svg sidebar-icons ", id: "dashboard-icon") + "<p>Dashboard</p></div>".html_safe, dashboard_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Daily Litter Record.svg", class:"svg sidebar-icons ", id: "litter-icon") + "<p>Daily Litter Records</p></div>".html_safe, litters_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="sidebar-active valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Actual Daily Count.svg", class:"svg sidebar-icons ", id: "dailycount-icon") + "<p>Daily Counts</p></div>".html_safe, pens_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("Mortality Records.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Removal Records</p></div>".html_safe, cause_of_removals_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-    <li class="valign-wrapper flex"><%= link_to "<div class='valign hi'>".html_safe + image_tag("pig.svg", class:"svg sidebar-icons ", id: "mortality-icon") + "<p>Pigs</p></div>".html_safe, pigs_path, method: :get, class: "blue-grey-text text-lighten-3 nohover center-align"  %></li>
-</ul>
-<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-<main>
-  <div class="fixed container ">
-    <div class="row valign-wrapper header">
-      <%=image_tag "logo.svg", id: 'logo'%>
-      <%= link_to "All Daily Counts", pens_path, class:'valign', method: :get%>
-      <h5 class="valign separator">></h5>
-      <h5 class="valign">Counts for <%= @date.strftime("%B %d, %Y")%></h5>
-      <!-- <a href="">logout</a> -->
-    </div>
-  </div>  
+<main class="pdf-container hdcnts">
+  <div class="center-align">
+      <div class="row flex">
+        <div>
+          <%=wicked_pdf_image_tag "logo.svg", id: 'logo'%>
+          <p>Headcount for <%=Date.parse(@date).strftime("%B %d, %Y")%> | Total: <span class="text-bold"><%=Headcount.where(headcount_date: @date).sum("headcount")%></span></p>
+        </div>
+      </div>
+  </div>
   <div class="row data">
     <div class="col s12">
       <% @buildings[0..6].each do |building| %>
         <% @pens = Pen.where(building_number: building.building_number) %>
         <% @half = @pens.length/2 %>
         <div class="col s2">
-          <table class="striped">
+          <table class="">
             <thead>
               <tr>
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%=building.building_name%></th>
@@ -34,7 +25,7 @@
                   </td>
                 <% else %>
                   <td colspan="2" class="center-align">
-                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                    <span class="text-bold center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
                   </td>
                 <% end %>
               </tr>
@@ -55,7 +46,7 @@
         <% @buildings[7..10].each do |building| %>
           <% @pens = Pen.where(building_number: building.building_number) %>
           <% @half = @pens.length/2 %>
-          <table class="striped">
+          <table class="">
             <thead>
               <tr>
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%= building.building_name %></th>
@@ -67,7 +58,7 @@
                   </td>
                 <% else %>
                   <td colspan="2" class="center-align">
-                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                    <span class="text-bold center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
                   </td>
                 <% end %>
               </tr>
@@ -79,7 +70,7 @@
         <% @pens = Pen.where(building_number: building.building_number) %>
         <% @half = @pens.length/2 %>
         <div class="col s2">
-          <table class="striped">
+          <table class="">
             <thead>
               <tr>
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%=building.building_name%></th>
@@ -91,7 +82,7 @@
                   </td>
                 <% else %>
                   <td colspan="2" class="center-align">
-                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                    <span class="text-bold center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
                   </td>
                 <% end %>
               </tr>
@@ -112,7 +103,7 @@
         <% @buildings[14,15].each do |building| %>
           <% @pens = Pen.where(building_number: building.building_number) %>
           <% @half = @pens.length/2 %>
-          <table class="striped">
+          <table class="">
             <thead>
               <tr>
                 <th colspan="2" class="center-align">Bldg <%=building.building_number.to_s%>: <%= building.building_name %></th>
@@ -124,7 +115,7 @@
                   </td>
                 <% else %>
                   <td colspan="2" class="center-align">
-                    <span class="headcounts center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
+                    <span class="text-bold center-align"><%=@pens.includes(:headcounts).where('headcounts.headcount_date = ?', @date).sum("headcount")%></span>
                   </td>
                 <% end %>
               </tr>

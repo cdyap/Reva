@@ -183,7 +183,7 @@
 						        {
 						            label: "<%= raw @for_charts[0][0] %>",
 						            data: <%= raw @for_charts[0][1..6] %>,
-						            backgroundColor: "rgba(218,175,101,0.4)",
+						            backgroundColor: "rgba(218,175,101,0.2)",
             						borderColor: "rgba(218,175,101,1)"
 						        }
 						        <% if !@for_charts[1].nil? %>
@@ -191,7 +191,7 @@
 							        {
 							            label: "<%= raw @for_charts[1][0] %>",
 							            data: <%= raw @for_charts[1][1..6] %>,
-							            backgroundColor: "rgba(218,115,115,0.4)",
+							            backgroundColor: "rgba(218,115,115,0.2)",
 							            borderColor: "rgba(218,115,115,1)"
 							        }
 							    <% end %>
@@ -200,7 +200,7 @@
 							        {
 							            label: "<%= raw @for_charts[2][0] %>",
 							            data: <%= raw @for_charts[2][1..6] %>,
-							            backgroundColor:"rgba(121,184,218,0.4)",
+							            backgroundColor:"rgba(121,184,218,0.2)",
 							            borderColor: "rgba(121,184,218,1)"
 							        }
 							    <% end %>
@@ -209,7 +209,7 @@
 							        {
 							            label: "<%= raw @for_charts[3][0] %>",
 							            data: <%= raw @for_charts[3][1..6] %>,
-							            backgroundColor: "rgba(163,197,126,0.4)",
+							            backgroundColor: "rgba(163,197,126,0.2)",
 							            borderColor: "rgba(163,197,126,1)"
 							        }
 							    <% end %>
@@ -244,7 +244,7 @@
 						        {
 						            label: "<%= raw @for_charts[0][0] %>",
 						            data: [<%= raw @for_charts[0][9] %>],
-						            backgroundColor: "rgba(218,175,101,0.4)",
+						            backgroundColor: "rgba(218,175,101,0.2)",
             						borderColor: "rgba(218,175,101,1)"
 							    }
 							    <% if !@for_charts[1].nil? %>
@@ -252,7 +252,7 @@
 							        {
 							            label: "<%= raw @for_charts[1][0] %>",
 							            data: [<%= raw @for_charts[1][9] %>],
-							            backgroundColor: "rgba(218,115,115,0.4)",
+							            backgroundColor: "rgba(218,115,115,0.2)",
 							            borderColor: "rgba(218,115,115,1)"
 							        }
 							    <% end %>
@@ -261,7 +261,7 @@
 							        {
 							            label: "<%= raw @for_charts[2][0] %>",
 							            data: [<%= raw @for_charts[2][9] %>],
-							            backgroundColor:"rgba(121,184,218,0.4)",
+							            backgroundColor:"rgba(121,184,218,0.2)",
 							            borderColor: "rgba(121,184,218,1)"
 							        }
 							    <% end %>
@@ -270,7 +270,7 @@
 							        {
 							            label: "<%= raw @for_charts[3][0] %>",
 							            data: [<%= raw @for_charts[3][9] %>],
-							            backgroundColor: "rgba(163,197,126,0.4)",
+							            backgroundColor: "rgba(163,197,126,0.2)",
 							            borderColor: "rgba(163,197,126,1)"
 							        }
 							    <% end %>
@@ -301,7 +301,7 @@
 						        {
 						            label: "<%= raw @for_charts[0][0] %>",
 						            data: <%= raw @for_charts[0].values_at(7,8) %>,
-						            backgroundColor: "rgba(218,175,101,0.4)",
+						            backgroundColor: "rgba(218,175,101,0.2)",
             						borderColor: "rgba(218,175,101,1)"
 							    }
 							    <% if !@for_charts[1].nil? %>
@@ -309,7 +309,7 @@
 							        {
 							            label: "<%= raw @for_charts[1][0] %>",
 							            data: <%= raw @for_charts[1].values_at(7,8) %>,
-							            backgroundColor: "rgba(218,115,115,0.4)",
+							            backgroundColor: "rgba(218,115,115,0.2)",
 							            borderColor: "rgba(218,115,115,1)"
 							        }
 							    <% end %>
@@ -318,7 +318,7 @@
 							        {
 							            label: "<%= raw @for_charts[2][0] %>",
 							            data: <%= raw @for_charts[2].values_at(7,8) %>,
-							            backgroundColor:"rgba(121,184,218,0.4)",
+							            backgroundColor:"rgba(121,184,218,0.2)",
 							            borderColor: "rgba(121,184,218,1)"
 							        }
 							    <% end %>
@@ -327,7 +327,7 @@
 							        {
 							            label: "<%= raw @for_charts[3][0] %>",
 							            data: <%= raw @for_charts[3].values_at(7,8) %>,
-							            backgroundColor: "rgba(163,197,126,0.4)",
+							            backgroundColor: "rgba(163,197,126,0.2)",
 							            borderColor: "rgba(163,197,126,1)"
 							        }
 							    <% end %>
@@ -468,7 +468,7 @@
 								        {
 								            label: "<%= raw @for_charts_monthly[0][0] %>",
 								            data: <%= raw @for_charts_monthly[0].values_at(3,4,5,12) %>,
-								            backgroundColor: "rgba(218,175,101,0.4)",
+								            backgroundColor: "rgba(218,175,101,0.2)",
 		            						borderColor: "rgba(218,175,101,1)"
 								        }
 								        <% if !@for_charts_monthly[1].nil? %>
@@ -476,7 +476,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[1][0] %>",
 									            data: <%= raw @for_charts_monthly[1].values_at(3,4,5,12) %>,
-									            backgroundColor: "rgba(218,115,115,0.4)",
+									            backgroundColor: "rgba(218,115,115,0.2)",
 									            borderColor: "rgba(218,115,115,1)"
 									        }
 									    <% end %>
@@ -485,7 +485,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[2][0] %>",
 									            data: <%= raw @for_charts_monthly[2].values_at(3,4,5,12) %>,
-									            backgroundColor:"rgba(121,184,218,0.4)",
+									            backgroundColor:"rgba(121,184,218,0.2)",
 									            borderColor: "rgba(121,184,218,1)"
 									        }
 									    <% end %>
@@ -494,7 +494,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[3][0] %>",
 									            data: <%= raw @for_charts_monthly[3].values_at(3,4,5,12)%>,
-									            backgroundColor: "rgba(163,197,126,0.4)",
+									            backgroundColor: "rgba(163,197,126,0.2)",
 									            borderColor: "rgba(163,197,126,1)"
 									        }
 									    <% end %>
@@ -525,7 +525,7 @@
 								        {
 								            label: "<%= raw @for_charts_monthly[0][0] %>",
 								            data: <%= raw @for_charts_monthly[0].values_at(1) %>,
-								            backgroundColor: "rgba(218,175,101,0.4)",
+								            backgroundColor: "rgba(218,175,101,0.2)",
 		            						borderColor: "rgba(218,175,101,1)"
 								        }
 								        <% if !@for_charts_monthly[1].nil? %>
@@ -533,7 +533,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[1][0] %>",
 									            data: <%= raw @for_charts_monthly[1].values_at(1) %>,
-									            backgroundColor: "rgba(218,115,115,0.4)",
+									            backgroundColor: "rgba(218,115,115,0.2)",
 									            borderColor: "rgba(218,115,115,1)"
 									        }
 									    <% end %>
@@ -542,7 +542,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[2][0] %>",
 									            data: <%= raw @for_charts_monthly[2].values_at(1) %>,
-									            backgroundColor:"rgba(121,184,218,0.4)",
+									            backgroundColor:"rgba(121,184,218,0.2)",
 									            borderColor: "rgba(121,184,218,1)"
 									        }
 									    <% end %>
@@ -551,7 +551,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[3][0] %>",
 									            data: <%= raw @for_charts_monthly[3].values_at(1)%>,
-									            backgroundColor: "rgba(163,197,126,0.4)",
+									            backgroundColor: "rgba(163,197,126,0.2)",
 									            borderColor: "rgba(163,197,126,1)"
 									        }
 									    <% end %>
@@ -582,7 +582,7 @@
 								        {
 								            label: "<%= raw @for_charts_monthly[0][0] %>",
 								            data: <%= raw @for_charts_monthly[0].values_at(6,7) %>,
-								            backgroundColor: "rgba(218,175,101,0.4)",
+								            backgroundColor: "rgba(218,175,101,0.2)",
 		            						borderColor: "rgba(218,175,101,1)"
 								        }
 								        <% if !@for_charts_monthly[1].nil? %>
@@ -590,7 +590,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[1][0] %>",
 									            data: <%= raw @for_charts_monthly[1].values_at(6,7) %>,
-									            backgroundColor: "rgba(218,115,115,0.4)",
+									            backgroundColor: "rgba(218,115,115,0.2)",
 									            borderColor: "rgba(218,115,115,1)"
 									        }
 									    <% end %>
@@ -599,7 +599,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[2][0] %>",
 									            data: <%= raw @for_charts_monthly[2].values_at(6,7) %>,
-									            backgroundColor:"rgba(121,184,218,0.4)",
+									            backgroundColor:"rgba(121,184,218,0.2)",
 									            borderColor: "rgba(121,184,218,1)"
 									        }
 									    <% end %>
@@ -608,7 +608,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[3][0] %>",
 									            data: <%= raw @for_charts_monthly[3].values_at(6,7)%>,
-									            backgroundColor: "rgba(163,197,126,0.4)",
+									            backgroundColor: "rgba(163,197,126,0.2)",
 									            borderColor: "rgba(163,197,126,1)"
 									        }
 									    <% end %>
@@ -639,7 +639,7 @@
 								        {
 								            label: "<%= raw @for_charts_monthly[0][0] %>",
 								            data: <%= raw @for_charts_monthly[0].values_at(8,10) %>,
-								            backgroundColor: "rgba(218,175,101,0.4)",
+								            backgroundColor: "rgba(218,175,101,0.2)",
 		            						borderColor: "rgba(218,175,101,1)"
 								        }
 								        <% if !@for_charts_monthly[1].nil? %>
@@ -647,7 +647,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[1][0] %>",
 									            data: <%= raw @for_charts_monthly[1].values_at(8,10) %>,
-									            backgroundColor: "rgba(218,115,115,0.4)",
+									            backgroundColor: "rgba(218,115,115,0.2)",
 									            borderColor: "rgba(218,115,115,1)"
 									        }
 									    <% end %>
@@ -656,7 +656,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[2][0] %>",
 									            data: <%= raw @for_charts_monthly[2].values_at(8,10) %>,
-									            backgroundColor:"rgba(121,184,218,0.4)",
+									            backgroundColor:"rgba(121,184,218,0.2)",
 									            borderColor: "rgba(121,184,218,1)"
 									        }
 									    <% end %>
@@ -665,7 +665,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[3][0] %>",
 									            data: <%= raw @for_charts_monthly[3].values_at(8,10)%>,
-									            backgroundColor: "rgba(163,197,126,0.4)",
+									            backgroundColor: "rgba(163,197,126,0.2)",
 									            borderColor: "rgba(163,197,126,1)"
 									        }
 									    <% end %>
@@ -696,7 +696,7 @@
 								        {
 								            label: "<%= raw @for_charts_monthly[0][0] %>",
 								            data: <%= raw @for_charts_monthly[0].values_at(9,10,13) %>,
-								            backgroundColor: "rgba(218,175,101,0.4)",
+								            backgroundColor: "rgba(218,175,101,0.2)",
 		            						borderColor: "rgba(218,175,101,1)"
 								        }
 								        <% if !@for_charts_monthly[1].nil? %>
@@ -704,7 +704,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[1][0] %>",
 									            data: <%= raw @for_charts_monthly[1].values_at(9,10,13) %>,
-									            backgroundColor: "rgba(218,115,115,0.4)",
+									            backgroundColor: "rgba(218,115,115,0.2)",
 									            borderColor: "rgba(218,115,115,1)"
 									        }
 									    <% end %>
@@ -713,7 +713,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[2][0] %>",
 									            data: <%= raw @for_charts_monthly[2].values_at(9,10,13) %>,
-									            backgroundColor:"rgba(121,184,218,0.4)",
+									            backgroundColor:"rgba(121,184,218,0.2)",
 									            borderColor: "rgba(121,184,218,1)"
 									        }
 									    <% end %>
@@ -722,7 +722,7 @@
 									        {
 									            label: "<%= raw @for_charts_monthly[3][0] %>",
 									            data: <%= raw @for_charts_monthly[3].values_at(9,10,13)%>,
-									            backgroundColor: "rgba(163,197,126,0.4)",
+									            backgroundColor: "rgba(163,197,126,0.2)",
 									            borderColor: "rgba(163,197,126,1)"
 									        }
 									    <% end %>
@@ -862,7 +862,7 @@
 							        {
 							            label: "<%= raw @for_charts_yearly[0][0] %>",
 							            data: <%= raw @for_charts_yearly[0].values_at(3,4,5,12) %>,
-							            backgroundColor: "rgba(218,175,101,0.4)",
+							            backgroundColor: "rgba(218,175,101,0.2)",
 	            						borderColor: "rgba(218,175,101,1)"
 							        }
 							        <% if !@for_charts_yearly[1].nil? %>
@@ -870,7 +870,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[1][0] %>",
 								            data: <%= raw @for_charts_yearly[1].values_at(3,4,5,12) %>,
-								            backgroundColor: "rgba(218,115,115,0.4)",
+								            backgroundColor: "rgba(218,115,115,0.2)",
 								            borderColor: "rgba(218,115,115,1)"
 								        }
 								    <% end %>
@@ -879,7 +879,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[2][0] %>",
 								            data: <%= raw @for_charts_yearly[2].values_at(3,4,5,12) %>,
-								            backgroundColor:"rgba(121,184,218,0.4)",
+								            backgroundColor:"rgba(121,184,218,0.2)",
 								            borderColor: "rgba(121,184,218,1)"
 								        }
 								    <% end %>
@@ -888,7 +888,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[3][0] %>",
 								            data: <%= raw @for_charts_yearly[3].values_at(3,4,5,12)%>,
-								            backgroundColor: "rgba(163,197,126,0.4)",
+								            backgroundColor: "rgba(163,197,126,0.2)",
 								            borderColor: "rgba(163,197,126,1)"
 								        }
 								    <% end %>
@@ -919,7 +919,7 @@
 							        {
 							            label: "<%= raw @for_charts_yearly[0][0] %>",
 							            data: <%= raw @for_charts_yearly[0].values_at(1) %>,
-							            backgroundColor: "rgba(218,175,101,0.4)",
+							            backgroundColor: "rgba(218,175,101,0.2)",
 	            						borderColor: "rgba(218,175,101,1)"
 							        }
 							        <% if !@for_charts_yearly[1].nil? %>
@@ -927,7 +927,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[1][0] %>",
 								            data: <%= raw @for_charts_yearly[1].values_at(1) %>,
-								            backgroundColor: "rgba(218,115,115,0.4)",
+								            backgroundColor: "rgba(218,115,115,0.2)",
 								            borderColor: "rgba(218,115,115,1)"
 								        }
 								    <% end %>
@@ -936,7 +936,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[2][0] %>",
 								            data: <%= raw @for_charts_yearly[2].values_at(1) %>,
-								            backgroundColor:"rgba(121,184,218,0.4)",
+								            backgroundColor:"rgba(121,184,218,0.2)",
 								            borderColor: "rgba(121,184,218,1)"
 								        }
 								    <% end %>
@@ -945,7 +945,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[3][0] %>",
 								            data: <%= raw @for_charts_yearly[3].values_at(1)%>,
-								            backgroundColor: "rgba(163,197,126,0.4)",
+								            backgroundColor: "rgba(163,197,126,0.2)",
 								            borderColor: "rgba(163,197,126,1)"
 								        }
 								    <% end %>
@@ -976,7 +976,7 @@
 							        {
 							            label: "<%= raw @for_charts_yearly[0][0] %>",
 							            data: <%= raw @for_charts_yearly[0].values_at(6,7) %>,
-							            backgroundColor: "rgba(218,175,101,0.4)",
+							            backgroundColor: "rgba(218,175,101,0.2)",
 	            						borderColor: "rgba(218,175,101,1)"
 							        }
 							        <% if !@for_charts_yearly[1].nil? %>
@@ -984,7 +984,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[1][0] %>",
 								            data: <%= raw @for_charts_yearly[1].values_at(6,7) %>,
-								            backgroundColor: "rgba(218,115,115,0.4)",
+								            backgroundColor: "rgba(218,115,115,0.2)",
 								            borderColor: "rgba(218,115,115,1)"
 								        }
 								    <% end %>
@@ -993,7 +993,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[2][0] %>",
 								            data: <%= raw @for_charts_yearly[2].values_at(6,7) %>,
-								            backgroundColor:"rgba(121,184,218,0.4)",
+								            backgroundColor:"rgba(121,184,218,0.2)",
 								            borderColor: "rgba(121,184,218,1)"
 								        }
 								    <% end %>
@@ -1002,7 +1002,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[3][0] %>",
 								            data: <%= raw @for_charts_yearly[3].values_at(6,7)%>,
-								            backgroundColor: "rgba(163,197,126,0.4)",
+								            backgroundColor: "rgba(163,197,126,0.2)",
 								            borderColor: "rgba(163,197,126,1)"
 								        }
 								    <% end %>
@@ -1033,7 +1033,7 @@
 							        {
 							            label: "<%= raw @for_charts_yearly[0][0] %>",
 							            data: <%= raw @for_charts_yearly[0].values_at(8,10) %>,
-							            backgroundColor: "rgba(218,175,101,0.4)",
+							            backgroundColor: "rgba(218,175,101,0.2)",
 	            						borderColor: "rgba(218,175,101,1)"
 							        }
 							        <% if !@for_charts_yearly[1].nil? %>
@@ -1041,7 +1041,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[1][0] %>",
 								            data: <%= raw @for_charts_yearly[1].values_at(8,10) %>,
-								            backgroundColor: "rgba(218,115,115,0.4)",
+								            backgroundColor: "rgba(218,115,115,0.2)",
 								            borderColor: "rgba(218,115,115,1)"
 								        }
 								    <% end %>
@@ -1050,7 +1050,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[2][0] %>",
 								            data: <%= raw @for_charts_yearly[2].values_at(8,10) %>,
-								            backgroundColor:"rgba(121,184,218,0.4)",
+								            backgroundColor:"rgba(121,184,218,0.2)",
 								            borderColor: "rgba(121,184,218,1)"
 								        }
 								    <% end %>
@@ -1059,7 +1059,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[3][0] %>",
 								            data: <%= raw @for_charts_yearly[3].values_at(8,10)%>,
-								            backgroundColor: "rgba(163,197,126,0.4)",
+								            backgroundColor: "rgba(163,197,126,0.2)",
 								            borderColor: "rgba(163,197,126,1)"
 								        }
 								    <% end %>
@@ -1090,7 +1090,7 @@
 							        {
 							            label: "<%= raw @for_charts_yearly[0][0] %>",
 							            data: <%= raw @for_charts_yearly[0].values_at(9,10,13) %>,
-							            backgroundColor: "rgba(218,175,101,0.4)",
+							            backgroundColor: "rgba(218,175,101,0.2)",
 	            						borderColor: "rgba(218,175,101,1)"
 							        }
 							        <% if !@for_charts_yearly[1].nil? %>
@@ -1098,7 +1098,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[1][0] %>",
 								            data: <%= raw @for_charts_yearly[1].values_at(9,10,13) %>,
-								            backgroundColor: "rgba(218,115,115,0.4)",
+								            backgroundColor: "rgba(218,115,115,0.2)",
 								            borderColor: "rgba(218,115,115,1)"
 								        }
 								    <% end %>
@@ -1107,7 +1107,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[2][0] %>",
 								            data: <%= raw @for_charts_yearly[2].values_at(9,10,13) %>,
-								            backgroundColor:"rgba(121,184,218,0.4)",
+								            backgroundColor:"rgba(121,184,218,0.2)",
 								            borderColor: "rgba(121,184,218,1)"
 								        }
 								    <% end %>
@@ -1116,7 +1116,7 @@
 								        {
 								            label: "<%= raw @for_charts_yearly[3][0] %>",
 								            data: <%= raw @for_charts_yearly[3].values_at(9,10,13)%>,
-								            backgroundColor: "rgba(163,197,126,0.4)",
+								            backgroundColor: "rgba(163,197,126,0.2)",
 								            borderColor: "rgba(163,197,126,1)"
 								        }
 								    <% end %>

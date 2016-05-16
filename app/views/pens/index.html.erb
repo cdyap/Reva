@@ -32,11 +32,11 @@
                 <label class="right-align valign" for="headcount_date">Select date for new headcount:</label>
               </div>
               <div class="col s6">
-                <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today, label: "Date of headcount:", class:'left-align', :order => [:month, :day, :year])%>
+                <%= date_field("headcount_date", "headcount_date", default: DateTime.now, max: Date.today, label: "Date of headcount:", class:'left-align', :order => [:month, :day, :year], id: "select-date")%>
               </div>
             </div>
               <div class="row">
-                <%= submit_tag "ADD DAILY COUNT", class: "btn deep-orange darken-2 center-align" %>
+                <%= submit_tag "ADD DAILY COUNT", class: "btn deep-orange darken-2 center-align", disabled: true, id: "submit-date" %>
               </div>
 
           <% end %>
@@ -53,7 +53,7 @@
                 <% (1..16).each do |i| %>
                   <td class="right-align border-side"><%=i%></td>
                 <%end%>
-                <td class="text-bold">Total</th>
+                <td class="text-bold right-align">Total</th>
             </tr>
           </thead>
 
@@ -75,13 +75,26 @@
                       <td class="right-align  border-side"><%= @headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg, date.headcount_date).sum('headcount') %></td>
                       <% @total = @total + @headcounts %>
                     <% end %>
-                    <td class="text-bold"><%=@total%></td>
+                    <td class="text-bold right-align"><%=@total%></td>
                   <% end %>
                 </tr>
               <% end %>
             <% end %>
-            <% (1..16).each do |row| %>
+            <% (1..6).each do |row| %>
               <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

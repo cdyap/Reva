@@ -18,7 +18,7 @@ class CauseOfRemovalsController < ApplicationController
 				@pig = Pig.find(@cause_of_removal.pig_id)
 				@pig.update_column(:removed, 1)
 				@pig.save
-			redirect_to cause_of_removals_path
+			redirect_to cause_of_removals_path, notice: "Pig #{@pig.ear_notch_number.to_s[2..-1]} successfully removed."
 		else 
 			render :new
 		end 
@@ -31,7 +31,7 @@ class CauseOfRemovalsController < ApplicationController
 	def update
 		@cause_of_removal = CauseOfRemoval.find(params[:id])
 		if @cause_of_removal.update(cause_of_removal_params)
-			redirect_to cause_of_removals_path
+			redirect_to cause_of_removals_path, notice: "Removal record successfully updated."
 		else
 			render :edit
 		end
