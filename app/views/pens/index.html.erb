@@ -67,7 +67,7 @@
                 <tr>
                   <% @total = 0 %>
                   <td class="right-align"><%=link_to date.headcount_date.strftime('%B %d, %Y'), headcount_pens_path(headcount_date: {headcount_date: date.headcount_date}), method: :get, target: '_new'%></td>
-                  <% if (Pen.all.count - Pen.joins("LEFT OUTER JOIN headcounts on pens.pen_id = headcounts.pen_id").where("headcounts.headcount_date = ? ", date.headcount_date).count != -4) %>
+                  <% if (Pen.all.count - Pen.joins("LEFT OUTER JOIN headcounts on pens.pen_id = headcounts.pen_id").where("headcounts.headcount_date = ? ", date.headcount_date).count !=0) %>
                       <td colspan="18" class="center-align">Incomplete headcounts!</td>
                   <% else %>
 

@@ -26,7 +26,7 @@ class PensController < ApplicationController
 	def update_all
 		params['pen'].keys.each do |id|
 		    @pen = Pen.find(id.to_i)
-		    @headcount = Headcount.new(pen_id: id.to_i, headcount: params['pen'][id]['headcount']['headcount'].to_i, headcount_date: DateTime.parse(params['headcount_date']['headcount_date']))
+		    @headcount = Headcount.new(pen_id: id.to_i, headcount: params['pen'][id]['headcount']['headcount'].to_i, headcount_date: Date.parse(params['headcount_date']['headcount_date']))
 		    @headcount.save
 		    @pen.headcounts << @headcount
 		end

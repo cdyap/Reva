@@ -54,13 +54,13 @@
 			  		<div class="row">
 			  			<div class="col s9">
 			  				<%= f.hidden_field :dam_id, :id => "dam_value" %>
-                			<%= f.input :dam_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number", required: true %>
+                			<%= f.input :dam_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F", removed: :false), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#dam_value', label: "Dam's ear notch number", required: true %>
                 		</div>
                 	</div>
                 	<div class="row">
                 		<div class="col s9">
                 			<%= f.hidden_field :sire_id, :id => "sire_value" %>
-                			<%= f.input :sire_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "F"), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
+                			<%= f.input :sire_id, :url => autocomplete_pig_ear_notch_number_litters_path(sex: "M", removed: :false), :as => :autocomplete,:"data-autocomplete-label" => "No pig found.",:id_element => '#sire_value', label: "Sire's ear notch number", required: true  %>
 			  			</div>
 			  		</div>
 			  		<div class="row">

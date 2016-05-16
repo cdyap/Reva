@@ -1,5 +1,5 @@
 class PigsController < ApplicationController
-	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex]
+	autocomplete :pig, :ear_notch_number, :extra_data => [:date_of_birth], :full => true, :display_value => :autocorrect_values, scope: [:sex, :removed]
 	before_action :authenticate_user!
 	
 	def new 		
@@ -8,7 +8,7 @@ class PigsController < ApplicationController
 	end 
 
 	def get_autocomplete_items(parameters)
-    	super(parameters).where(:sex => params[:sex])
+    	super(parameters).where(:sex => params[:sex], :removed => params[:removed])
   	end
 
 	def create 
