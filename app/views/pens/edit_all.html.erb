@@ -28,8 +28,6 @@
   <div class="row data">
     <div id="add" class="col s4 offset-s4">
             
-        <h5>Building <%=@building[0]%>: <%=@building[1]%></h5>
-        <h5>Date: <%= Date.parse(@date).strftime('%B %d, %Y') %></h5>
         <br>
         <%=simple_form_for :pen, url: pen_update_all_path, html: {class: 'input-form', method: :put} do %>
 
@@ -41,7 +39,7 @@
               <% end %>
             <% end %>
           <% end %>
-          <%= submit_tag %>
+          <%= submit_tag "Add headcounts", class: 'btn deep-orange darken-2' %>
         <% end %>
     </div>
   </div>
