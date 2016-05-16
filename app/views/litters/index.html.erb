@@ -26,6 +26,14 @@
     <div id="all" class="col s12">
 
       <div class="container">
+          <div class="row">
+                <% flash.each do |name, msg| -%>
+              <%= content_tag :div, msg, class: name + ' center-align green-text text-darken-4' %>
+            <% end -%>
+          </div>
+          <div class="row">
+          <h5 class="center-align">Litters: <span class="text-bold"><%=Litter.count%></span></h5>
+          </div>
           <table class="striped fixed-table export-table">
             <thead>
               <tr>
@@ -57,8 +65,10 @@
                   </tr>
                 <% end %>
               <% end %>
-              <% (1..16).each do |row| %>
+              <% (1..6).each do |row| %>
                 <tr>
+                  <td></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>

@@ -23,6 +23,26 @@ class PensController < ApplicationController
 		end
 	end
 
+	def export_headcount
+		@date = params[:date]
+		@headcounts = Headcount.where('start = ?', Date.parse(@date.to_s)).all
+		@buildings = Pen.select('DISTINCT building_number, building_name')
+		respond_to do |format|
+	      format.html
+	      format.pdf do
+	        render pdf: "headcount_#{@date.to_s}",   # Excluding ".pdf" extension.
+	          layout: 'pdf.html.erb',
+	          template: 'pens/headcount_export.pdf.erb',
+	          show_as_html: params[:debug].present?,
+	          page_size: "legal",
+	          margin:  {   top:               5,                     # default 10 (mm)
+	                    bottom:            5,
+	                    left:              5,
+	                    right:             5 }
+	      end
+	    end
+	end
+
 	def update_all
 		params['pen'].keys.each do |id|
 		    @pen = Pen.find(id.to_i)
@@ -30,7 +50,7 @@ class PensController < ApplicationController
 		    @headcount.save
 		    @pen.headcounts << @headcount
 		end
-		redirect_to headcount_pens_path(Date.parse(params[:headcount_date][:headcount_date]))
+		redirect_to headcount_pens_path(Date.parse(params[:headcount_date][:headcount_date])), notice: "Headcounts added."
 	end
 
 	def update_each_pen(parameters)

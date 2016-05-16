@@ -23,9 +23,20 @@
   </div>  
   <div class="row data">
     <div class="row">
+      <div class="row">
+            <% flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, class: name + ' center-align green-text text-darken-4' %>
+        <% end -%>
+      </div>
+      <div class="row">
+      <h5 class="center-align">Total population: <span class="text-bold"><%=Headcount.where(headcount_date: @date).sum("headcount")%></span></h5>
+      </div>
       <div class="col s12 center-align">
-        <a class="waves-effect waves-light btn blue-grey darken-4" id="open">OPEN ALL</a>
-        <a class="waves-effect waves-light btn blue-grey darken-4" id="close">CLOSE ALL</a>
+        <%=link_to "EXPORT AS PDF", export_headcount_path(format: 'pdf', date: @date), method: :get,  class: 'center-align btn deep-orange darken-2', target: '_new'%>
+      </div>
+      <div class="col s12 center-align">
+        <a class="waves-effect waves-light btn-flat" id="open">OPEN ALL</a>
+        <a class="waves-effect waves-light btn-flat" id="close">CLOSE ALL</a>
       </div>
     </div>
     <div class="row">
@@ -57,7 +68,10 @@
                         <% @pens[0..@half-1].each_with_index do |pen, index| %>
                           <tr>
                             <td>P<%=pen.pen_number%>: <span class="text-bold"><%=pen.headcounts.headcountpens(@date).first.headcount if pen.headcounts.headcountpens(@date).present? %></span></td>
-                            <td>P<%=@pens[index+@half].pen_number%>: <span class="text-bold"><%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></span></td>
+                            <% case building.building_number %>
+                            <% when 1..7, 12..14 %>
+                              <td>P<%=@pens[index+@half].pen_number%>: <span class="text-bold"><%=@pens[index+@half].headcounts.headcountpens(@date).first.headcount if @pens[index+@half].headcounts.headcountpens(@date).present? %></span></td>
+                            <% end %>  
                           </tr>                
                         <% end %>
                       </tbody>

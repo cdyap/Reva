@@ -12,6 +12,9 @@ $(document).ready(function(){
   		$(".collapsible").collapsible({accordion: false});
 	});
 	//http://codepen.io/jasonpaul/pen/NxjvjW
+	$('#select-date').change(function() {
+		$('#submit-date').attr('disabled',false);
+	});
 
 	$('#add-pens').click(function(){
 		if (!($(this).hasClass("disabled"))){

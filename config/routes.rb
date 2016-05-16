@@ -9,6 +9,9 @@ Rails.application.routes.draw do
    get 'pages/export_cardograph', as: :export_cardograph
    get 'pages/export_monthlyparameters', as: :export_monthlyparameters
    get 'pages/export_yearlyparameters', as: :export_yearlyparameters
+   get 'pens/export_headcount', as: :export_headcount
+
+
 
    resources :pigs
 

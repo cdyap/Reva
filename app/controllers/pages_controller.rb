@@ -6,11 +6,11 @@ class PagesController < ApplicationController
 		@building_headcount = Array.new(17, 0)
 		@headcounts = Headcount.all
 		removals = CauseOfRemoval.uniq.pluck(:date_of_removal)
-		removals.each do |date|
-			date = Date.parse(date.to_s)
+		removals.each_with_index do |date, i|
+			removals[i] = Date.parse(date.to_s)
 		end
 		@dates =  Headcount.uniq.pluck(:headcount_date) + removals #CauseOfRemoval.uniq.pluck(Date.parse('date_of_removal'))#Headcount.select('DISTINCT headcount_date').select(:headcount_date).take + CauseOfRemoval.select('DISTINCT date_of_removal').select(:date_of_removal)
-		@dates = @dates.sort_by {|date|date}.reverse!
+		@dates = @dates.uniq.sort_by {|date|date}.reverse!
 	end
   
   def export_cardograph
@@ -20,11 +20,11 @@ class PagesController < ApplicationController
     @building_headcount = Array.new(17, 0)
     @headcounts = Headcount.all
     removals = CauseOfRemoval.uniq.pluck(:date_of_removal)
-    removals.each do |date|
-      date = Date.parse(date.to_s)
+    removals.each_with_index do |date, i|
+      removals[i] = Date.parse(date.to_s)
     end
     @dates =  Headcount.uniq.pluck(:headcount_date) + removals #CauseOfRemoval.uniq.pluck(Date.parse('date_of_removal'))#Headcount.select('DISTINCT headcount_date').select(:headcount_date).take + CauseOfRemoval.select('DISTINCT date_of_removal').select(:date_of_removal)
-    @dates = @dates.sort_by {|date|date}.reverse!
+    @dates = @dates.uniq.sort_by {|date|date}.reverse!
     respond_to do |format|
       format.html
       format.pdf do
@@ -48,11 +48,11 @@ class PagesController < ApplicationController
     @building_headcount = Array.new(17, 0)
     @headcounts = Headcount.all
     removals = CauseOfRemoval.uniq.pluck(:date_of_removal)
-    removals.each do |date|
-      date = Date.parse(date.to_s)
+    removals.each_with_index do |date, i|
+      removals[i] = Date.parse(date.to_s)
     end
     @dates =  Headcount.uniq.pluck(:headcount_date) + removals #CauseOfRemoval.uniq.pluck(Date.parse('date_of_removal'))#Headcount.select('DISTINCT headcount_date').select(:headcount_date).take + CauseOfRemoval.select('DISTINCT date_of_removal').select(:date_of_removal)
-    @dates = @dates.sort_by {|date|date}.reverse!
+    @dates = @dates.uniq.sort_by {|date|date}.reverse!
     respond_to do |format|
       format.html
       format.pdf do
@@ -76,11 +76,11 @@ class PagesController < ApplicationController
     @building_headcount = Array.new(17, 0)
     @headcounts = Headcount.all
     removals = CauseOfRemoval.uniq.pluck(:date_of_removal)
-    removals.each do |date|
-      date = Date.parse(date.to_s)
+    removals.each_with_index do |date, i|
+      removals[i] = Date.parse(date.to_s)
     end
     @dates =  Headcount.uniq.pluck(:headcount_date) + removals #CauseOfRemoval.uniq.pluck(Date.parse('date_of_removal'))#Headcount.select('DISTINCT headcount_date').select(:headcount_date).take + CauseOfRemoval.select('DISTINCT date_of_removal').select(:date_of_removal)
-    @dates = @dates.sort_by {|date|date}.reverse!
+    @dates = @dates.uniq.sort_by {|date|date}.reverse!
     respond_to do |format|
       format.html
       format.pdf do

@@ -8,7 +8,7 @@ class LittersController < ApplicationController
       @litter.pigs.each do |p|
         p.update_column(:breed, params[:breed])
       end
-	 		redirect_to litters_path
+	 		redirect_to litters_path, notice: "Litter successfully created."
 		else
       @breeds = ["Large white", "Pure land race", "Chester white",  "CEFN", "Hybrid"]
       @earnotch = Pig.set_ear_notch - Integer(DateTime.now.strftime('%y'))*100000
@@ -33,7 +33,7 @@ class LittersController < ApplicationController
       @pig.update_attribute(:date_weaned, p[1][:date_weaned])
     end
 
-    redirect_to litters_path    
+    redirect_to litters_path, notice: "Litter successfully updated."
   end
 
   def show
