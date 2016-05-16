@@ -16,7 +16,8 @@
       	<div class="row valign-wrapper">
 	      	<%=image_tag "logo.svg", id: 'logo'%>
 	      	<h5 class="valign">Dashboard</h5>
-	      	<a class="waves-effect waves-light blue-grey darken-4 btn dropdown-button" name="litter" data-beloworigin="true" data-constrainwidth="false" data-activates='dropcardographs'>EXPORT CARDOGRAPHS</a>
+	      	<a class="waves-effect waves-light deep-orange darken-2 btn dropdown-button" name="litter" data-beloworigin="true" data-constrainwidth="false" data-activates='dropcardographs'>EXPORT CARDOGRAPHS</a>
+	      	<a class="waves-effect waves-light blue-grey darken-4 btn" id="toggle-dashboard">VIEW CHARTS</a>	      	
 	      	<ul id='dropcardographs' class='dropdown-content'>
 			    <li class="center-align"><a class="exportbutton center-align" download="cardograph">CSV</a></li>
 			    <li class="center-align"><%=link_to "PDF", export_cardograph_path(format: 'pdf'), method: :get, class: 'center-align', target: '_new'%></li>
@@ -37,9 +38,9 @@
 	    	<div class="col s10 offset-s1">
 		  		<div class="indicator deep-orange darken-2" style="z-index:1">
 		    		<ul class="tabs deep-orange-text text-darken-2">
-		      			<li class="tab grey lighten-4" id="cardographtab"><a href="#card-o-graph">Card-o-graph</a></li>
-		      			<li class="tab grey lighten-4" id="monthlytab"><a href="#monthly">Monthly Parameters</a></li>
-		      			<li class="tab grey lighten-4" id="yearlytab"><a href="#yearly">Yearly Parameters</a></li>
+		      			<li class="tab grey lighten-4" id="cardographtab"><a href="#card-o-graph" id="card-o-graph-tab">Card-o-graph</a></li>
+		      			<li class="tab grey lighten-4" id="monthlytab"><a href="#monthly" id="monthly-tab">Monthly Parameters</a></li>
+		      			<li class="tab grey lighten-4" id="yearlytab"><a href="#yearly" id="monthly-tab">Yearly Parameters</a></li>
 		      			
 		    		</ul>
 		  		</div>
@@ -50,13 +51,13 @@
 	<!-- Put card-o-graph shit here -->
 	<div class="row data-withtabs">
 		<div id="card-o-graph" class="col s12">
-    		<div class="container" style="width:100%">
+    		<div class="container tables" style="width:100%">
     			<div class="col s12">
 			    	<table class="striped responsive-table fixed-table export-table" id="dashboard-table">
 				        <thead>
 				          <tr>
 				          	<th></th>
-				          	<th colspan="7" class="center-align border-side">Population</th>
+				          	<th colspan="6" class="center-align border-side">Population</th>
 				          	<th colspan="2" class="center-align border-side">Removal</th>
 				          <tr>
 				            <th data-field="date">Date</th>
@@ -72,7 +73,7 @@
 				              <th data-field="ls">LS</th> -->
 							<th data-field="gs" class="right-align border-left">Gestating</th>
 							<th data-field="fs" class="right-align">Farrowing</th>
-							<th data-field="sp" class="right-align">Suckling Piglets</th>
+							<!-- <th data-field="sp" class="right-align">Suckling Piglets</th> -->
 							<th data-field="ps" class="right-align">Pre-Starter</th>
 							<th data-field="s" class="right-align">Starter</th>
 							<th data-field="g" class="right-align">Grower</th>
@@ -80,14 +81,15 @@
 							<th data-field="sp" class="right-align">Mortality</th>
 							<th data-field="f" class="right-align border-right">Sales</th>
 							<th data-field="tp" class="right-align">Total Population</th>
-							<th data-field="remarks">Remarks</th>
 
 				          </tr>
 				        </thead>
 
 				        <tbody>
+				        	<% @for_charts = Array.new %>
 				        	<%@dates.each do |date| %>
-				                <tr>	
+				                <tr>
+				                	<% @row = Array.new %>
 				                	<% @building_headcount = Array.new(17, 0) %>
 				                  	<% total = 0 %>
 				                  	
@@ -98,6 +100,7 @@
 				                  	<% gestating = 0 %>
 				                  	<% farrowing = 0 %>
 				                  	<td class="left-align"><%=date.strftime('%B %d, %Y')%></td>
+				                  	<% @row << date.strftime('%B %d, %Y') %>
 
 				                    <% (1..16).each do |bldg| %>
 				                      <% headcounts = Headcount.joins(:pen).where('pens.building_number = ? AND headcounts.headcount_date = ? ', bldg,date).sum('headcount') %>
@@ -122,21 +125,28 @@
 				                    <% fattener = @building_headcount[1] %>
 				                    
 				                    <td class="right-align"><%= gestating %></td>
+				                    <% @row << gestating %>
 				                    <td class="right-align"><%= farrowing %></td>
-				                    <td class="right-align"></td>
+				                    <% @row << farrowing %>
+				                    <!-- <td class="right-align"></td> -->
 				                    <td class="right-align"><%= pre_starter %></td>
+				                    <% @row << pre_starter %>
 				                    <td class="right-align"><%= starter %></td>
+				                    <% @row << starter %>
 				                    <td class="right-align"><%= grower %></td>
+				                    <% @row << grower %>
 				                    <td class="right-align"><%= fattener %></td>
+				                    <% @row << fattener %>
 				                    
 
-				                    <td class="right-align"><%= CauseOfRemoval.where(date_of_removal: date, sale: 0).count %></td>
-				                    <td class="right-align"><%= CauseOfRemoval.where(date_of_removal: date, sale: 1).count %></td>
-				                    <td class="right-align text-bold"><%= total - CauseOfRemoval.where(date_of_removal: date).count %></td>
-				                    <td></td>
+				                    <td class="right-align"><%= deaths = CauseOfRemoval.where(date_of_removal: date, sale: 0).count %></td>
+				                    <td class="right-align"><%= sales =  CauseOfRemoval.where(date_of_removal: date, sale: 1).count %></td>
+				                    <td class="right-align text-bold"><%= total_pop = (total - CauseOfRemoval.where(date_of_removal: date).count) %></td>
+				                    <% @row << deaths << sales << total_pop %>
+				                    <% @for_charts << @row %>
 				                </tr>
 				              <% end %>
-				              <% (1..16).each do |row| %>
+				              <% (1..4).each do |row| %>
 				                <tr>
 				                  <td></td>
 				                  <td></td>
@@ -157,180 +167,975 @@
 			      	<table id="header-fixed"></table>
   	  			</div>
   	  		</div>
-  	  	</div>
+  	  		<div class="container charts" style="width:100%">
+  	  			<div class="row">
+	  	  			<div class="col s10 offset-s1">
+	    				<canvas id="cardograph-population"></canvas>
+	    				<h6 class="center-align text-bold">Population per Building</h6>
+	    				<br><br>
+						<script>
+						var ctx = document.getElementById("cardograph-population");
+						var myChart = new Chart(ctx, {
+						    type: 'line',
+						    data: {
+						        labels: ["Gestating", "Farrowing", "Pre-Starter", "Starter", "Grower", "Fattener"],
+						        datasets: [
+						        {
+						            label: "<%= raw @for_charts[0][0] %>",
+						            data: <%= raw @for_charts[0][1..6] %>,
+						            backgroundColor: "rgba(218,175,101,0.4)",
+            						borderColor: "rgba(218,175,101,1)"
+						        }
+						        <% if !@for_charts[1].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[1][0] %>",
+							            data: <%= raw @for_charts[1][1..6] %>,
+							            backgroundColor: "rgba(218,115,115,0.4)",
+							            borderColor: "rgba(218,115,115,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[2].nil? %>
+								    ,
+							        {
+							            label: "<%= raw @for_charts[2][0] %>",
+							            data: <%= raw @for_charts[2][1..6] %>,
+							            backgroundColor:"rgba(121,184,218,0.4)",
+							            borderColor: "rgba(121,184,218,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[3].nil? %>
+								    ,
+							        {
+							            label: "<%= raw @for_charts[3][0] %>",
+							            data: <%= raw @for_charts[3][1..6] %>,
+							            backgroundColor: "rgba(163,197,126,0.4)",
+							            borderColor: "rgba(163,197,126,1)"
+							        }
+							    <% end %>
+
+						        ]
+						    },
+						    options: {
+						        scales: {
+						            yAxes: [{
+						                ticks: {
+						                    beginAtZero:true
+						                }
+						            }]
+						        }
+						    }
+						});
+						</script>
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<div class="col s10 offset-s1">
+	    				<canvas id="cardograph-totals"></canvas>
+	    				<h6 class="center-align text-bold">Population Total</h6>
+	    				<br><br>
+	    				<script>
+						var ctx = document.getElementById("cardograph-totals");
+						var myChart = new Chart(ctx, {
+						    type: 'bar',
+						    data: {
+						        labels: [""],
+						        datasets: [
+						        {
+						            label: "<%= raw @for_charts[0][0] %>",
+						            data: [<%= raw @for_charts[0][9] %>],
+						            backgroundColor: "rgba(218,175,101,0.4)",
+            						borderColor: "rgba(218,175,101,1)"
+							    }
+							    <% if !@for_charts[1].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[1][0] %>",
+							            data: [<%= raw @for_charts[1][9] %>],
+							            backgroundColor: "rgba(218,115,115,0.4)",
+							            borderColor: "rgba(218,115,115,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[2].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[2][0] %>",
+							            data: [<%= raw @for_charts[2][9] %>],
+							            backgroundColor:"rgba(121,184,218,0.4)",
+							            borderColor: "rgba(121,184,218,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[3].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[3][0] %>",
+							            data: [<%= raw @for_charts[3][9] %>],
+							            backgroundColor: "rgba(163,197,126,0.4)",
+							            borderColor: "rgba(163,197,126,1)"
+							        }
+							    <% end %>
+
+						        ]
+						    },
+						    options: {
+						        scales: {
+						            yAxes: [{
+						                ticks: {
+						                    beginAtZero:true
+						                }
+						            }]
+						        }
+						    }
+						});
+						</script>
+						<canvas id="cardograph-removals"></canvas>
+	    				<h6 class="center-align text-bold">Population Total</h6>
+	    				<br><br>
+	    				<script>
+						var ctx = document.getElementById("cardograph-removals");
+						var myChart = new Chart(ctx, {
+						    type: 'bar',
+						    data: {
+						        labels: ["Mortality", "Sales"],
+						        datasets: [
+						        {
+						            label: "<%= raw @for_charts[0][0] %>",
+						            data: <%= raw @for_charts[0].values_at(7,8) %>,
+						            backgroundColor: "rgba(218,175,101,0.4)",
+            						borderColor: "rgba(218,175,101,1)"
+							    }
+							    <% if !@for_charts[1].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[1][0] %>",
+							            data: <%= raw @for_charts[1].values_at(7,8) %>,
+							            backgroundColor: "rgba(218,115,115,0.4)",
+							            borderColor: "rgba(218,115,115,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[2].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[2][0] %>",
+							            data: <%= raw @for_charts[2].values_at(7,8) %>,
+							            backgroundColor:"rgba(121,184,218,0.4)",
+							            borderColor: "rgba(121,184,218,1)"
+							        }
+							    <% end %>
+							    <% if !@for_charts[3].nil? %>
+							        ,
+							        {
+							            label: "<%= raw @for_charts[3][0] %>",
+							            data: <%= raw @for_charts[3].values_at(7,8) %>,
+							            backgroundColor: "rgba(163,197,126,0.4)",
+							            borderColor: "rgba(163,197,126,1)"
+							        }
+							    <% end %>
+						        ]
+						    },
+						    options: {
+						        scales: {
+						            yAxes: [{
+						                ticks: {
+						                    beginAtZero:true
+						                }
+						            }]
+						        }
+						    }
+						});
+						</script>
+	    			</div>
+	    			</div>
+	    		</div>
+  	  		</div>
 
 	<!-- Put yearly parameters shit here -->
-		<div id="monthly" class="col s12">
-			<div class="container" style="width:100%">
-				<div class="col s12">
-					<table class="striped responsive-table fixed-table1 export-table" id="dashboard-table">
-				        <thead>
-				          <tr>
-				          	  <th></th>
-				              <th data-field="date">Litters Farrowed</th>
-				              <th data-field="pig_id" class="right-align">Litter Size at Birth</th>
-				              <th data-field="sex" class="right-align">Alive</th>
-				              <th data-field="building_id" class="right-align">Mummified</th>
-				              <th data-field="psigns" class="right-align">Stillborn</th>
-				              <th data-field="treatment" class="right-align">Percentage Mummified</th>
-				              <th data-field="cdeath" class="right-align">Percentage Stillborn</th>
-				              <th data-field="remarks" class="right-align">Average Birth Weight</th>
-				              <th data-field="remarks" class="right-align">Weaning Age Days</th>
-				              <th data-field="remarks" class="right-align">Average Weaning Weight</th>
-				              <th data-field="remarks" class="right-align">Gestation Period</th>
-				              <th data-field="remarks" class="right-align">Mortality - Total Population</th>
-				              <th data-field="remarks" class="right-align">Average Parity</th>
-				          </tr>
-				        </thead>
+			<div id="monthly" class="col s12">
+				<div class="container tables" style="width:100%">
+					<div class="col s12">
+						<table class="striped responsive-table fixed-table1 export-table" id="monthly-table">
+					        <thead>
+					          <tr>
+					          	  <th></th>
+					              <th data-field="date">Litters Farrowed</th>
+					              <th data-field="pig_id" class="right-align">Litter Size at Birth</th>
+					              <th data-field="sex" class="right-align">Alive</th>
+					              <th data-field="building_id" class="right-align">Mummified</th>
+					              <th data-field="psigns" class="right-align">Stillborn</th>
+					              <th data-field="treatment" class="right-align">Percentage Mummified</th>
+					              <th data-field="cdeath" class="right-align">Percentage Stillborn</th>
+					              <th data-field="remarks" class="right-align">Average Birth Weight</th>
+					              <th data-field="remarks" class="right-align">Weaning Age Days</th>
+					              <th data-field="remarks" class="right-align">Average Weaning Weight</th>
+					              <th data-field="remarks" class="right-align">Gestation Period</th>
+					              <th data-field="remarks" class="right-align">Mortality - Total Population</th>
+					              <th data-field="remarks" class="right-align">Average Parity</th>
+					          </tr>
+					        </thead>
 
-				        <tbody>
-				          <% @monthlyparameters.each do |month| %>
-				          	<tr>
-				          		<% @litter = Litter.litters_per_month(month.first)%>
-				          		<% average_birth_weight = 0.0 %>
-				          		<% number_of_pigs = 0 %>
-				          		<% weaning_age = 0 %>
-				          		<% weaning_weight = 0.0 %>
-				          		<% gestation_period = 0 %>
-				          		<% parity = 0 %>
-				          		<% @litter.each do |litter| %>	
-				          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
-				          			<% parity = parity + litter.parity_number %>
-				          			<% litter.pigs.each do |pig| %>
-				          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
-				          				<% if !pig.date_weaned.nil? %>
-				          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
-				          				<% end %>
-				          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
-				          				<% number_of_pigs = number_of_pigs + 1 %>
-				          			<% end %>
-				          		<% end %>
-				          		<td class="text-bold right-align"><%=Date::MONTHNAMES[Integer(month.first[5..6])] + " " + month.first[0..3]%></td>
-				          		<td class="right-align"><%=@litter.count%></td>
-				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
-				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
-				          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
-				          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
-				          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
-				          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
-				          		
-				          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
-				          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
-				          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
-				          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
-				          		<td class="right-align"><%= CauseOfRemoval.mortality_per_month(month.first).count %></td>
-				          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
-				          	</tr>
-				          <% end %>
-				          <% (1..16).each do |row| %>
-				                <tr>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                </tr>
-				              <% end %>
-				        </tbody>
-			      	</table>
-			      	<table id="header-fixed1"></table>
-			     </div>
+					        <tbody>
+					        	<% @for_charts_monthly = Array.new %>
+					          <% @monthlyparameters.each do |month| %>
+					          	<tr>
+					          		<% @row = Array.new %>
+					          		<% @litter = Litter.litters_per_month(month.first)%>
+					          		<% average_birth_weight = 0.0 %>
+					          		<% number_of_pigs = 0 %>
+					          		<% weaning_age = 0 %>
+					          		<% weaning_weight = 0.0 %>
+					          		<% gestation_period = 0 %>
+					          		<% parity = 0 %>
+					          		<% @litter.each do |litter| %>	
+					          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
+					          			<% parity = parity + litter.parity_number %>
+					          			<% litter.pigs.each do |pig| %>
+					          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
+					          				<% if !pig.date_weaned.nil? %>
+					          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
+					          				<% end %>
+					          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
+					          				<% number_of_pigs = number_of_pigs + 1 %>
+					          			<% end %>
+					          		<% end %>
+					          		<td class="text-bold right-align"><%=Date::MONTHNAMES[Integer(month.first[5..6])] + " " + month.first[0..3]%></td>
+					          		<% @row << (Date::MONTHNAMES[Integer(month.first[5..6])] + " " + month.first[0..3])%>
+					          		<td class="right-align"><%=@litter.count%></td>
+					          		<% @row << @litter.count%>
+					          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
+					          		<% @row << @litter.sum("litter_size_at_birth")%>
+					          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
+					          		<% @row << @litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)") %>
+					          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
+					          		<% @row << @litter.sum("mummified_piglets")%>
+					          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
+					          		<% @row <<@litter.sum("stillborn_piglets")%>
+					          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+					          		<% @row << number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) %>
+					          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+					          		<% @row << number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2)%>
+					          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
+					          		<% @row << number_with_precision(average_birth_weight/number_of_pigs, precision:2) %>
+					          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
+					          		<% @row << number_with_precision(weaning_age/@litter.count, precision: 2) %>
+					          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
+					          		<% @row << number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %>
+					          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
+					          		<% @row << number_with_precision(gestation_period/@litter.count, precision:2)%>
+					          		<td class="right-align"><%= CauseOfRemoval.mortality_per_month(month.first).count %></td>
+					          		<% @row << CauseOfRemoval.mortality_per_month(month.first).count %>
+					          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
+					          		<% @row << number_with_precision(parity/@litter.count, precision: 2)%>
+					          		<% @for_charts_monthly << @row%>
+					          	</tr>
+					          <% end %>
+					          <% (1..4).each do |row| %>
+					                <tr>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                </tr>
+					              <% end %>
+					        </tbody>
+				      	</table>
+				      	<table id="header-fixed1"></table>
+				     </div>
+				</div>
+				<div class="container charts" style="width: 100%">
+						<div class="row">
+							<div class="col s10 offset-s1">
+			    				<canvas id="monthly-pigcount"></canvas>
+			    				<h6 class="center-align text-bold">Pig Counts</h6>
+			    				<br><br>
+			    				<script>
+								var ctx = document.getElementById("monthly-pigcount");
+								var myChart = new Chart(ctx, {
+								    type: 'line',
+								    
+								    data: {
+								        labels: ["Alive Piglets", "Mummified Piglets", "Stillborn Piglets", "Mortality - Total Population"],
+								        datasets: [
+								        {
+								            label: "<%= raw @for_charts_monthly[0][0] %>",
+								            data: <%= raw @for_charts_monthly[0].values_at(3,4,5,12) %>,
+								            backgroundColor: "rgba(218,175,101,0.4)",
+		            						borderColor: "rgba(218,175,101,1)"
+								        }
+								        <% if !@for_charts_monthly[1].nil? %>
+									        ,
+									        {
+									            label: "<%= raw @for_charts_monthly[1][0] %>",
+									            data: <%= raw @for_charts_monthly[1].values_at(3,4,5,12) %>,
+									            backgroundColor: "rgba(218,115,115,0.4)",
+									            borderColor: "rgba(218,115,115,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[2].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[2][0] %>",
+									            data: <%= raw @for_charts_monthly[2].values_at(3,4,5,12) %>,
+									            backgroundColor:"rgba(121,184,218,0.4)",
+									            borderColor: "rgba(121,184,218,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[3].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[3][0] %>",
+									            data: <%= raw @for_charts_monthly[3].values_at(3,4,5,12)%>,
+									            backgroundColor: "rgba(163,197,126,0.4)",
+									            borderColor: "rgba(163,197,126,1)"
+									        }
+									    <% end %>
+								        ]
+								    },
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    beginAtZero:true
+								                }
+								            }]
+								        }
+								    }
+								});
+								</script>
+								<canvas id="monthly-litters"></canvas>
+								<h6 class="center-align text-bold">Litters Farrowed</h6>
+		    					<br><br>
+			    				<script>
+								var ctx = document.getElementById("monthly-litters");
+								var myChart = new Chart(ctx, {
+								    type: 'bar',
+								    
+								    data: {
+								        labels: [""],
+								        datasets: [
+								        {
+								            label: "<%= raw @for_charts_monthly[0][0] %>",
+								            data: <%= raw @for_charts_monthly[0].values_at(1) %>,
+								            backgroundColor: "rgba(218,175,101,0.4)",
+		            						borderColor: "rgba(218,175,101,1)"
+								        }
+								        <% if !@for_charts_monthly[1].nil? %>
+									        ,
+									        {
+									            label: "<%= raw @for_charts_monthly[1][0] %>",
+									            data: <%= raw @for_charts_monthly[1].values_at(1) %>,
+									            backgroundColor: "rgba(218,115,115,0.4)",
+									            borderColor: "rgba(218,115,115,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[2].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[2][0] %>",
+									            data: <%= raw @for_charts_monthly[2].values_at(1) %>,
+									            backgroundColor:"rgba(121,184,218,0.4)",
+									            borderColor: "rgba(121,184,218,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[3].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[3][0] %>",
+									            data: <%= raw @for_charts_monthly[3].values_at(1)%>,
+									            backgroundColor: "rgba(163,197,126,0.4)",
+									            borderColor: "rgba(163,197,126,1)"
+									        }
+									    <% end %>
+								        ]
+								    },
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    beginAtZero:true
+								                }
+								            }]
+								        }
+								    }
+								});
+								</script>
+								<canvas id="monthly-percentages"></canvas>
+								<h6 class="center-align text-bold">Percentages</h6>
+		    					<br><br>
+			    				<script>
+								var ctx = document.getElementById("monthly-percentages");
+								var myChart = new Chart(ctx, {
+								    type: 'bar',
+								    
+								    data: {
+								        labels: ["Percentage Mummified", "Percentage Stillborn"],
+								        datasets: [
+								        {
+								            label: "<%= raw @for_charts_monthly[0][0] %>",
+								            data: <%= raw @for_charts_monthly[0].values_at(6,7) %>,
+								            backgroundColor: "rgba(218,175,101,0.4)",
+		            						borderColor: "rgba(218,175,101,1)"
+								        }
+								        <% if !@for_charts_monthly[1].nil? %>
+									        ,
+									        {
+									            label: "<%= raw @for_charts_monthly[1][0] %>",
+									            data: <%= raw @for_charts_monthly[1].values_at(6,7) %>,
+									            backgroundColor: "rgba(218,115,115,0.4)",
+									            borderColor: "rgba(218,115,115,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[2].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[2][0] %>",
+									            data: <%= raw @for_charts_monthly[2].values_at(6,7) %>,
+									            backgroundColor:"rgba(121,184,218,0.4)",
+									            borderColor: "rgba(121,184,218,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[3].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[3][0] %>",
+									            data: <%= raw @for_charts_monthly[3].values_at(6,7)%>,
+									            backgroundColor: "rgba(163,197,126,0.4)",
+									            borderColor: "rgba(163,197,126,1)"
+									        }
+									    <% end %>
+								        ]
+								    },
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    beginAtZero:true
+								                }
+								            }]
+								        }
+								    }
+								});
+								</script>
+								<canvas id="monthly-weights"></canvas>
+								<h6 class="center-align text-bold">Weights</h6>
+		    					<br><br>
+			    				<script>
+								var ctx = document.getElementById("monthly-weights");
+								var myChart = new Chart(ctx, {
+								    type: 'bar',
+								    
+								    data: {
+								        labels: ["Average Birth Weight (kg)", "Average Weaning Weight (kg)"],
+								        datasets: [
+								        {
+								            label: "<%= raw @for_charts_monthly[0][0] %>",
+								            data: <%= raw @for_charts_monthly[0].values_at(8,10) %>,
+								            backgroundColor: "rgba(218,175,101,0.4)",
+		            						borderColor: "rgba(218,175,101,1)"
+								        }
+								        <% if !@for_charts_monthly[1].nil? %>
+									        ,
+									        {
+									            label: "<%= raw @for_charts_monthly[1][0] %>",
+									            data: <%= raw @for_charts_monthly[1].values_at(8,10) %>,
+									            backgroundColor: "rgba(218,115,115,0.4)",
+									            borderColor: "rgba(218,115,115,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[2].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[2][0] %>",
+									            data: <%= raw @for_charts_monthly[2].values_at(8,10) %>,
+									            backgroundColor:"rgba(121,184,218,0.4)",
+									            borderColor: "rgba(121,184,218,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[3].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[3][0] %>",
+									            data: <%= raw @for_charts_monthly[3].values_at(8,10)%>,
+									            backgroundColor: "rgba(163,197,126,0.4)",
+									            borderColor: "rgba(163,197,126,1)"
+									        }
+									    <% end %>
+								        ]
+								    },
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    beginAtZero:true
+								                }
+								            }]
+								        }
+								    }
+								});
+								</script>
+								<canvas id="monthly-litter"></canvas>
+								<h6 class="center-align text-bold">Litter Data</h6>
+		    					<br><br>
+			    				<script>
+								var ctx = document.getElementById("monthly-litter");
+								var myChart = new Chart(ctx, {
+								    type: 'bar',
+								    
+								    data: {
+								        labels: ["Weaning Age Days", "Gestation Period", "Average Parity"],
+								        datasets: [
+								        {
+								            label: "<%= raw @for_charts_monthly[0][0] %>",
+								            data: <%= raw @for_charts_monthly[0].values_at(9,10,13) %>,
+								            backgroundColor: "rgba(218,175,101,0.4)",
+		            						borderColor: "rgba(218,175,101,1)"
+								        }
+								        <% if !@for_charts_monthly[1].nil? %>
+									        ,
+									        {
+									            label: "<%= raw @for_charts_monthly[1][0] %>",
+									            data: <%= raw @for_charts_monthly[1].values_at(9,10,13) %>,
+									            backgroundColor: "rgba(218,115,115,0.4)",
+									            borderColor: "rgba(218,115,115,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[2].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[2][0] %>",
+									            data: <%= raw @for_charts_monthly[2].values_at(9,10,13) %>,
+									            backgroundColor:"rgba(121,184,218,0.4)",
+									            borderColor: "rgba(121,184,218,1)"
+									        }
+									    <% end %>
+									    <% if !@for_charts_monthly[3].nil? %>
+										    ,
+									        {
+									            label: "<%= raw @for_charts_monthly[3][0] %>",
+									            data: <%= raw @for_charts_monthly[3].values_at(9,10,13)%>,
+									            backgroundColor: "rgba(163,197,126,0.4)",
+									            borderColor: "rgba(163,197,126,1)"
+									        }
+									    <% end %>
+								        ]
+								    },
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    beginAtZero:true
+								                }
+								            }]
+								        }
+								    }
+								});
+								</script>
+							</div>
+						</div>
+					</div>
 			</div>
-		</div>
 
-		<div id="yearly" class="col s12">
-			<div class="container" style="width:100%">
-				<div class="col s12">
-					<table class="striped responsive-table fixed-table1 export-table" id="dashboard-table">
-				        <thead>
-				          <tr>
-				          	  <th></th>
-				              <th data-field="date">Litters Farrowed</th>
-				              <th data-field="pig_id" class="right-align">Litter Size at Birth</th>
-				              <th data-field="sex" class="right-align">Alive</th>
-				              <th data-field="building_id" class="right-align">Mummified</th>
-				              <th data-field="psigns" class="right-align">Stillborn</th>
-				              <th data-field="treatment" class="right-align">Percentage Mummified</th>
-				              <th data-field="cdeath" class="right-align">Percentage Stillborn</th>
-				              <th data-field="remarks" class="right-align">Average Birth Weight</th>
-				              <th data-field="remarks" class="right-align">Weaning Age Days</th>
-				              <th data-field="remarks" class="right-align">Average Weaning Weight</th>
-				              <th data-field="remarks" class="right-align">Gestation Period</th>
-				              <th data-field="remarks" class="right-align">Mortality - Total Population</th>
-				              <th data-field="remarks" class="right-align">Average Parity</th>
-				          </tr>
-				        </thead>
+			<div id="yearly" class="col s12">
+				<div class="container tables" style="width:100%">
+					<div class="col s12">
+						<table class="striped responsive-table fixed-table1 export-table" id="monthly-table">
+					        <thead>
+					          <tr>
+					          	  <th></th>
+					              <th data-field="date">Litters Farrowed</th>
+					              <th data-field="pig_id" class="right-align">Litter Size at Birth</th>
+					              <th data-field="sex" class="right-align">Alive</th>
+					              <th data-field="building_id" class="right-align">Mummified</th>
+					              <th data-field="psigns" class="right-align">Stillborn</th>
+					              <th data-field="treatment" class="right-align">Percentage Mummified</th>
+					              <th data-field="cdeath" class="right-align">Percentage Stillborn</th>
+					              <th data-field="remarks" class="right-align">Average Birth Weight</th>
+					              <th data-field="remarks" class="right-align">Weaning Age Days</th>
+					              <th data-field="remarks" class="right-align">Average Weaning Weight</th>
+					              <th data-field="remarks" class="right-align">Gestation Period</th>
+					              <th data-field="remarks" class="right-align">Mortality - Total Population</th>
+					              <th data-field="remarks" class="right-align">Average Parity</th>
+					          </tr>
+					        </thead>
 
-				        <tbody>
-				          <% @yearlyparameters.each do |year| %>
-				          	<tr>
-				          		<% @litter = Litter.litters_per_year(year.first)%>
-				          		<% average_birth_weight = 0.0 %>
-				          		<% number_of_pigs = 0 %>
-				          		<% weaning_age = 0 %>
-				          		<% weaning_weight = 0.0 %>
-				          		<% gestation_period = 0 %>
-				          		<% parity = 0 %>
-				          		<% @litter.each do |litter| %>	
-				          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
-				          			<% parity = parity + litter.parity_number %>
-				          			<% litter.pigs.each do |pig| %>
-				          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
-				          				<% if !pig.date_weaned.nil? %>
-				          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
-				          				<% end %>
-				          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
-				          				<% number_of_pigs = number_of_pigs + 1 %>
-				          			<% end %>
-				          		<% end %>
-				          		<td class="text-bold"><%=year.first.to_s[0..3]%></td>
-				          		<td class="right-align"><%=@litter.count%></td>
-				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
-				          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
-				          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
-				          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
-				          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
-				          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
-				          		
-				          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
-				          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
-				          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
-				          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
-				          		<td class="right-align"><%= CauseOfRemoval.mortality_per_year(year.first).count %></td>
-				          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
-				          	</tr>
-				          <% end %>
-				          <% (1..16).each do |row| %>
-				                <tr>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                  <td></td>
-				                </tr>
-				              <% end %>
-				        </tbody>
-			      	</table>
-			      	<table id="header-fixed2"></table>
-			     </div>
+					        <tbody>
+					        <% @for_charts_yearly = Array.new %>
+					          	<% @yearlyparameters.each do |year| %>
+					          	<tr>
+					          		<% @row = Array.new %>
+					          		<% @litter = Litter.litters_per_year(year.first)%>
+					          		<% average_birth_weight = 0.0 %>
+					          		<% number_of_pigs = 0 %>
+					          		<% weaning_age = 0 %>
+					          		<% weaning_weight = 0.0 %>
+					          		<% gestation_period = 0 %>
+					          		<% parity = 0 %>
+					          		<% @litter.each do |litter| %>	
+					          			<% gestation_period = gestation_period + (litter.actual_date_of_farrowing.to_date - litter.date_bred.to_date).to_i %>
+					          			<% parity = parity + litter.parity_number %>
+					          			<% litter.pigs.each do |pig| %>
+					          				<% average_birth_weight = average_birth_weight + pig.birth_weight %>
+					          				<% if !pig.date_weaned.nil? %>
+					          					<% weaning_age = weaning_age + ((pig.date_weaned.to_date - pig.date_of_birth.to_date).to_i) %>
+					          				<% end %>
+					          				<% weaning_weight = weaning_weight + pig.weaning_weight %>
+					          				<% number_of_pigs = number_of_pigs + 1 %>
+					          			<% end %>
+					          		<% end %>
+					          		<td class="text-bold"><%=year.first.to_s[0..3]%></td>
+					          		<% @row << year.first.to_s[0..3] %>
+					          		<td class="right-align"><%=@litter.count%></td>
+					          		<% @row << @litter.count %>
+					          		<td class="right-align"><%=@litter.sum("litter_size_at_birth")%></td>
+					          		<% @row << @litter.sum("litter_size_at_birth") %>
+					          		<td class="right-align"><%=@litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)")%></td>
+					          		<% @row << @litter.sum("litter_size_at_birth - (mummified_piglets + stillborn_piglets)") %>
+					          		<td class="right-align"><%=@litter.sum("mummified_piglets")%></td>
+					          		<% @row << @litter.sum("mummified_piglets") %>
+					          		<td class="right-align"><%=@litter.sum("stillborn_piglets")%></td>
+					          		<% @row << @litter.sum("stillborn_piglets") %>
+					          		<td class="right-align"><%=number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+					          		<% @row << number_with_precision(@litter.sum("mummified_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) %>
+					          		<td class="right-align"><%=number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2) + "%"%></td>
+					          		<% @row << (number_with_precision(@litter.sum("stillborn_piglets").to_f/@litter.sum("litter_size_at_birth")*100, precision: 2)) %>
+					          		<td class="right-align"><%= number_with_precision(average_birth_weight/number_of_pigs, precision:2) %></td>
+					          		<% @row << (number_with_precision(average_birth_weight/number_of_pigs, precision:2)) %>
+					          		<td class="right-align"><%= number_with_precision(weaning_age/@litter.count, precision: 2) %></td>
+					          		<% @row << (number_with_precision(weaning_age/@litter.count, precision: 2)) %>
+					          		<td class="right-align"><%= number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2) %></td>
+					          		<% @row << (number_with_precision(weaning_weight/@litter.sum("litter_size_at_birth"), precision: 2)) %>
+					          		<td class="right-align"><%= number_with_precision(gestation_period/@litter.count, precision:2)%></td>
+					          		<% @row << (number_with_precision(gestation_period/@litter.count, precision:2)) %>
+					          		<td class="right-align"><%= CauseOfRemoval.mortality_per_year(year.first).count %></td>
+					          		<% @row << CauseOfRemoval.mortality_per_year(year.first).count %>
+					          		<td class="right-align"><%= number_with_precision(parity/@litter.count, precision: 2)%></td>
+					          		<% @row << (number_with_precision(parity/@litter.count, precision: 2)) %>
+					          		<% @for_charts_yearly << @row %>
+					          	</tr>
+					          <% end %>
+					          <% (1..4).each do |row| %>
+					                <tr>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                  <td></td>
+					                </tr>
+					              <% end %>
+					        </tbody>
+				      	</table>
+				      	<table id="header-fixed2"></table>
+				     </div>
+				</div>
+				<div class="container charts" style="width: 100%">
+					<div class="row">
+						<div class="col s10 offset-s1">
+		    				<canvas id="yearly-pigcount"></canvas>
+		    				<h6 class="center-align text-bold">Pig Counts</h6>
+		    				<br><br>
+		    				<script>
+							var ctx = document.getElementById("yearly-pigcount");
+							var myChart = new Chart(ctx, {
+							    type: 'line',
+							    
+							    data: {
+							        labels: ["Alive Piglets", "Mummified Piglets", "Stillborn Piglets", "Mortality - Total Population"],
+							        datasets: [
+							        {
+							            label: "<%= raw @for_charts_yearly[0][0] %>",
+							            data: <%= raw @for_charts_yearly[0].values_at(3,4,5,12) %>,
+							            backgroundColor: "rgba(218,175,101,0.4)",
+	            						borderColor: "rgba(218,175,101,1)"
+							        }
+							        <% if !@for_charts_yearly[1].nil? %>
+								        ,
+								        {
+								            label: "<%= raw @for_charts_yearly[1][0] %>",
+								            data: <%= raw @for_charts_yearly[1].values_at(3,4,5,12) %>,
+								            backgroundColor: "rgba(218,115,115,0.4)",
+								            borderColor: "rgba(218,115,115,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[2].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[2][0] %>",
+								            data: <%= raw @for_charts_yearly[2].values_at(3,4,5,12) %>,
+								            backgroundColor:"rgba(121,184,218,0.4)",
+								            borderColor: "rgba(121,184,218,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[3].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[3][0] %>",
+								            data: <%= raw @for_charts_yearly[3].values_at(3,4,5,12)%>,
+								            backgroundColor: "rgba(163,197,126,0.4)",
+								            borderColor: "rgba(163,197,126,1)"
+								        }
+								    <% end %>
+							        ]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    beginAtZero:true
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+							<canvas id="yearly-litters"></canvas>
+							<h6 class="center-align text-bold">Litters Farrowed</h6>
+	    					<br><br>
+		    				<script>
+							var ctx = document.getElementById("yearly-litters");
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    
+							    data: {
+							        labels: [""],
+							        datasets: [
+							        {
+							            label: "<%= raw @for_charts_yearly[0][0] %>",
+							            data: <%= raw @for_charts_yearly[0].values_at(1) %>,
+							            backgroundColor: "rgba(218,175,101,0.4)",
+	            						borderColor: "rgba(218,175,101,1)"
+							        }
+							        <% if !@for_charts_yearly[1].nil? %>
+								        ,
+								        {
+								            label: "<%= raw @for_charts_yearly[1][0] %>",
+								            data: <%= raw @for_charts_yearly[1].values_at(1) %>,
+								            backgroundColor: "rgba(218,115,115,0.4)",
+								            borderColor: "rgba(218,115,115,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[2].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[2][0] %>",
+								            data: <%= raw @for_charts_yearly[2].values_at(1) %>,
+								            backgroundColor:"rgba(121,184,218,0.4)",
+								            borderColor: "rgba(121,184,218,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[3].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[3][0] %>",
+								            data: <%= raw @for_charts_yearly[3].values_at(1)%>,
+								            backgroundColor: "rgba(163,197,126,0.4)",
+								            borderColor: "rgba(163,197,126,1)"
+								        }
+								    <% end %>
+							        ]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    beginAtZero:true
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+							<canvas id="yearly-percentages"></canvas>
+							<h6 class="center-align text-bold">Percentages</h6>
+	    					<br><br>
+		    				<script>
+							var ctx = document.getElementById("yearly-percentages");
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    
+							    data: {
+							        labels: ["Percentage Mummified", "Percentage Stillborn"],
+							        datasets: [
+							        {
+							            label: "<%= raw @for_charts_yearly[0][0] %>",
+							            data: <%= raw @for_charts_yearly[0].values_at(6,7) %>,
+							            backgroundColor: "rgba(218,175,101,0.4)",
+	            						borderColor: "rgba(218,175,101,1)"
+							        }
+							        <% if !@for_charts_yearly[1].nil? %>
+								        ,
+								        {
+								            label: "<%= raw @for_charts_yearly[1][0] %>",
+								            data: <%= raw @for_charts_yearly[1].values_at(6,7) %>,
+								            backgroundColor: "rgba(218,115,115,0.4)",
+								            borderColor: "rgba(218,115,115,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[2].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[2][0] %>",
+								            data: <%= raw @for_charts_yearly[2].values_at(6,7) %>,
+								            backgroundColor:"rgba(121,184,218,0.4)",
+								            borderColor: "rgba(121,184,218,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[3].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[3][0] %>",
+								            data: <%= raw @for_charts_yearly[3].values_at(6,7)%>,
+								            backgroundColor: "rgba(163,197,126,0.4)",
+								            borderColor: "rgba(163,197,126,1)"
+								        }
+								    <% end %>
+							        ]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    beginAtZero:true
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+							<canvas id="yearly-weights"></canvas>
+							<h6 class="center-align text-bold">Weights</h6>
+	    					<br><br>
+		    				<script>
+							var ctx = document.getElementById("yearly-weights");
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    
+							    data: {
+							        labels: ["Average Birth Weight (kg)", "Average Weaning Weight (kg)"],
+							        datasets: [
+							        {
+							            label: "<%= raw @for_charts_yearly[0][0] %>",
+							            data: <%= raw @for_charts_yearly[0].values_at(8,10) %>,
+							            backgroundColor: "rgba(218,175,101,0.4)",
+	            						borderColor: "rgba(218,175,101,1)"
+							        }
+							        <% if !@for_charts_yearly[1].nil? %>
+								        ,
+								        {
+								            label: "<%= raw @for_charts_yearly[1][0] %>",
+								            data: <%= raw @for_charts_yearly[1].values_at(8,10) %>,
+								            backgroundColor: "rgba(218,115,115,0.4)",
+								            borderColor: "rgba(218,115,115,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[2].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[2][0] %>",
+								            data: <%= raw @for_charts_yearly[2].values_at(8,10) %>,
+								            backgroundColor:"rgba(121,184,218,0.4)",
+								            borderColor: "rgba(121,184,218,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[3].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[3][0] %>",
+								            data: <%= raw @for_charts_yearly[3].values_at(8,10)%>,
+								            backgroundColor: "rgba(163,197,126,0.4)",
+								            borderColor: "rgba(163,197,126,1)"
+								        }
+								    <% end %>
+							        ]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    beginAtZero:true
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+							<canvas id="yearly-litter"></canvas>
+							<h6 class="center-align text-bold">Litter Data</h6>
+	    					<br><br>
+		    				<script>
+							var ctx = document.getElementById("yearly-litter");
+							var myChart = new Chart(ctx, {
+							    type: 'bar',
+							    
+							    data: {
+							        labels: ["Weaning Age Days", "Gestation Period", "Average Parity"],
+							        datasets: [
+							        {
+							            label: "<%= raw @for_charts_yearly[0][0] %>",
+							            data: <%= raw @for_charts_yearly[0].values_at(9,10,13) %>,
+							            backgroundColor: "rgba(218,175,101,0.4)",
+	            						borderColor: "rgba(218,175,101,1)"
+							        }
+							        <% if !@for_charts_yearly[1].nil? %>
+								        ,
+								        {
+								            label: "<%= raw @for_charts_yearly[1][0] %>",
+								            data: <%= raw @for_charts_yearly[1].values_at(9,10,13) %>,
+								            backgroundColor: "rgba(218,115,115,0.4)",
+								            borderColor: "rgba(218,115,115,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[2].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[2][0] %>",
+								            data: <%= raw @for_charts_yearly[2].values_at(9,10,13) %>,
+								            backgroundColor:"rgba(121,184,218,0.4)",
+								            borderColor: "rgba(121,184,218,1)"
+								        }
+								    <% end %>
+								    <% if !@for_charts_yearly[3].nil? %>
+									    ,
+								        {
+								            label: "<%= raw @for_charts_yearly[3][0] %>",
+								            data: <%= raw @for_charts_yearly[3].values_at(9,10,13)%>,
+								            backgroundColor: "rgba(163,197,126,0.4)",
+								            borderColor: "rgba(163,197,126,1)"
+								        }
+								    <% end %>
+							        ]
+							    },
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    beginAtZero:true
+							                }
+							            }]
+							        }
+							    }
+							});
+							</script>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -221,6 +221,21 @@ $(document).ready(function(){
 
             download(csv, $(this).attr("download") + ".csv", "text/csv");
         });
+
+	$('#toggle-dashboard').click(function(){
+		if ($('#toggle-dashboard').text() == "VIEW CHARTS") {
+			$('#toggle-dashboard').html("VIEW TABLES");
+		}
+		else {
+			$('#toggle-dashboard').html("VIEW CHARTS");
+		}
+
+		$('.tables').fadeToggle(200);
+		$('.charts').fadeToggle(200);
+		
+
+	});
+
 	$('.dropdown-button').dropdown();
 	  $('.modal-trigger').leanModal({
 	      dismissible: false, // Modal can be dismissed by clicking outside of the modal
