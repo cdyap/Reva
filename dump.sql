@@ -39,9 +39,10 @@ CREATE TABLE `cause_of_removals` (
 
 LOCK TABLES `cause_of_removals` WRITE;
 /*!40000 ALTER TABLE `cause_of_removals` DISABLE KEYS */;
-INSERT INTO `cause_of_removals` VALUES (1,8,'2016-05-15 16:00:00',0,15.00,'Diarrhea'),(2,9,'2016-05-11 16:00:00',1,16.00,'Sold to Mr. Reyes');
+INSERT INTO `cause_of_removals` VALUES (1,8,'2016-05-15 16:00:00',0,15.00,'Diarrhea'),(2,9,'2016-05-11 16:00:00',1,16.00,'Sold to Mr. Reyes'),(3,1,'2016-05-16 16:00:00',0,20.00,''),(4,2,'2016-05-16 16:00:00',1,20.00,''),(5,3,'2016-05-16 16:00:00',1,15.00,'0'),(6,4,'2016-05-15 16:00:00',1,18.00,''),(7,5,'2016-05-15 16:00:00',1,20.00,''),(8,6,'2016-05-11 16:00:00',0,20.00,''),(9,7,'2016-05-11 16:00:00',0,20.00,'');
 /*!40000 ALTER TABLE `cause_of_removals` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 -- --------------------------------------------------------
 --

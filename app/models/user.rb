@@ -3,7 +3,11 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  attr_accessor :login
+  attr_accessor :login, :code
+  validates :code,
+    on: :create,
+    presence: true,
+    inclusion: { in: ["religioso"] }
 
   def self.find_for_database_authentication(warden_conditions)
 	  conditions = warden_conditions.dup

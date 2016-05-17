@@ -44,7 +44,9 @@ class Pig < ActiveRecord::Base
 	end
 
 	def alive
-		removed ? self.cause_of_removal.reason : 'Alive'
+		#removed ? self.cause_of_removal.reason : 'Alive'
+		removal = CauseOfRemoval.where(pig_id: self.pig_id).first
+		(removal.nil?) ? 'Alive' : removal.reason
 	end
 
 	private def set_birthday
